@@ -1,0 +1,47 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package MODEL;
+
+/**
+ *
+ * @author ADMIN
+ */
+public class QuyDinh {
+    private String maQuyDinh;
+    private String noiDung;
+    private double soTien;
+    private String trangThai;
+
+    public QuyDinh(String maQuyDinh, String noiDung, double soTien) {
+        this.maQuyDinh = maQuyDinh;
+        this.noiDung = noiDung;
+        this.soTien = soTien;
+    }
+
+    public String getMaQuyDinh() {
+        return maQuyDinh;
+    }
+
+    public String getNoiDung() {
+        return noiDung;
+    }
+
+    public double getSoTien() {
+        return soTien;
+    }
+
+    public void setMaQuyDinh(String maQuyDinh) {
+        this.maQuyDinh = maQuyDinh;
+    }
+
+    public void setNoiDung(String noiDung) {
+        this.noiDung = noiDung;
+    }
+
+    public void setSoTien(double soTien) {
+        this.soTien = soTien;
+    }
+    
+}
