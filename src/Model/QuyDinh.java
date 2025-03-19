@@ -9,18 +9,22 @@ package MODEL;
  * @author ADMIN
  */
 public class QuyDinh {
-    private String maQuyDinh;
+    private int maQuyDinh;
     private String noiDung;
     private double soTien;
-    private String trangThai;
+    private int trangThai;
 
-    public QuyDinh(String maQuyDinh, String noiDung, double soTien) {
+    public QuyDinh() {
+    }
+    
+    public QuyDinh(int maQuyDinh, String noiDung, double soTien,int trangThai) {
         this.maQuyDinh = maQuyDinh;
         this.noiDung = noiDung;
         this.soTien = soTien;
+        this.trangThai=trangThai;
     }
 
-    public String getMaQuyDinh() {
+    public int getMaQuyDinh() {
         return maQuyDinh;
     }
 
@@ -32,7 +36,7 @@ public class QuyDinh {
         return soTien;
     }
 
-    public void setMaQuyDinh(String maQuyDinh) {
+    public void setMaQuyDinh(int maQuyDinh) {
         this.maQuyDinh = maQuyDinh;
     }
 
@@ -42,6 +46,14 @@ public class QuyDinh {
 
     public void setSoTien(double soTien) {
         this.soTien = soTien;
+    }
+
+    public int getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(int trangThai) {
+        this.trangThai = trangThai;
     }
     
 }

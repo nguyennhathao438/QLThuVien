@@ -4,14 +4,18 @@
  */
 package Main;
 
-/**
- *
- * @author ADMIN
- */
+import UI.QuyDinhPanel;
+import javax.swing.JFrame;
+
+
 public class QLThuVien {
 
     public static void main(String[] args) {
-        // TODO code application logic here
+        JFrame frame =new JFrame();
+        frame.setSize(700,500);
+        QuyDinhPanel pn=new QuyDinhPanel();
+        frame.add(pn);
+        frame.setVisible(true);
     }
     
 }
