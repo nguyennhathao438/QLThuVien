@@ -9,6 +9,7 @@ package UI.Component;
  * @author Nghia0605
  */
 import UI.MainFrame;
+import UI.Panel.NhaCungCapPanel;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -48,13 +49,13 @@ public class MenuTaskBar extends JPanel {
             this.add(itemTaskBars[i]);
         }
 
-//        for (int i = 0; i < info.length; i++) {
-//            int index = i;
-//            itemTaskBars[i].addMouseListener(new MouseAdapter() {
-//                @Override
-//                public void mousePressed(MouseEvent e) {
-//                    switch (index) {
-//                        case 0:
+        for (int i = 0; i < info.length; i++) {
+            int index = i;
+            itemTaskBars[i].addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    switch (index) {
+                        case 0:
 //                            TrangChuPanel trangchu = new TrangChuPanel();
 //                            mainFrame.setRightPanel(trangchu);
 //                            break;
@@ -86,10 +87,10 @@ public class MenuTaskBar extends JPanel {
 //                            PhieuNhapPanel phieunhap = new PhieuNhapPanel();
 //                            mainFrame.setRightPanel(phieunhap);
 //                            break;
-//                        case 8:
-//                            NhaCungCapPanel nhacungcap = new NhaCungCapPanel();
-//                            mainFrame.setRightPanel(nhacungcap);
-//                            break;
+                        case 8:
+                            NhaCungCapPanel nhacungcap = new NhaCungCapPanel();
+                            mainFrame.setRightPanel(nhacungcap);
+                            break;
 //                        case 9:
 //                            QuyDinhPanel quydinh = new QuyDinhPanel();
 //                            mainFrame.setRightPanel(quydinh);
@@ -100,10 +101,10 @@ public class MenuTaskBar extends JPanel {
 //                            break;
 //                        default:
 //                            break;
-//                    }
-//                }
-//            });
-//        }
+                    }
+                }
+            });
+        }
     }
 
 }
