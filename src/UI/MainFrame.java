@@ -13,6 +13,7 @@ import javax.swing.*;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import UI.Component.MenuTaskBar;
+import UI.Panel.TrangChuPanel;
 import java.awt.*;
 
 public class MainFrame extends JFrame {
@@ -21,7 +22,7 @@ public class MainFrame extends JFrame {
     private MenuTaskBar menuTaskBar;
 
     public MainFrame() {
-        this.setTitle("Quản lý thư viện");
+        this.setTitle("QUẢN LÝ THƯ VIỆN");
         this.setSize(1200, 800);
         this.setLayout(new BorderLayout());
         this.setLocationRelativeTo(null);
@@ -31,10 +32,14 @@ public class MainFrame extends JFrame {
     }
 
     public void init() {
+        FlatSVGIcon icon = new FlatSVGIcon(getClass().getResource("/img/logo.svg"));
+        this.setIconImage(icon.getImage());
+        
         leftPanel = new JPanel();
         leftPanel.setLayout(new BorderLayout(0, 0));
         leftPanel.setPreferredSize(new Dimension(300, 800));
         leftPanel.setBackground(Color.WHITE);
+        leftPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, Color.BLACK));
 
         userInfoPanel = new JPanel();
         userInfoPanel.setLayout(new FlowLayout(0, 20, 40));
@@ -44,7 +49,7 @@ public class MainFrame extends JFrame {
         userInfoPanel.add(lbIconUser);
 
         lbUsername = new JLabel("Tên đăng nhập");
-        lbUsername.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        lbUsername.setFont(new Font("Segoe UI", Font.BOLD, 16));    
         lbUsername.setPreferredSize(new Dimension(170, 30));
         userInfoPanel.add(lbUsername);
         leftPanel.add(userInfoPanel, BorderLayout.NORTH);
@@ -52,17 +57,17 @@ public class MainFrame extends JFrame {
         menuTaskBar = new MenuTaskBar(this);
         leftPanel.add(menuTaskBar, BorderLayout.CENTER);
 
-//        TrangChuPanel trangChu = new TrangChuPanel();
+        TrangChuPanel trangChu = new TrangChuPanel();
         rightPanel = new JPanel();
-        rightPanel.setBackground(Color.BLACK);
+        rightPanel.setBackground(Color.WHITE);
         rightPanel.setPreferredSize(new Dimension(900, 800));
         rightPanel.setLayout(new BorderLayout());
-//        rightPanel.add(trangChu, BorderLayout.CENTER);
+        rightPanel.add(trangChu, BorderLayout.CENTER);
 
         this.add(leftPanel, BorderLayout.WEST);
         this.add(rightPanel, BorderLayout.CENTER);
 
-    }
+}
 
     public void setRightPanel(JPanel pn) {
         rightPanel.removeAll();

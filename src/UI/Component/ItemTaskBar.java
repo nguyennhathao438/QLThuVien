@@ -21,7 +21,7 @@ public class ItemTaskBar extends JPanel {
         this.setLayout(new FlowLayout(1, 10, 5));
         this.setPreferredSize(new Dimension(300, 55));
         this.setBackground(Color.white);
-
+        
         lbIcon = new JLabel();
         lbIcon.setIcon(new FlatSVGIcon(getClass().getResource("/img/" + icon)).derive(30, 30));
         this.add(lbIcon);

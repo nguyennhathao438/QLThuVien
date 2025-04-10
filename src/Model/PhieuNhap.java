@@ -4,55 +4,76 @@
  */
 package MODEL;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class PhieuNhap {
-    private int maPhieuNhap;
-    private Date thoiGian;
-    private Double tongTien;
-    private String tenNCC;
-    private String tenThuThu;
+    private String maPhieuNhap;
+    private LocalDateTime thoiGian;  
+    private double tongTien;
+    private String maNCC;
+    private String maThuThu;
     private int trangThai;
-   public PhieuNhap(){ 
-       
-   }
-    public PhieuNhap(int maPhieuNhap, Date thoiGian, Double tongTien, String tenNCC) {
+    
+    public PhieuNhap() { 
+       // Constructor mặc định
+    }
+
+    public PhieuNhap(String maPhieuNhap, LocalDateTime thoiGian, double tongTien, 
+                    String maNCC, String maThuThu, int trangThai) {
         this.maPhieuNhap = maPhieuNhap;
         this.thoiGian = thoiGian;
         this.tongTien = tongTien;
-        this.tenNCC = tenNCC;
+        this.maNCC = maNCC;
+        this.maThuThu = maThuThu;
+        this.trangThai = trangThai;
     }
 
-    public int getMaPhieuNhap() {
+    // Getter và Setter
+    public String getMaPhieuNhap() {
         return maPhieuNhap;
     }
 
-    public Date getThoiGian() {
+    public LocalDateTime getThoiGian() {
         return thoiGian;
     }
 
-    public Double getTongTien() {
+    public double getTongTien() {
         return tongTien;
     }
 
-    public String getTenNCC() {
-        return tenNCC;
+    public String getMaNCC() {
+        return maNCC;
     }
 
-    public void setMaPhieuNhap(int maPhieuNhap) {
+    public String getMaThuThu() {
+        return maThuThu;
+    }
+
+    public int getTrangThai() {
+        return trangThai;
+    }
+
+    public void setMaPhieuNhap(String maPhieuNhap) {
         this.maPhieuNhap = maPhieuNhap;
     }
 
-    public void setThoiGian(Date thoiGian) {
+    public void setThoiGian(LocalDateTime thoiGian) {
         this.thoiGian = thoiGian;
     }
 
-    public void setTongTien(Double tongTien) {
+    public void setTongTien(double tongTien) {
         this.tongTien = tongTien;
     }
 
-    public void setTenNCC(String tenNCC) {
-        this.tenNCC = tenNCC;
+    public void setMaNCC(String maNCC) {
+        this.maNCC = maNCC;
     }
-    
+
+    public void setMaThuThu(String maThuThu) {
+        this.maThuThu = maThuThu;
+    }
+
+    public void setTrangThai(int trangThai) {
+        this.trangThai = trangThai;
+    }
 }

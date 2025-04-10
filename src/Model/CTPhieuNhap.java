@@ -1,47 +1,60 @@
-
 package MODEL;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 
-public class CTPhieuNhap extends PhieuNhap{
-    private int maNCC;
-    private int maThuThu;
-    private ArrayList<SachNhap> dssn=new ArrayList();
+public class CTPhieuNhap {
+    private String maPNhap;
+    private String maSach;   
+    private int soLuong;
+    private double donGia;
+
 
     public CTPhieuNhap() {
-        
     }
 
-    public CTPhieuNhap(int maNCC, int maThuThu, int maPhieuNhap, Date thoiGian, Double tongTien, String tenNCC) {
-        super(maPhieuNhap, thoiGian, tongTien, tenNCC);
-        this.maNCC = maNCC;
-        this.maThuThu = maThuThu;
+    public CTPhieuNhap(String maPNhap, String maSach, int soLuong, double donGia) {
+        this.maPNhap = maPNhap;
+        this.maSach = maSach;
+        this.soLuong = soLuong;
+        this.donGia = donGia;
     }
 
-    public int getMaNCC() {
-        return maNCC;
+    // Getter và Setter
+    public String getMaPNhap() {
+        return maPNhap;
     }
 
-    public int getMaThuThu() {
-        return maThuThu;
+    public void setMaPNhap(String maPNhap) {
+        this.maPNhap = maPNhap;
     }
 
-    public ArrayList<SachNhap> getDssn() {
-        return dssn;
+    public String getMaSach() {
+        return maSach;
     }
 
-    public void setMaNCC(int maNCC) {
-        this.maNCC = maNCC;
+    public void setMaSach(String maSach) {
+        this.maSach = maSach;
     }
 
-    public void setMaThuThu(int maThuThu) {
-        this.maThuThu = maThuThu;
+    public int getSoLuong() {
+        return soLuong;
     }
 
-    public void setDssn(ArrayList<SachNhap> dssn) {
-        this.dssn = dssn;
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
+    }
+
+    public double getDonGia() {
+        return donGia;
+    }
+
+    public void setDonGia(double donGia) {
+        this.donGia = donGia;
     }
     
-    
+    // Tính thành tiền cho chi tiết phiếu nhập
+    public double getThanhTien() {
+        return soLuong * donGia;
+    }
 }

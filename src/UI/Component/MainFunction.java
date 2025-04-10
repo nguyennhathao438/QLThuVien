@@ -79,5 +79,14 @@ public class MainFunction extends JToolBar {
     private void btnDefaultColor(MouseEvent e, Component comp) {
         comp.setBackground(Color.WHITE);
     }
+
+    public HashMap<String, ItemToolBar> getLstBtn() {
+        return lstBtn;
+    }
+
+    public void setLstBtn(HashMap<String, ItemToolBar> lstBtn) {
+        this.lstBtn = lstBtn;
+    }
+    
 }
 

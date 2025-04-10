@@ -60,8 +60,7 @@ public class SearchBar extends JPanel {
         // btnRefesh.setContentAreaFilled(false);// khong hien thi mau nen khi click
         btnRefesh.addMouseListener(new MouseAdapter() {
             @Override
-            public void mousePressed(MouseEvent e) {
-                btnRefresh(e);
+            public void mousePressed(MouseEvent e) {                
             }
 
             @Override
@@ -81,10 +80,6 @@ public class SearchBar extends JPanel {
 
     }
 
-    private void btnRefresh(MouseEvent e) {
-        txtSearch.setText("");
-        cboChoose.setSelectedIndex(0);
-    }
 
     private void btnRefeshHover(MouseEvent e) {
         btnRefesh.setBackground(Color.decode("#F0F8FF"));

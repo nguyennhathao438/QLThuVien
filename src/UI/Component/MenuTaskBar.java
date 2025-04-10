@@ -10,13 +10,15 @@ package UI.Component;
  */
 import UI.MainFrame;
 import UI.Panel.NhaCungCapPanel;
+import UI.Panel.PhieuNhapPanel;
+import UI.Panel.TrangChuPanel;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class MenuTaskBar extends JPanel {
+public class MenuTaskBar extends JPanel{
     private ItemTaskBar itemTaskBars[];
     private String[][] info = {
             { "homepage.svg", "Trang chủ" },
@@ -33,6 +35,10 @@ public class MenuTaskBar extends JPanel {
             { "logout.svg", "Đăng xuất" }
     };
     private MainFrame mainFrame;
+    private JPanel selectedPanel = null;
+    private Color activeBorderColor = new Color(0,0,0);
+    private Color activeBackgroundColor = new Color(240,240,240);
+    private Color defaultColor = new Color(255,255,255);
 
     public MenuTaskBar(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
@@ -47,18 +53,42 @@ public class MenuTaskBar extends JPanel {
         for (int i = 0; i < info.length; i++) {
             itemTaskBars[i] = new ItemTaskBar(info[i][0], info[i][1]);
             this.add(itemTaskBars[i]);
-        }
-
+        }        
+        this.selectedPanel = itemTaskBars[0];
+        this.selectedPanel.setBorder(BorderFactory.createMatteBorder(0, 7, 0, 0, activeBorderColor));
+        this.selectedPanel.setBackground(activeBackgroundColor);
         for (int i = 0; i < info.length; i++) {
+//            selectedPanel.setBorder(null);
             int index = i;
             itemTaskBars[i].addMouseListener(new MouseAdapter() {
                 @Override
-                public void mousePressed(MouseEvent e) {
+                public void mouseEntered(MouseEvent e){
+                    itemTaskBars[index].setCursor(new Cursor(Cursor.HAND_CURSOR));
+                    itemTaskBars[index].setBackground(activeBackgroundColor);
+                }
+                @Override
+                public void mouseExited(MouseEvent e){
+                    if(itemTaskBars[index]!= selectedPanel){
+                        itemTaskBars[index].setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                        itemTaskBars[index].setBackground(Color.WHITE);
+                    }
+                }
+                @Override
+                public void mousePressed(MouseEvent e) {                 
+                    if(selectedPanel != null){
+//                        selectedPanel.setBorder(null);
+                        selectedPanel.setBorder(BorderFactory.createEmptyBorder());
+                        selectedPanel.setBackground(Color.WHITE);                        
+                    }
+                    
+                    selectedPanel = itemTaskBars[index];
+                    selectedPanel.setBorder(BorderFactory.createMatteBorder(0, 7, 0, 0, activeBorderColor));
+                    selectedPanel.setBackground(activeBackgroundColor);                  
                     switch (index) {
                         case 0:
-//                            TrangChuPanel trangchu = new TrangChuPanel();
-//                            mainFrame.setRightPanel(trangchu);
-//                            break;
+                            TrangChuPanel trangchu = new TrangChuPanel();
+                            mainFrame.setRightPanel(trangchu);
+                            break;
 //                        case 1:
 //                            SachPanel sach = new SachPanel();
 //                            mainFrame.setRightPanel(sach);
@@ -83,10 +113,10 @@ public class MenuTaskBar extends JPanel {
 //                            PhieuTraPanel phieutra = new PhieuTraPanel();
 //                            mainFrame.setRightPanel(phieutra);
 //                            break;
-//                        case 7:
-//                            PhieuNhapPanel phieunhap = new PhieuNhapPanel();
-//                            mainFrame.setRightPanel(phieunhap);
-//                            break;
+                        case 7:
+                            PhieuNhapPanel phieunhap = new PhieuNhapPanel();
+                            mainFrame.setRightPanel(phieunhap);
+                            break;
                         case 8:
                             NhaCungCapPanel nhacungcap = new NhaCungCapPanel();
                             mainFrame.setRightPanel(nhacungcap);
@@ -105,6 +135,7 @@ public class MenuTaskBar extends JPanel {
                 }
             });
         }
+
     }
 
 }
