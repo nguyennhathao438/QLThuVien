@@ -1,12 +1,13 @@
 
 package UI;
-
+import UI.Dialog.*;
 import BLL.DSQuyDinh;
 import DAL.QuyDinhDAL;
 import MODEL.QuyDinh;
 import java.awt.Frame;
 import java.awt.Window;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -16,9 +17,8 @@ import javax.swing.table.DefaultTableModel;
 
 public class QuyDinhPanel extends javax.swing.JPanel {
 
-    QuyDinhDAL kn = new QuyDinhDAL();
+    DSQuyDinh kn = new DSQuyDinh();
     DefaultTableModel dtm=new DefaultTableModel();
-    DSQuyDinh dsqd=new DSQuyDinh();
     public QuyDinhPanel() {
         initComponents();
         setData();
@@ -26,18 +26,16 @@ public class QuyDinhPanel extends javax.swing.JPanel {
     }
 
     public void setData(){       
-        try {
-            dsqd=kn.layQuyDinh();
-        } catch (SQLException ex) {
-            System.out.println("Lay data that bai");
-        }
+
+            ArrayList<QuyDinh> dsqd=kn.layAllQuyDinh();
+        
         if(dtm.getColumnCount()==0){ 
             dtm.addColumn("Mã QĐ");
             dtm.addColumn("Nội dung");
             dtm.addColumn("Tiền phạt");
         }
         dtm.setRowCount(0);
-        for(QuyDinh qd:dsqd.getDsqd()){ 
+        for(QuyDinh qd:dsqd){ 
             if(qd.getTrangThai() != 0){ 
                 dtm.addRow(new Object[]{qd.getMaQuyDinh(),qd.getNoiDung(),qd.getSoTien()});
             }
@@ -189,7 +187,7 @@ public class QuyDinhPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn quy định");
         }else{ 
         Window parentWindow = SwingUtilities.getWindowAncestor(this);
-        int ma=(int) bangQuyDinh.getValueAt(row, 0);
+        String ma=(String) bangQuyDinh.getValueAt(row, 0);
         new suaQuyDinh((Frame) parentWindow,true,ma).setVisible(true);
                 }
     }//GEN-LAST:event_editActionPerformed
@@ -201,8 +199,8 @@ public class QuyDinhPanel extends javax.swing.JPanel {
         }else{ 
             int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xoá");
             if(confirm == JOptionPane.YES_OPTION){ 
-                int ma=(int) bangQuyDinh.getValueAt(row, 0);
-                kn.xoaQuyDinh(ma);
+                String ma=(String) bangQuyDinh.getValueAt(row, 0);
+                kn.xoaQD(ma);
             }
         }
     }//GEN-LAST:event_deleteActionPerformed

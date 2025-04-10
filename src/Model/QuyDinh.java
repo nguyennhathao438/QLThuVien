@@ -9,7 +9,7 @@ package MODEL;
  * @author ADMIN
  */
 public class QuyDinh {
-    private int maQuyDinh;
+    private String maQuyDinh;
     private String noiDung;
     private double soTien;
     private int trangThai;
@@ -17,14 +17,14 @@ public class QuyDinh {
     public QuyDinh() {
     }
     
-    public QuyDinh(int maQuyDinh, String noiDung, double soTien,int trangThai) {
+    public QuyDinh(String maQuyDinh, String noiDung, double soTien,int trangThai) {
         this.maQuyDinh = maQuyDinh;
         this.noiDung = noiDung;
         this.soTien = soTien;
         this.trangThai=trangThai;
     }
 
-    public int getMaQuyDinh() {
+    public String getMaQuyDinh() {
         return maQuyDinh;
     }
 
@@ -36,7 +36,7 @@ public class QuyDinh {
         return soTien;
     }
 
-    public void setMaQuyDinh(int maQuyDinh) {
+    public void setMaQuyDinh(String maQuyDinh) {
         this.maQuyDinh = maQuyDinh;
     }
 

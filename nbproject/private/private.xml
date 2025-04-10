@@ -3,15 +3,39 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/themQuyDinh.java</file>
-            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/QuyDinhPanel.java</file>
-            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/DAL/QuyDinhDAL.java</file>
-            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/suaQuyDinh.java</file>
-            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/BLL/DSQuyDinh.java</file>
-            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/DAL/KetNoiCSDL.java</file>
-            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/QuyDinh.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/PhieuTra.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/BLL/DSPhieuTraBLL.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/BLL/DSTheLoaiBLL.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/BLL/DSNhaCungCapBLL.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/Main/QLThuVien.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/QuyDinhPanel.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/DAL/KetNoiCSDL.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Dialog/themTacGia.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/DAL/PhieuTraDAL.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/QuyDinh.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Dialog/chiTietPhat.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/PhuThu.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/PhieuMuon.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/SachNhap.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/BLL/DSQuyDinh.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/BLL/DSSachBLL.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/TacGia.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/Sach.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Dialog/phat.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/DAL/TacGiaDAL.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Dialog/themQuyDinh.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/PhieuTraPanel.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/DAL/QuyDinhDAL.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/BLL/DSThuThuBLL.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/CTPhat.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/TacGiaPanel.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/SachMuon.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Dialog/suaTacGia.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/BLL/DSPhieuNhap.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/BLL/DSLoaiDocGiaBLL.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/BLL/DSTacGiaBLL.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Dialog/suaQuyDinh.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/BLL/DSPhieuMuon.java</file>
         </group>
     </open-files>
 </project-private>

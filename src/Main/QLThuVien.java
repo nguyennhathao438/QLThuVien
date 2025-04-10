@@ -4,7 +4,7 @@
  */
 package Main;
 
-import UI.QuyDinhPanel;
+import UI.*;
 import javax.swing.JFrame;
 
 
@@ -12,10 +12,13 @@ public class QLThuVien {
 
     public static void main(String[] args) {
         JFrame frame =new JFrame();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(700,500);
-        QuyDinhPanel pn=new QuyDinhPanel();
+        //TacGiaPanel pn=new TacGiaPanel();
+        PhieuTraPanel pn=new PhieuTraPanel();
         frame.add(pn);
         frame.setVisible(true);
+        
     }
     
 }
