@@ -8,11 +8,11 @@ import javax.swing.JOptionPane;
 
 public class DSTacGiaBLL {
 	static ArrayList<TacGia> dstg = new ArrayList<>();
-        
+        TacGiaDAL tgdal = new TacGiaDAL();
     public DSTacGiaBLL() {
+        this.dstg=tgdal.layDSTacGia();
     }
-    public ArrayList<TacGia> layAllTacGia(){ 
-        dstg=TacGiaDAL.layDSTacGia();
+    public static ArrayList<TacGia> layAllTacGia(){ 
         return dstg ; 
     }
     public void showMess(String s){ 
@@ -34,7 +34,8 @@ public class DSTacGiaBLL {
             showMess("Năm sinh không hợp lệ");
             return ;
         }
-        if(TacGiaDAL.themTacGia(tg) >0){
+        if(tgdal.themTacGia(tg) >0){
+            dstg.add(tg);
             showMess("Thêm tác giả thành công ");
             return ; 
         }
@@ -42,7 +43,11 @@ public class DSTacGiaBLL {
         
     }
     public void xoaTG(String maTG){ 
-        if(TacGiaDAL.xoaTacGia(maTG) >0){ 
+        if(tgdal.xoaTacGia(maTG) >0){
+            int index = getIndexbyMaTG(maTG);
+            if(index != -1){
+                dstg.get(index).setTrangThai(0);
+            }
             showMess("Xoá tác giả thành công ");
             return ;
         }
@@ -69,14 +74,25 @@ public class DSTacGiaBLL {
             showMess("Năm sinh không hợp lệ");
             return ;
         }
-        if(TacGiaDAL.suaTacGia(tg) >0){
+        if(tgdal.suaTacGia(tg) >0){
+            int index = getIndexbyMaTG(tg.getMaTacGia());
+            dstg.set(index, tg);
+            
             showMess("Sửa tác giả thành công ");
             return ; 
         }
         showMess("Sửa tác giả thất bại ");
         
     }
+    public int getIndexbyMaTG(String matg){ 
+        for(int i=0 ; i<dstg.size();i++){ 
+            if(dstg.get(i).getMaTacGia().equals(matg)){ 
+                return i;
+            }
+        }
+        return -1;
+    }
     public TacGia getTacGia(String matg){ 
-        return TacGiaDAL.layTacGia(matg);
+        return tgdal.layTacGia(matg);
     }
 }

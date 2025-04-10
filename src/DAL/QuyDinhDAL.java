@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 
 public class QuyDinhDAL {
     static KetNoiCSDL kn=new KetNoiCSDL();
-    public static ArrayList<QuyDinh> layDSQuyDinh(){
+    public ArrayList<QuyDinh> layDSQuyDinh(){
         
         String query ="SELECT * FROM QuyDinh";
         try (Connection conn = kn.getConnection();
@@ -34,7 +34,7 @@ public class QuyDinhDAL {
         }
         return null;
     }
-    public static int themQuyDinh(QuyDinh qd){ 
+    public int themQuyDinh(QuyDinh qd){ 
         int ketqua =-1;
         String query = "INSERT INTO QuyDinh(maQuyDinh,noiDung,soTien,trangThai) VALUES(?,?,?,1) ";
         try(Connection conn = kn.getConnection();
@@ -51,7 +51,7 @@ public class QuyDinhDAL {
         }    
         return ketqua ;
     }
-    public static int xoaQuyDinh(String maqd){ 
+    public int xoaQuyDinh(String maqd){ 
         int ketqua =-1;
         String query ="UPDATE QuyDinh SET trangThai=0 WHERE maQuyDinh=?";
         try(Connection conn=kn.getConnection();
@@ -63,7 +63,7 @@ public class QuyDinhDAL {
         }
         return ketqua;
     }
-    public static int suaQuyDinh(QuyDinh qd){ 
+    public int suaQuyDinh(QuyDinh qd){ 
         int ketqua =-1;
         String query= "UPDATE QuyDinh SET noiDung=? , soTien=? WHERE maQuyDinh=?";
         try(Connection conn=kn.getConnection();
@@ -78,7 +78,7 @@ public class QuyDinhDAL {
         return ketqua ;
     }
     
-    public static QuyDinh layQuyDinh(String maqd){ 
+    public QuyDinh layQuyDinh(String maqd){ 
         String query="SELECT * FROM QuyDinh WHERE maQuyDinh=?";
         QuyDinh qd=new QuyDinh();
         try(Connection conn=kn.getConnection();

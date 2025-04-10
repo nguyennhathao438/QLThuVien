@@ -11,9 +11,11 @@ import javax.swing.JOptionPane;
 
 public class DSQuyDinh {
     QuyDinhDAL qddal=new QuyDinhDAL();
-    ArrayList<QuyDinh> dsqd=new ArrayList();
-    public ArrayList<QuyDinh> layAllQuyDinh(){ 
-        dsqd = QuyDinhDAL.layDSQuyDinh();
+    static ArrayList<QuyDinh> dsqd=new ArrayList();
+    public DSQuyDinh(){ 
+        dsqd = qddal.layDSQuyDinh();
+    }
+    public static ArrayList<QuyDinh> layAllQuyDinh(){ 
         return dsqd;
     }
     public void showMess(String s){ 
@@ -40,15 +42,19 @@ public class DSQuyDinh {
             showMess("Số tiền phải lớn hơn 0");
             return ; 
         }
-        if(QuyDinhDAL.themQuyDinh(qd)> 0){ 
+        if(qddal.themQuyDinh(qd)> 0){ 
+            dsqd.add(qd);
             showMess("Thêm quy định thành công ");
             return ;
         }
         showMess("Thêm quy định thất bại ");
     }
     public void xoaQD(String maqd){ 
-        if(QuyDinhDAL.xoaQuyDinh(maqd)>0){ 
+        if(qddal.xoaQuyDinh(maqd)>0){ 
+            int index = getIndexbyMaQD(maqd);
+            dsqd.get(index).setTrangThai(0);
             showMess("Xoá quy định thành công ");
+            
             return ;
         }
         showMess("Xoá qưy định thất bại ");
@@ -78,13 +84,22 @@ public class DSQuyDinh {
             showMess("Số tiền phải lớn hơn 0");
             return ; 
         }
-        if(QuyDinhDAL.suaQuyDinh(qd)> 0){ 
+        if(qddal.suaQuyDinh(qd)> 0){ 
+            int index = getIndexbyMaQD(qd.getMaQuyDinh());
+            dsqd.set(index,qd);
             showMess("Sửa quy định thành công ");
             return ;
         }
         showMess("Sửa quy định thất bại ");
     }
+    public int getIndexbyMaQD(String maqd){ 
+        for(int i=0;i<dsqd.size();i++){
+            if(dsqd.get(i).getMaQuyDinh().equals(maqd))
+                return i;
+        }
+        return -1;
+    }
     public QuyDinh getQuyDinh(String maqd){ 
-        return QuyDinhDAL.layQuyDinh(maqd);
+        return qddal.layQuyDinh(maqd);
     }
 }

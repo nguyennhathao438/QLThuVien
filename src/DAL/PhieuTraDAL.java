@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 
 public class PhieuTraDAL {
     static KetNoiCSDL kn=new KetNoiCSDL();
-    public static ArrayList<PhieuTra> layDSPTra(){ 
+    public ArrayList<PhieuTra> layDSPTra(){ 
        String query="SELECT maPTra,ngayThucTra,maPMuon,tenThuThu,PHIEUTRA.trangThai,maPhuThu FROM PHIEUTRA,THUTHU WHERE PHIEUTRA.maThuThu=THUTHU.maThuThu";
     try(Connection conn = kn.getConnection();
             Statement stmt= conn.createStatement();
@@ -40,7 +40,7 @@ public class PhieuTraDAL {
         }
         return null;
 }  
-    public static int taoPhieuPhat(String maPhieuTra,String maPhuThu,String[] dsmqd,double tienPhat) throws SQLException{ 
+    public int taoPhieuPhat(String maPhieuTra,String maPhuThu,String[] dsmqd,double tienPhat) throws SQLException{ 
         int ketqua = -1;
         String queryPhuThu = "INSERT INTO PHUTHU(maPhuThu,tienPhat,trangThai) VALUES (?,?, 1)";
         String queryPhieuTra= "UPDATE PHIEUTRA SET maPhuThu = ? WHERE maPTra = ?";
@@ -86,7 +86,7 @@ public class PhieuTraDAL {
         }
         return ketqua ;
     }
-    public static CTPhat getCTPhat(String maPhieuTra){ 
+    public CTPhat getCTPhat(String maPhieuTra){ 
         CTPhat ctp= new CTPhat();
         String query="SELECT phieuTRA.maPhuThu,PHUTHU.tienPhat,QUYDINH.maQuyDinh,QUYDINH.noiDung,QUYDINH.soTien FROM PHIEUTRA JOIN PHUTHU ON PHIEUTRA.maPhuThu = PHUTHU.maPhuThu JOIN CTPHAT ON PHUTHU.maPHUTHU = CTPHAT.maPhuThu JOIN QUYDINH ON CTPHAT.maQuyDinh=QUYDINH.maQuyDinh WHERE maPTra=?";
         try(Connection conn = kn.getConnection();
@@ -119,5 +119,19 @@ public class PhieuTraDAL {
             Logger.getLogger(PhieuTraDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
         return ctp ;
+    }
+    public int xoaPhieuTra(String maPhieuTra){ 
+        int kq = -1 ;
+        String query="UPDATE PHIEUTRA SET trangThai = 0 WHERE maPTra =?";
+        try(Connection conn = kn.getConnection();
+                PreparedStatement stmt= conn.prepareStatement(query)){ 
+            stmt.setString(1,maPhieuTra);
+            kq = stmt.executeUpdate();
+        } catch (SQLServerException ex) {
+            Logger.getLogger(PhieuTraDAL.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(PhieuTraDAL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return kq ;
     }
 }

@@ -4,15 +4,19 @@ package UI.Dialog;
 import BLL.DSQuyDinh;
 import DAL.QuyDinhDAL;
 import MODEL.QuyDinh;
+import UI.Panel.QuyDinhPanel;
 
 
 public class suaQuyDinh extends javax.swing.JDialog {
 
     DSQuyDinh kn=new DSQuyDinh();
     QuyDinh qd=new QuyDinh();
-    public suaQuyDinh(java.awt.Frame parent, boolean modal,String maquydinh) {
+    QuyDinhPanel qdpn ;
+    public suaQuyDinh(java.awt.Frame parent, boolean modal,String maquydinh,QuyDinhPanel panel) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
+        this.qdpn=panel;
         qd=kn.getQuyDinh(maquydinh);
         maqd.setText(qd.getMaQuyDinh());
         noidung.setText(qd.getNoiDung());
@@ -114,7 +118,9 @@ public class suaQuyDinh extends javax.swing.JDialog {
     private void confirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmActionPerformed
         qd.setNoiDung(noidung.getText());
         qd.setSoTien(((Number) sotien.getValue()).doubleValue());
-        kn.suaQD(qd);
+        qd.setTrangThai(1);
+        qdpn.getQuyDinhBLL().suaQD(qd);
+        qdpn.loadData(qdpn.getQuyDinhBLL().layAllQuyDinh());
         this.dispose();
     }//GEN-LAST:event_confirmActionPerformed
 

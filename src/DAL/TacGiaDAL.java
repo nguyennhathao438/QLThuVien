@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 public class TacGiaDAL {
     static KetNoiCSDL kn =new KetNoiCSDL();
-    public static ArrayList<TacGia> layDSTacGia(){ 
+    public ArrayList<TacGia> layDSTacGia(){ 
         ArrayList<TacGia> dstg = new ArrayList();
         String query="SELECT * FROM TacGia";
         try(Connection conn =kn.getConnection();
@@ -36,7 +36,7 @@ public class TacGiaDAL {
         
         return dstg;
     }
-    public static int themTacGia(TacGia tg){ 
+    public int themTacGia(TacGia tg){ 
         int kq = -1;
         String query ="INSERT INTO TACGIA(maTacGia,tenTacGia,namSinh,soDienThoai,trangThai) VALUES(?,?,?,?,1) ";
         try(Connection conn =kn.getConnection();
@@ -53,7 +53,7 @@ public class TacGiaDAL {
         }
         return kq ;
     }
-    public static int xoaTacGia(String matg){ 
+    public int xoaTacGia(String matg){ 
         int ketqua = -1;
        String query ="UPDATE TACGIA SET trangThai=0 WHERE maTacGia = ? ";
         try(Connection conn =kn.getConnection();
@@ -67,7 +67,7 @@ public class TacGiaDAL {
         } 
         return ketqua;
     }
-    public static int suaTacGia(TacGia tg){ 
+    public int suaTacGia(TacGia tg){ 
         int ketqua = -1;
        String query ="UPDATE TACGIA SET tenTacGia=?,namSinh=?,soDienThoai=? WHERE maTacGia = ? ";
         try(Connection conn =kn.getConnection();
@@ -84,7 +84,7 @@ public class TacGiaDAL {
         } 
         return ketqua ;
     }
-    public static TacGia layTacGia(String matg){ 
+    public TacGia layTacGia(String matg){ 
         String query="SELECT * FROM TacGia WHERE maTacGia =? ";
         TacGia tg=new TacGia();
         try(Connection conn =kn.getConnection();

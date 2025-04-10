@@ -11,10 +11,12 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class DSPhieuTraBLL {
-    PhieuTraDAL kn=new PhieuTraDAL();
-    ArrayList<PhieuTra> dspt =new ArrayList();
-    public ArrayList<PhieuTra> getAllPhieuTra(){ 
-        dspt = kn.layDSPTra();
+    PhieuTraDAL ptdal=new PhieuTraDAL();
+    static ArrayList<PhieuTra> dspt =new ArrayList();
+    public DSPhieuTraBLL(){ 
+        this.dspt = ptdal.layDSPTra();
+    }
+    public static ArrayList<PhieuTra> getAllPhieuTra(){ 
         return dspt;
     }
     public void showMess(String s){ 
@@ -22,9 +24,11 @@ public class DSPhieuTraBLL {
     }
     public void taoPhieuPhat(String maPhieuTra,String maPhuThu,String[] dsmqd,double tienPhat){ 
         try {
-            int kq = PhieuTraDAL.taoPhieuPhat(maPhieuTra, maPhuThu,dsmqd, tienPhat);
+            int kq = ptdal.taoPhieuPhat(maPhieuTra, maPhuThu,dsmqd, tienPhat);
             if(kq >=0){
                 showMess("Tạo phiếu phạt thành công");
+                int index = getIndexbyMaPT(maPhieuTra);
+                dspt.get(index).setMaPhuThu(maPhuThu);
             }else{
                 showMess("Tạo phiếu phạt thất bại ");
             }
@@ -34,6 +38,21 @@ public class DSPhieuTraBLL {
         
     }
     public CTPhat getChiTietPhat(String maPhieuTra){ 
-        return PhieuTraDAL.getCTPhat(maPhieuTra);
+        return ptdal.getCTPhat(maPhieuTra);
+    }
+    public int getIndexbyMaPT(String maPT){
+        for(int i=0;i<dspt.size();i++){ 
+            if(dspt.get(i).getMaPhieuTra().equals(maPT)){ 
+                return i;
+            }
+        }
+        return -1 ;
+    }
+    public void xoaPhieuTra(String maPT){ 
+        if(ptdal.xoaPhieuTra(maPT)>0){ 
+            int index =getIndexbyMaPT(maPT);
+            dspt.get(index).setTrangThai(0);
+            showMess("Xoá phiếu trả thành công ");
+        }
     }
 }
