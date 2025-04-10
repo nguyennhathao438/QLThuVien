@@ -8,9 +8,9 @@ import java.sql.Connection;
 public class KetNoiCSDL {
     SQLServerDataSource ds= new SQLServerDataSource();
     public KetNoiCSDL(){ 
-        var server ="DESKTOP-SAC9NS5";
+        var server ="DESKTOP-1JQESS2\\SQLEXPRESS";
         var user="sa";
-        var password="quencmnr";
+        var password="123";
         var db="QLThuVien";
         var port=1433;
         
@@ -18,7 +18,7 @@ public class KetNoiCSDL {
         ds.setPassword(password);
         ds.setServerName(server);
         ds.setPortNumber(port);
-        ds.setDatabaseName(db);
+        ds.setDatabaseName(db);        
         ds.setTrustServerCertificate(true);
     }
     public Connection getConnection() throws SQLServerException{ 

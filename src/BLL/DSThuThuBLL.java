@@ -1,17 +1,44 @@
 package BLL;
 
+import DAL.ThuThuDAL;
 import java.util.ArrayList;
 
 import Model.ThuThu;
 
 public class DSThuThuBLL {
-	ArrayList<ThuThu> dsThuThu = new ArrayList<>();
+    private static ThuThuDAL ttDAL = new ThuThuDAL();
+    static ArrayList<ThuThu> dsThuThu = new ArrayList<>();
+    
+    public DSThuThuBLL(){
+        this.dsThuThu = ttDAL.selectAll();
+    }
 
-	public void themThuThu(ThuThu t){
-		dsThuThu.add(t);
-	}
+    public ThuThuDAL getTtDAL() {
+        return ttDAL;
+    }
 
-	public ArrayList<ThuThu> getDSThuThu(){
-		return dsThuThu;
-	}
+    public void setTtDAL(ThuThuDAL ttDAL) {
+        this.ttDAL = ttDAL;
+    }
+
+    
+    public static String getTenThuThuByMa(String ma){
+        for(int i = 0; i < dsThuThu.size(); i++){
+            ThuThu tt = dsThuThu.get(i);
+            if(tt.getMaThuThu().equals(ma)){
+                return tt.getTenThuThu();
+            }
+        }
+        return null;
+    }
+    public static ArrayList<ThuThu> getDsThuThu() {
+        return dsThuThu;
+    }
+
+    public static void setDsThuThu(ArrayList<ThuThu> dsThuThu) {
+        DSThuThuBLL.dsThuThu = dsThuThu;
+    }
+        
+        
+        
 }

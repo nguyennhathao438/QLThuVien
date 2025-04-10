@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/PhieuTra.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/BLL/DSPhieuTraBLL.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/BLL/DSTheLoaiBLL.java</file>
@@ -36,6 +37,16 @@
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/BLL/DSTacGiaBLL.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Dialog/suaQuyDinh.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/BLL/DSPhieuMuon.java</file>
+=======
+            <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/UI/Panel/PhieuNhapPanel.java</file>
+            <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/BLL/DSPhieuNhap.java</file>
+            <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/UI/MainFrame.java</file>
+            <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/BLL/DSNhaCungCapBLL.java</file>
+            <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/DAL/PhieuNhapDAL.java</file>
+            <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/BLL/DSThuThuBLL.java</file>
+            <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/UI/Panel/NhaCungCapPanel.java</file>
+            <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/UI/Component/SearchBar.java</file>
+>>>>>>> 7e66da24e06d2e42c5f993394f46109cf4db2c1c
         </group>
     </open-files>
 </project-private>
