@@ -42,7 +42,7 @@ public class MainFunction extends JToolBar {
         lstBtn.put("exportexcel", new ItemToolBar("/img/exportExcel.svg", "Xuất Excel", "exportexcel"));
         lstBtn.put("importexcel", new ItemToolBar("/img/importExcel.svg", "Nhập Excel", "importexcel"));
         lstBtn.put("punish", new ItemToolBar("/img/punish.svg", "Phạt", "punish"));
-
+        lstBtn.put("return", new ItemToolBar("/img/add.svg", "Lập Phiếu Trả", "return"));
     }
 
     public void initComponent(String[] btnArray) {

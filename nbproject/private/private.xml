@@ -17,6 +17,7 @@
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/PhieuMuon.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/BLL/DSSachBLL.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/Sach.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/DAL/PhieuMuonDAL.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/DAL/QuyDinhDAL.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/BLL/DSThuThuBLL.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/CTPhat.java</file>
@@ -34,9 +35,11 @@
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Dialog/themTacGia.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/CTPhieuNhap.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/DAL/PhieuTraDAL.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Panel/PhieuMuonPanel.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Login.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/QuyDinh.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Dialog/chiTietPhat.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Dialog/PhieuMuonDialog.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/SachNhap.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/BLL/DSQuyDinh.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/TacGia.java</file>

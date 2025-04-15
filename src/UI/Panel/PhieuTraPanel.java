@@ -86,7 +86,7 @@ public class PhieuTraPanel extends JPanel implements ItemListener,MouseListener{
 
         content = new JPanel();
         content.setLayout(new BorderLayout());
-        String[] header = { "Mã Phiếu Trả", "Mã Phiếu Mượn", "Ngày Thực Trả","Tên Thủ Thư" };
+        String[] header = { "Mã Phiếu Trả", "Mã Phiếu Mượn", "Ngày Thực Trả","Tên Thủ Thư" ,"Phụ Thu"};
         dtm = new DefaultTableModel(header, 0){
             @Override            
             public boolean isCellEditable(int row,int column){

@@ -4,6 +4,8 @@
  */
 package UI.Panel;
 
+import BLL.DSPhieuMuon;
+import Model.PhieuMuon;
 import UI.Component.MainFunction;
 import UI.Component.SearchBar;
 import UI.Dialog.ChiTietPhieuMuonDialog;
@@ -12,6 +14,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
@@ -27,13 +30,14 @@ public class PhieuMuonPanel extends JPanel{
     private JScrollPane scrollPane;
     private SearchBar searchBar;
     private MainFunction mainFunc;
-    
+    DSPhieuMuon pmbll = new DSPhieuMuon();
     public PhieuMuonPanel(){
         this.setBorder(BorderFactory.createEmptyBorder(7, 6, 7, 6));
         this.setLayout(new BorderLayout(0,0));
         this.setBackground(Color.WHITE);
         initcomponent();
         initEvents();
+        loadData(pmbll.layAllPhieuMuon());
     }
         
     public void initcomponent(){
@@ -41,17 +45,17 @@ public class PhieuMuonPanel extends JPanel{
         headerPanel.setPreferredSize(new Dimension(900,120));
         headerPanel.setLayout(new FlowLayout(0,0,4));
         headerPanel.setBackground(Color.WHITE);
-        mainFunc = new MainFunction(new String[] {"create", "delete", "update", "detail"});
+        mainFunc = new MainFunction(new String[] {"create", "delete", "update", "detail","return"});
         headerPanel.add(mainFunc);
         
-        searchBar = new SearchBar(new String[] {"Tất cả", "Mã phiếu mượn", "Ngày mượn", "Mã độc giả", "Mã thủ thư"});
+        searchBar = new SearchBar(new String[] {"Tất cả", "Mã phiếu mượn", "Ngày mượn", "Tên đọc giả", "Tên thủ thư"});
         headerPanel.add(searchBar);
 
         this.add(headerPanel, BorderLayout.NORTH);
         
         tblPanel = new JPanel();
         tblPanel.setLayout(new BorderLayout());
-        String[] header = {"Mã phiếu", "Ngày mượn", "Ngày trả", "Mã độc giả", "Mã thủ thư"};
+        String[] header = {"Mã phiếu", "Ngày mượn", "Ngày trả", "Tên độc giả", "Tên thủ thư"};
         tblModel = new DefaultTableModel(header, 0);
         tblPhMuon = new JTable();
         tblPhMuon.setModel(tblModel);
@@ -77,7 +81,30 @@ public class PhieuMuonPanel extends JPanel{
         this.add(tblPanel, BorderLayout.CENTER);
         
     }
-        
+    public void loadData(ArrayList<PhieuMuon> dspm){ 
+        tblModel.setRowCount(0);   
+        for(PhieuMuon a:dspm){
+            if(a.getTrangThai()!= 0)
+             tblModel.addRow(new Object[]{
+                a.getMaPhieuMuon(),
+                 a.getMaDocGia(),
+                 a.getNgayMuon(),
+                 a.getNgayTra(),
+                 a.getTenDocGia(),
+                 a.getTenThuThu(),
+                 getTrangThaiPM(a.getTrangThai())
+            });              
+        }
+    }
+    public String getTrangThaiPM(int trangThai){ 
+        if(trangThai == 1){ 
+            return "Chưa trả";
+        }
+        if(trangThai == 2){ 
+            return "Đã trả";
+        }
+        return "";
+    }
     public void initEvents(){
         // Xử lý sự kiện cho nút "Thêm"
         mainFunc.getLstBtn().get("create").addActionListener(new ActionListener() {

@@ -8,9 +8,9 @@ import java.sql.Connection;
 public class KetNoiCSDL {
     SQLServerDataSource ds= new SQLServerDataSource();
     public KetNoiCSDL(){ 
-        var server ="NT\\SQLEXPRESS10";
+        var server ="DESKTOP-SAC9NS5";
         var user="sa";
-        var password="1234567890";
+        var password="quencmnr";
         var db="QLThuVien";
         var port=1433;
         

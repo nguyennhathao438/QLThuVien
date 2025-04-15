@@ -12,7 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class PhieuTraDAL {
-    static KetNoiCSDL kn=new KetNoiCSDL();
+     KetNoiCSDL kn=new KetNoiCSDL();
     public ArrayList<PhieuTra> layDSPTra(){ 
        String query="SELECT maPTra,ngayThucTra,maPMuon,tenThuThu,PHIEUTRA.trangThai,maPhuThu FROM PHIEUTRA,THUTHU WHERE PHIEUTRA.maThuThu=THUTHU.maThuThu";
     try(Connection conn = kn.getConnection();

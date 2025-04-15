@@ -1,27 +1,22 @@
-
-package MODEL;
+package Model;
 
 import java.util.Date;
 
 public class PhieuMuon {
-    private int maPhieuMuon;
+    private String maPhieuMuon;
     private Date ngayMuon;
     private Date ngayTra;
+    private String maDocGia;
     private String tenDocGia;
+    private String maThuThu;
     private String tenThuThu;
     private int trangThai;
-    private PhieuMuon(){ 
+    
+    public PhieuMuon(){ 
         
     }
-    public PhieuMuon(int maPhieuMuon, Date ngayMuon, Date ngayTra, String tenDocGia, String tenThuThu) {
-        this.maPhieuMuon = maPhieuMuon;
-        this.ngayMuon = ngayMuon;
-        this.ngayTra = ngayTra;
-        this.tenDocGia = tenDocGia;
-        this.tenThuThu = tenThuThu;
-    }
-    
-    public int getMaPhieuMuon() {
+
+    public String getMaPhieuMuon() {
         return maPhieuMuon;
     }
 
@@ -33,15 +28,27 @@ public class PhieuMuon {
         return ngayTra;
     }
 
+    public String getMaDocGia() {
+        return maDocGia;
+    }
+
     public String getTenDocGia() {
         return tenDocGia;
+    }
+
+    public String getMaThuThu() {
+        return maThuThu;
     }
 
     public String getTenThuThu() {
         return tenThuThu;
     }
 
-    public void setMaPhieuMuon(int maPhieuMuon) {
+    public int getTrangThai() {
+        return trangThai;
+    }
+
+    public void setMaPhieuMuon(String maPhieuMuon) {
         this.maPhieuMuon = maPhieuMuon;
     }
 
@@ -53,12 +60,25 @@ public class PhieuMuon {
         this.ngayTra = ngayTra;
     }
 
+    public void setMaDocGia(String maDocGia) {
+        this.maDocGia = maDocGia;
+    }
+
     public void setTenDocGia(String tenDocGia) {
         this.tenDocGia = tenDocGia;
+    }
+
+    public void setMaThuThu(String maThuThu) {
+        this.maThuThu = maThuThu;
     }
 
     public void setTenThuThu(String tenThuThu) {
         this.tenThuThu = tenThuThu;
     }
+
+    public void setTrangThai(int trangThai) {
+        this.trangThai = trangThai;
+    }
+    
     
 }
