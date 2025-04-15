@@ -1,7 +1,7 @@
 
 package BLL;
 
-import MODEL.PhieuMuon;
+import Model.PhieuMuon;
 import java.util.ArrayList;
 
 public class DSPhieuMuon {

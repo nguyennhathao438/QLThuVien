@@ -13,6 +13,8 @@ import UI.Panel.NhaCungCapPanel;
 import UI.Panel.PhieuNhapPanel;
 import UI.Panel.TrangChuPanel;
 import UI.*;
+import UI.Panel.DocGiaPanel;
+import UI.Panel.PhieuMuonPanel;
 import UI.Panel.PhieuTraPanel;
 import UI.Panel.QuyDinhPanel;
 import UI.Panel.TacGiaPanel;
@@ -101,18 +103,18 @@ public class MenuTaskBar extends JPanel{
 //                            TheLoaiPanel theloai = new TheLoaiPanel();
 //                            mainFrame.setRightPanel(theloai);
 //                            break;
-//                        case 3:
-//                            DocGiaPanel docgia = new DocGiaPanel();
-//                            mainFrame.setRightPanel(docgia);
-//                            break;
+                        case 3:
+                            DocGiaPanel docgia = new DocGiaPanel();
+                            mainFrame.setRightPanel(docgia);
+                            break;
                       case 4:
                          TacGiaPanel tacgia = new TacGiaPanel();
                           mainFrame.setRightPanel(tacgia);
                          break;
-//                        case 5:
-//                            PhieuMuonPanel phieumuon = new PhieuMuonPanel();
-//                            mainFrame.setRightPanel(phieumuon);
-//                            break;
+                        case 5:
+                            PhieuMuonPanel phieumuon = new PhieuMuonPanel();
+                            mainFrame.setRightPanel(phieumuon);
+                            break;
                       case 6:
                            PhieuTraPanel phieutra = new PhieuTraPanel();
                           mainFrame.setRightPanel(phieutra);
