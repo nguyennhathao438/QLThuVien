@@ -4,10 +4,6 @@
  */
 package UI.Panel;
 
-/**
- *
- * @author Nghia0605
- */
 import BLL.DSNhaCungCapBLL;
 import UI.Component.MainFunction;
 import UI.Component.SearchBar;
@@ -49,7 +45,7 @@ public class NhaCungCapPanel extends JPanel implements ItemListener,MouseListene
         headerPanel.setLayout(new FlowLayout(0, 0, 4));
         headerPanel.setBackground(Color.white);
 
-        String[] function = { "create", "delete", "update", "exportexcel", "importexcel" }; //"detail", 
+        String[] function = { "create", "delete", "update" }; //"detail", 
         mainFunc = new MainFunction(function);
         headerPanel.add(mainFunc);
         for(String func : function){

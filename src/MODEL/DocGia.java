@@ -5,15 +5,19 @@ public class DocGia {
 	private String tenDocGia;
 	private String soDienThoai;
 	private String diaChi;
-
+        private String maLoaiDG;
+        private int trangThai;
+        
 	public DocGia(){
 	}
 
-	public DocGia(String maDocGia, String tenDocGia, String soDienThoai, String diaChi){
+	public DocGia(String maDocGia, String tenDocGia, String soDienThoai, String diaChi, String maLoaiDG, int trangThai){
 		this.maDocGia = maDocGia;
 		this.tenDocGia = tenDocGia;
 		this.soDienThoai = soDienThoai;
 		this.diaChi = diaChi;
+                this.maLoaiDG = maLoaiDG;
+                this.trangThai = trangThai;
 	}
 
 	public String getMaDocGia() {
@@ -48,6 +52,23 @@ public class DocGia {
 		this.diaChi = diaChi;
 	}
 
+        public String getMaLoaiDG() {
+            return maLoaiDG;
+        }
+
+        public void setMaLoaiDG(String maLoaiDG) {
+            this.maLoaiDG = maLoaiDG;
+        }
+
+        public int getTrangThai() {
+            return trangThai;
+        }
+
+        public void setTrangThai(int trangThai) {
+            this.trangThai = trangThai;
+        }
+        
+        @Override
 	public String toString(){
 		return tenDocGia;
 	}

@@ -6,74 +6,84 @@ import MODEL.QuyDinh;
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class QuyDinhDAL {
-    KetNoiCSDL kn=new KetNoiCSDL();
-    public DSQuyDinh layQuyDinh() throws SQLException{
-        DSQuyDinh dsqd=new DSQuyDinh();
+    static KetNoiCSDL kn=new KetNoiCSDL();
+    public ArrayList<QuyDinh> layDSQuyDinh(){
+        
         String query ="SELECT * FROM QuyDinh";
         try (Connection conn = kn.getConnection();
             Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(query)){
-            
+            ArrayList<QuyDinh> dsqd = new ArrayList();
         while(rs.next()){ 
-            int maqd=rs.getInt("maQuyDinh");
+            String maqd=rs.getString("maQuyDinh");
             String noidung = rs.getString("noiDung");
             double soTien =rs.getDouble("soTien");
             int trangThai =rs.getInt("trangThai");
-            dsqd.themQuyDinh(new QuyDinh(maqd,noidung,soTien,trangThai));
+            dsqd.add(new QuyDinh(maqd,noidung,soTien,trangThai));
         }
-               
+            return dsqd;   
         } catch (SQLServerException ex) {
             System.out.println("Lay du lieu that bai");
-        }     
-        return dsqd;
+        } catch (SQLException ex) {     
+            Logger.getLogger(QuyDinhDAL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
-    public void themQuyDinh(QuyDinh qd){ 
-        String query = "INSERT INTO QuyDinh(noiDung,soTien,trangThai) VALUES(?,?,1) ";
+    public int themQuyDinh(QuyDinh qd){ 
+        int ketqua =-1;
+        String query = "INSERT INTO QuyDinh(maQuyDinh,noiDung,soTien,trangThai) VALUES(?,?,?,1) ";
         try(Connection conn = kn.getConnection();
                 PreparedStatement stmt =conn.prepareStatement(query);
             ){ 
-            stmt.setString(1,qd.getNoiDung());
-            stmt.setDouble(2, qd.getSoTien());
-            stmt.executeUpdate();
+            stmt.setString(1,qd.getMaQuyDinh());
+            stmt.setString(2,qd.getNoiDung());
+            stmt.setDouble(3, qd.getSoTien());
+            ketqua = stmt.executeUpdate();
         }catch (SQLServerException ex) {
-            System.out.println("Them quy dinh that bai");
+            Logger.getLogger(QuyDinhDAL.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(QuyDinhDAL.class.getName()).log(Level.SEVERE, null, ex);
         }    
+        return ketqua ;
     }
-    public void xoaQuyDinh(int maqd){ 
+    public int xoaQuyDinh(String maqd){ 
+        int ketqua =-1;
         String query ="UPDATE QuyDinh SET trangThai=0 WHERE maQuyDinh=?";
         try(Connection conn=kn.getConnection();
                 PreparedStatement stmt= conn.prepareStatement(query)){ 
-            stmt.setInt(1,maqd);
-            stmt.executeUpdate();          
+            stmt.setString(1,maqd);
+            ketqua = stmt.executeUpdate();          
         } catch (SQLException ex) {
             Logger.getLogger(QuyDinhDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return ketqua;
     }
-    public void suaQuyDinh(QuyDinh qd){ 
+    public int suaQuyDinh(QuyDinh qd){ 
+        int ketqua =-1;
         String query= "UPDATE QuyDinh SET noiDung=? , soTien=? WHERE maQuyDinh=?";
         try(Connection conn=kn.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(query)){  
             stmt.setString(1, qd.getNoiDung());
             stmt.setDouble(2, qd.getSoTien());
-            stmt.setInt(3, qd.getMaQuyDinh());
-            stmt.executeUpdate();
+            stmt.setString(3, qd.getMaQuyDinh());
+            ketqua = stmt.executeUpdate();
         }catch (SQLException ex) {
             Logger.getLogger(QuyDinhDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return ketqua ;
     }
     
-    public QuyDinh getQuyDinh(int maqd){ 
+    public QuyDinh layQuyDinh(String maqd){ 
         String query="SELECT * FROM QuyDinh WHERE maQuyDinh=?";
         QuyDinh qd=new QuyDinh();
         try(Connection conn=kn.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)){ 
-            stmt.setInt(1, maqd);
+            stmt.setString(1, maqd);
             ResultSet rs=stmt.executeQuery();
             if(rs.next()){ 
                 qd.setNoiDung(rs.getString("noiDung"));

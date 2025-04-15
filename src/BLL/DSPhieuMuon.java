@@ -1,14 +1,17 @@
 
 package BLL;
 
-import MODEL.PhieuMuon;
+import DAL.PhieuMuonDAL;
+import Model.PhieuMuon;
 import java.util.ArrayList;
 
 public class DSPhieuMuon {
-    private ArrayList<PhieuMuon> dspm=new ArrayList();
+    private static ArrayList<PhieuMuon> dspm=new ArrayList();
+    PhieuMuonDAL pmdal = new PhieuMuonDAL();
     public DSPhieuMuon() {
+        this.dspm = pmdal.getAllPhieuMuon();
     }
-    public ArrayList<PhieuMuon> getDspm() {
+    public ArrayList<PhieuMuon> layAllPhieuMuon() {
         return dspm;
     }
 

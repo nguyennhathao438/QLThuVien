@@ -8,33 +8,36 @@ import java.util.Date;
  * @author ADMIN
  */
 public class PhieuTra {
-    private int maPhieuTra;
-    private int maPhieuMuon;
-    private int maThuThu;
-    private String tenThuThu;  
+    private String maPhieuTra;
+    private String maPhieuMuon;
+    private String maThuThu;
+    private String tenThuThu;
+    private String maPhuThu;
     private Date ngayThucTra;
     private int  trangThai;
     public PhieuTra(){ 
         
     }
 
-    public PhieuTra(int maPhieuTra, int maPhieuMuon, int maThuThu, String tenThuThu, Date ngayThucTra) {
+    public PhieuTra(String maPhieuTra, String maPhieuMuon, String maThuThu, String tenThuThu, String maPhuThu, Date ngayThucTra, int trangThai) {
         this.maPhieuTra = maPhieuTra;
         this.maPhieuMuon = maPhieuMuon;
         this.maThuThu = maThuThu;
         this.tenThuThu = tenThuThu;
+        this.maPhuThu = maPhuThu;
         this.ngayThucTra = ngayThucTra;
+        this.trangThai = trangThai;
     }
 
-    public int getMaPhieuTra() {
+    public String getMaPhieuTra() {
         return maPhieuTra;
     }
 
-    public int getMaPhieuMuon() {
+    public String getMaPhieuMuon() {
         return maPhieuMuon;
     }
 
-    public int getMaThuThu() {
+    public String getMaThuThu() {
         return maThuThu;
     }
 
@@ -42,19 +45,27 @@ public class PhieuTra {
         return tenThuThu;
     }
 
+    public String getMaPhuThu() {
+        return maPhuThu;
+    }
+
     public Date getNgayThucTra() {
         return ngayThucTra;
     }
 
-    public void setMaPhieuTra(int maPhieuTra) {
+    public int getTrangThai() {
+        return trangThai;
+    }
+    
+    public void setMaPhieuTra(String maPhieuTra) {
         this.maPhieuTra = maPhieuTra;
     }
 
-    public void setMaPhieuMuon(int maPhieuMuon) {
+    public void setMaPhieuMuon(String maPhieuMuon) {
         this.maPhieuMuon = maPhieuMuon;
     }
 
-    public void setMaThuThu(int maThuThu) {
+    public void setMaThuThu(String maThuThu) {
         this.maThuThu = maThuThu;
     }
 
@@ -62,8 +73,18 @@ public class PhieuTra {
         this.tenThuThu = tenThuThu;
     }
 
+    public void setMaPhuThu(String maPhuThu) {
+        this.maPhuThu = maPhuThu;
+    }
+
     public void setNgayThucTra(Date ngayThucTra) {
         this.ngayThucTra = ngayThucTra;
     }
+
+    public void setTrangThai(int trangThai) {
+        this.trangThai = trangThai;
+    }
+
+   
     
 }

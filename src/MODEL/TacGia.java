@@ -5,15 +5,16 @@ public class TacGia {
 	private String tenTacGia;
 	private int namSinh;
 	private String soDienThoai;
-
+        private int trangThai ;
 	public TacGia(){
 	}
 
-	public TacGia(String maTacGia, String tenTacGia, int namSinh, String soDienThoai){
+	public TacGia(String maTacGia, String tenTacGia, int namSinh, String soDienThoai,int trangThai){
 		this.maTacGia = maTacGia;
 		this.tenTacGia = tenTacGia;
 		this.namSinh = namSinh;
 		this.soDienThoai = soDienThoai;
+                this.trangThai= trangThai;
 	}
 
 	public String getMaTacGia() {
@@ -52,4 +53,13 @@ public class TacGia {
 	public String toString(){
 		return tenTacGia;
 	}
+
+    public int getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(int trangThai) {
+        this.trangThai = trangThai;
+    }
+        
 }

@@ -7,6 +7,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class DSPhieuNhap {
+
+   
+
     private static ArrayList<PhieuNhap> dsPN = new ArrayList(); 
     private PhieuNhapDAL pnDAL = new PhieuNhapDAL();
     private DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
