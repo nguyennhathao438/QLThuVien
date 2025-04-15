@@ -24,6 +24,11 @@ public class DSQuyDinh {
     
     public void themQD(QuyDinh qd){ 
         dsqd= layAllQuyDinh();
+        String regex = "^QD\\d{3,}";
+        if(!qd.getMaQuyDinh().matches(regex)){ 
+            showMess("Mã nhập không hợp lệ (Ví dụ:QD017)");
+            return ; 
+        }
       if(qd.getMaQuyDinh().isEmpty()){ 
             showMess("Mã quy định không được để trống ");
             return ;
@@ -101,5 +106,41 @@ public class DSQuyDinh {
     }
     public QuyDinh getQuyDinh(String maqd){ 
         return qddal.layQuyDinh(maqd);
+    }
+    public ArrayList<QuyDinh> searchQuyDinh(String text,String type){ 
+        ArrayList<QuyDinh> dssearch = new ArrayList();
+        text=text.toLowerCase();
+        switch(type){ 
+            case "Tất cả":
+                for(QuyDinh a:dsqd){ 
+                    if(a.getMaQuyDinh().toLowerCase().contains(text) || a.getNoiDung().toLowerCase().contains(text) || String.valueOf(a.getSoTien()).contains(text)){
+                        dssearch.add(a);
+                    }
+                }
+                break ;
+            case "Mã Quy Định":
+                for(QuyDinh a:dsqd){ 
+                    if(a.getMaQuyDinh().toLowerCase().contains(text) ){ 
+                        dssearch.add(a);
+                    }
+                }
+                break ;
+                case "Nội Dung":
+                    for(QuyDinh a:dsqd){ 
+                    if( a.getNoiDung().toLowerCase().contains(text)){ 
+                        dssearch.add(a);
+                    }
+                }
+                    break;
+                case "Tiền Phạt":
+                    for(QuyDinh a:dsqd){ 
+                    if(String.valueOf(a.getSoTien()).contains(text)){ 
+                        dssearch.add(a);
+                    }
+                    break;
+                }
+                
+        }
+        return dssearch;
     }
 }

@@ -22,7 +22,12 @@ public class DSPhieuTraBLL {
     public void showMess(String s){ 
         JOptionPane.showMessageDialog(null, s);
     }
-    public void taoPhieuPhat(String maPhieuTra,String maPhuThu,String[] dsmqd,double tienPhat){ 
+    public void taoPhieuPhat(String maPhieuTra,String maPhuThu,String[] dsmqd,double tienPhat){
+        String regex = "^PHUTHU\\d{3,}";
+        if(maPhuThu.matches(regex)){ 
+            showMess("Mã nhập không hợp lệ (Ví dụ:PHUTHU017)");
+            return ;
+        }
         try {
             int kq = ptdal.taoPhieuPhat(maPhieuTra, maPhuThu,dsmqd, tienPhat);
             if(kq >=0){
@@ -55,4 +60,47 @@ public class DSPhieuTraBLL {
             showMess("Xoá phiếu trả thành công ");
         }
     }
+    public ArrayList<PhieuTra> searchQuyDinh(String text,String type){ 
+        ArrayList<PhieuTra> dssearch = new ArrayList();
+        text=text.toLowerCase();
+        switch(type){ 
+            case "Tất cả":
+                for(PhieuTra a:dspt){ 
+                    if(a.getMaPhieuMuon().toLowerCase().contains(text) ||
+                        a.getMaPhieuTra().toLowerCase().contains(text)||
+                            a.getMaPhuThu().toLowerCase().contains(text) || 
+                             a.getTenThuThu().toLowerCase().contains(text)){ 
+                        dssearch.add(a);
+                    }
+                }
+                break ;
+            case "Mã Phiếu Mượn":
+                for(PhieuTra a:dspt){ 
+                    if(a.getMaPhieuMuon().toLowerCase().contains(text)){ 
+                        dssearch.add(a);
+                    }
+                }
+                break ;
+                case "Mã Phiếu Trả":
+                    for(PhieuTra a:dspt){ 
+                    if(
+                        a.getMaPhieuTra().toLowerCase().contains(text)){ 
+                        dssearch.add(a);
+                    }
+                }
+                
+                    break;
+                case "Tên Thủ Thư":
+                    for(PhieuTra a:dspt){ 
+                    if( 
+                             a.getTenThuThu().toLowerCase().contains(text)){ 
+                        dssearch.add(a);
+                    }
+                }
+                    break;
+                }
+                
+        return dssearch;
+    }
+
 }

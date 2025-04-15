@@ -4,10 +4,6 @@
  */
 package UI.Panel;
 
-/**
- *
- * @author Nghia0605
- */
 import BLL.DSNhaCungCapBLL;
 import UI.Component.MainFunction;
 import UI.Component.SearchBar;

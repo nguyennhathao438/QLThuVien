@@ -24,6 +24,11 @@ public class DSTacGiaBLL {
             showMess("Mã tác giả không đươc để trống");
             return ;
         }
+        String regex = "^TG\\d{3,}";
+        if(!tg.getMaTacGia().matches(regex)){ 
+            showMess("Mã nhập không hợp lệ (Ví dụ:TG017)");
+            return;
+        }
         for(TacGia a:dstg){ 
             if(a.getMaTacGia().equals(tg.getMaTacGia())){ 
                 showMess("Mã tác giả đã tồn tại ");
@@ -33,6 +38,10 @@ public class DSTacGiaBLL {
         if(tg.getNamSinh()>2010 || tg.getNamSinh()<1950){
             showMess("Năm sinh không hợp lệ");
             return ;
+        }
+        String regix = "^(\\\\+84|0)(3[2-9]|5[6|8|9]|7[0|6-9]|8[1-5]|9[0-9])[0-9]{7}$";
+        if(!tg.getSoDienThoai().matches(regex)){ 
+            showMess("Số điện thoại không hợp lệ");
         }
         if(tgdal.themTacGia(tg) >0){
             dstg.add(tg);
@@ -94,5 +103,48 @@ public class DSTacGiaBLL {
     }
     public TacGia getTacGia(String matg){ 
         return tgdal.layTacGia(matg);
+    }
+    public ArrayList<TacGia> searchQuyDinh(String text,String type){ 
+        ArrayList<TacGia> dssearch = new ArrayList();
+        text=text.toLowerCase();
+        switch(type){ 
+            case "Tất cả":
+                for(TacGia a:dstg){ 
+                    if(a.getMaTacGia().toLowerCase().contains(text) || String.valueOf(a.getNamSinh()).contains(text) || a.getSoDienThoai().contains(text) || a.getTenTacGia().toLowerCase().contains(text)){
+                        dssearch.add(a);
+                    }
+                }
+                break ;
+            case "Mã Tác Giả":
+                for(TacGia a:dstg){ 
+                    if(a.getMaTacGia().toLowerCase().contains(text)){
+                        dssearch.add(a);
+                    }
+                }
+                break ;
+                case "Tên Tác Giả":
+                    for(TacGia a:dstg){ 
+                    if(a.getTenTacGia().toLowerCase().contains(text)){
+                        dssearch.add(a);
+                    }
+                }
+                    break;
+                case "Năm Sinh":
+                    for(TacGia a:dstg){ 
+                    if(String.valueOf(a.getNamSinh()).contains(text)){
+                        dssearch.add(a);
+                    }
+                }
+                    break;
+                case "Số Điện Thoại":
+                    for(TacGia a:dstg){ 
+                    if(a.getSoDienThoai().contains(text)){
+                        dssearch.add(a);
+                    }
+                }
+                    break;
+                
+        }
+        return dssearch;
     }
 }

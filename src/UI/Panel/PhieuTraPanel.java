@@ -70,7 +70,7 @@ public class PhieuTraPanel extends JPanel implements ItemListener,MouseListener{
         for(String func : function){
             mainFunc.getLstBtn().get(func).addMouseListener(this);
         }
-        searchBar = new SearchBar(new String[] { "Tất cả", "Mã Phiếu Trả", "Mã Phiếu Mượn", "Ngày Thực Trả","Phụ Thu","Tên Thủ Thư" });
+        searchBar = new SearchBar(new String[] { "Tất cả", "Mã Phiếu Trả", "Mã Phiếu Mượn","Phụ Thu","Tên Thủ Thư" });
         headerPanel.add(searchBar);
         this.add(headerPanel, BorderLayout.NORTH);
         searchBar.getCboChoose().addItemListener(this);
@@ -80,13 +80,13 @@ public class PhieuTraPanel extends JPanel implements ItemListener,MouseListener{
             public void keyReleased(KeyEvent e){                
                 String type = (String)searchBar.getCboChoose().getSelectedItem();
                 String text = searchBar.getTxtSearch().getText();
-                
+                loadData(dspt.searchQuyDinh(text, type));
             }
         });
 
         content = new JPanel();
         content.setLayout(new BorderLayout());
-        String[] header = { "Mã Phiếu Trả", "Mã Phiếu Mượn", "Ngày Thực Trả","Tên Thủ Thư","Phụ Thu" };
+        String[] header = { "Mã Phiếu Trả", "Mã Phiếu Mượn", "Ngày Thực Trả","Tên Thủ Thư" };
         dtm = new DefaultTableModel(header, 0){
             @Override            
             public boolean isCellEditable(int row,int column){
@@ -181,7 +181,9 @@ public class PhieuTraPanel extends JPanel implements ItemListener,MouseListener{
                 }
             }
         }else if(e.getSource() == searchBar.getBtnRefesh()){            
-  
+               searchBar.getCboChoose().setSelectedIndex(0);
+           searchBar.getTxtSearch().setText("");
+           loadData(dspt.getAllPhieuTra());
         }
     }
 

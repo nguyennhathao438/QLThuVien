@@ -23,6 +23,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -80,7 +81,7 @@ public class QuyDinhPanel extends JPanel implements ItemListener,MouseListener{
             public void keyReleased(KeyEvent e){                
                 String type = (String)searchBar.getCboChoose().getSelectedItem();
                 String text = searchBar.getTxtSearch().getText();
-                
+                loadData(dsqd.searchQuyDinh(text, type));
             }
         });
 
@@ -124,7 +125,7 @@ public class QuyDinhPanel extends JPanel implements ItemListener,MouseListener{
              dtm.addRow(new Object[]{
                 a.getMaQuyDinh(),
                  a.getNoiDung(),
-                 a.getSoTien()
+                String.valueOf(a.getSoTien()).replace(".","")
             });              
         }
     }
@@ -164,7 +165,9 @@ public class QuyDinhPanel extends JPanel implements ItemListener,MouseListener{
             }
         }
         }else if(e.getSource() == searchBar.getBtnRefesh()){            
-  
+               searchBar.getCboChoose().setSelectedIndex(0);
+           searchBar.getTxtSearch().setText("");
+           loadData(dsqd.layAllQuyDinh());
         }
     }
 
