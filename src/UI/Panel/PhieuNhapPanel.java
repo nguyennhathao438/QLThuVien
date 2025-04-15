@@ -10,6 +10,7 @@ import BLL.DSThuThuBLL;
 import MODEL.PhieuNhap;
 import UI.Component.MainFunction;
 import UI.Component.SearchBar;
+import UI.MainFrame;
 import javax.swing.*;
 import java.awt.*;
 import java.time.format.DateTimeFormatter;
@@ -36,8 +37,10 @@ public class PhieuNhapPanel extends JPanel implements ItemListener, MouseListene
     private DSNhaCungCapBLL nccBLL = new DSNhaCungCapBLL();    
     private DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
     private DSThuThuBLL ttBLL = new DSThuThuBLL();
+    private MainFrame mainFrame;
     
-    public PhieuNhapPanel(){
+    public PhieuNhapPanel(MainFrame mainFrame){
+        this.mainFrame = mainFrame;
         this.setBorder(BorderFactory.createEmptyBorder(7, 6, 7, 6));
         this.setLayout(new BorderLayout(0, 0));
         this.setBackground(Color.WHITE);            
@@ -56,13 +59,14 @@ public class PhieuNhapPanel extends JPanel implements ItemListener, MouseListene
         mainFunc = new MainFunction(function);
         headerPanel.add(mainFunc);
         
-//        for(String func : function){
-//            mainFunc.getLstBtn().get(func).addMouseListener(this);
-//        }
+        for(String func : function){
+            mainFunc.getLstBtn().get(func).addMouseListener(this);
+        }
 
         searchBar = new SearchBar(new String[] {"Tất cả","Mã phiếu","Tên NCC","Thủ thư","Thời gian","Tổng tiền"});
         headerPanel.add(searchBar);
         this.add(headerPanel, BorderLayout.NORTH);
+        searchBar.getBtnRefesh().addMouseListener(this);
         searchBar.getCboChoose().addItemListener(this);
         searchBar.getTxtSearch().addKeyListener(new KeyAdapter() {
             @Override
@@ -149,7 +153,21 @@ public class PhieuNhapPanel extends JPanel implements ItemListener, MouseListene
 
     @Override
     public void mousePressed(MouseEvent e) {
-        
+        Object obj = e.getSource();
+        if(obj == searchBar.getBtnRefesh()){
+            searchBar.getCboChoose().setSelectedIndex(0);
+            searchBar.getTxtSearch().setText("");
+            loadData(DSPhieuNhap.getDsPN());
+        } else if(obj == mainFunc.getLstBtn().get("create")){
+            TaoPhieuNhapPanel taophieunhap = new TaoPhieuNhapPanel(mainFrame);
+            mainFrame.setRightPanel(taophieunhap);
+        } else if(obj == mainFunc.getLstBtn().get("detail")){
+            
+        } else if(obj == mainFunc.getLstBtn().get("delete")){
+            
+        } else if(obj == mainFunc.getLstBtn().get("update")){
+            
+        }
     }
 
     @Override

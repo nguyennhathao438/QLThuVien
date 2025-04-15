@@ -39,7 +39,6 @@ public class MenuTaskBar extends JPanel{
     private Color activeBorderColor = new Color(0,0,0);
     private Color activeBackgroundColor = new Color(240,240,240);
     private Color defaultColor = new Color(255,255,255);
-
     public MenuTaskBar(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
         this.init();
@@ -114,7 +113,7 @@ public class MenuTaskBar extends JPanel{
 //                            mainFrame.setRightPanel(phieutra);
 //                            break;
                         case 7:
-                            PhieuNhapPanel phieunhap = new PhieuNhapPanel();
+                            PhieuNhapPanel phieunhap = new PhieuNhapPanel(mainFrame);
                             mainFrame.setRightPanel(phieunhap);
                             break;
                         case 8:
