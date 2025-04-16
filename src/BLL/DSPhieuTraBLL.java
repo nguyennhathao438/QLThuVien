@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 public class DSPhieuTraBLL {
     PhieuTraDAL ptdal=new PhieuTraDAL();
     static ArrayList<PhieuTra> dspt =new ArrayList();
+    DSThuThuBLL ttbll = new DSThuThuBLL();
     public DSPhieuTraBLL(){ 
         this.dspt = ptdal.layDSPTra();
     }
@@ -69,7 +70,7 @@ public class DSPhieuTraBLL {
                     if(a.getMaPhieuMuon().toLowerCase().contains(text) ||
                         a.getMaPhieuTra().toLowerCase().contains(text)||
                             a.getMaPhuThu().toLowerCase().contains(text) || 
-                             a.getTenThuThu().toLowerCase().contains(text)){ 
+                             ttbll.getTenThuThuByMa(a.getMaThuThu()).toLowerCase().contains(text)){ 
                         dssearch.add(a);
                     }
                 }
@@ -92,8 +93,7 @@ public class DSPhieuTraBLL {
                     break;
                 case "Tên Thủ Thư":
                     for(PhieuTra a:dspt){ 
-                    if( 
-                             a.getTenThuThu().toLowerCase().contains(text)){ 
+                    if( ttbll.getTenThuThuByMa(a.getMaThuThu()).toLowerCase().contains(text)){ 
                         dssearch.add(a);
                     }
                 }

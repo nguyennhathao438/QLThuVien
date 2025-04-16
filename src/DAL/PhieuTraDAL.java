@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 public class PhieuTraDAL {
      KetNoiCSDL kn=new KetNoiCSDL();
     public ArrayList<PhieuTra> layDSPTra(){ 
-       String query="SELECT maPTra,ngayThucTra,maPMuon,tenThuThu,PHIEUTRA.trangThai,maPhuThu FROM PHIEUTRA,THUTHU WHERE PHIEUTRA.maThuThu=THUTHU.maThuThu";
+       String query="SELECT * FROM PHIEUTRA";
     try(Connection conn = kn.getConnection();
             Statement stmt= conn.createStatement();
             ResultSet rs = stmt.executeQuery(query)
@@ -26,7 +26,6 @@ public class PhieuTraDAL {
             pt.setMaPhieuMuon(rs.getString("maPMuon"));
             pt.setMaPhieuTra(rs.getString("maPTra"));
             pt.setNgayThucTra(rs.getDate("ngayThucTra"));
-            pt.setTenThuThu(rs.getString("tenThuThu"));
             pt.setTrangThai(rs.getInt("trangThai"));
             pt.setMaPhuThu(rs.getString("maPhuThu"));
             dspt.add(pt);
