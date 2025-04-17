@@ -12,8 +12,7 @@ import java.util.logging.Logger;
 
 public class QuyDinhDAL {
     static KetNoiCSDL kn=new KetNoiCSDL();
-    public ArrayList<QuyDinh> layDSQuyDinh(){
-        
+    public ArrayList<QuyDinh> layDSQuyDinh(){        
         String query ="SELECT * FROM QuyDinh";
         try (Connection conn = kn.getConnection();
             Statement stmt = conn.createStatement();

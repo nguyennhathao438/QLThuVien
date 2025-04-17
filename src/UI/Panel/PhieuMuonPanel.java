@@ -12,6 +12,7 @@ import UI.Component.MainFunction;
 import UI.Component.SearchBar;
 import UI.Dialog.ChiTietPhieuMuonDialog;
 import UI.Dialog.PhieuMuonDialog;
+import UI.Dialog.lapPhieuTra;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -145,6 +146,27 @@ public class PhieuMuonPanel extends JPanel{
                 dialog.setVisible(true);
             }
         });
+        //Sự kiện thêm phiếu trả của Hào
+        mainFunc.getLstBtn().get("return").addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int row = tblPhMuon.getSelectedRow();
+                if(row == -1 ){
+                    JOptionPane.showMessageDialog(null,  "Click vào phiếu mươn");
+                }else { 
+                    String trangThai = (String) tblPhMuon.getValueAt(row, 4);
+                    if(trangThai.equals("Đã trả")){ 
+                        JOptionPane.showMessageDialog(null,  "Phiếu mượn này đã trả đủ");
+                    }else{ 
+                        String mapm = (String) tblPhMuon.getValueAt(row, 0);
+                        Window parentWindow = SwingUtilities.getWindowAncestor(PhieuMuonPanel.this);
+                            String ma=(String) tblPhMuon.getValueAt(row, 0);
+                        new lapPhieuTra((Frame) parentWindow,true,ma).setVisible(true);
+                    }
+                    
+                }
+            }
+        }); 
     }
     
 }

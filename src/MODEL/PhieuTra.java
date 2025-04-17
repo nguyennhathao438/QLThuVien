@@ -11,7 +11,6 @@ public class PhieuTra {
     private String maPhieuTra;
     private String maPhieuMuon;
     private String maThuThu;
-    private String tenThuThu;
     private String maPhuThu;
     private Date ngayThucTra;
     private int  trangThai;
@@ -19,16 +18,16 @@ public class PhieuTra {
         
     }
 
-    public PhieuTra(String maPhieuTra, String maPhieuMuon, String maThuThu, String tenThuThu, String maPhuThu, Date ngayThucTra, int trangThai) {
+    public PhieuTra(String maPhieuTra, String maPhieuMuon, String maThuThu, String maPhuThu, Date ngayThucTra, int trangThai) {
         this.maPhieuTra = maPhieuTra;
         this.maPhieuMuon = maPhieuMuon;
         this.maThuThu = maThuThu;
-        this.tenThuThu = tenThuThu;
         this.maPhuThu = maPhuThu;
         this.ngayThucTra = ngayThucTra;
         this.trangThai = trangThai;
     }
-
+    
+   
     public String getMaPhieuTra() {
         return maPhieuTra;
     }
@@ -41,10 +40,7 @@ public class PhieuTra {
         return maThuThu;
     }
 
-    public String getTenThuThu() {
-        return tenThuThu;
-    }
-
+   
     public String getMaPhuThu() {
         return maPhuThu;
     }
@@ -69,10 +65,7 @@ public class PhieuTra {
         this.maThuThu = maThuThu;
     }
 
-    public void setTenThuThu(String tenThuThu) {
-        this.tenThuThu = tenThuThu;
-    }
-
+    
     public void setMaPhuThu(String maPhuThu) {
         this.maPhuThu = maPhuThu;
     }
