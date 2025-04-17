@@ -1,6 +1,8 @@
 package Model;
 
-public class ThuThu {
+import UI.Component.Displayable;
+
+public class ThuThu implements Displayable{
 	private String maThuThu;
 	private String tenThuThu;
 	private String taiKhoan;
@@ -62,4 +64,9 @@ public class ThuThu {
 	public String toString(){
 		return tenThuThu;
 	}
+
+    @Override
+    public String[] toRowData() {
+        return new String[]{maThuThu,tenThuThu,soDienThoai};
+    }
 }

@@ -1,6 +1,8 @@
 package Model;
 
-public class NhaCungCap {
+import UI.Component.Displayable;
+
+public class NhaCungCap implements Displayable{
 	private String maNCC;
 	private String tenNCC;
 	private String soDienThoai;
@@ -51,4 +53,9 @@ public class NhaCungCap {
 	public String toString(){
 		return tenNCC;
 	}
+
+    @Override
+    public String[] toRowData() {
+        return new String[]{maNCC, tenNCC,soDienThoai};
+    }
 }

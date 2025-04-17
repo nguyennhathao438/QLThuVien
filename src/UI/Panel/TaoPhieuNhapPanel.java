@@ -8,6 +8,7 @@ import UI.Component.InputField;
 import UI.MainFrame;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -24,7 +25,8 @@ import javax.swing.table.JTableHeader;
  */
 public class TaoPhieuNhapPanel extends JPanel{
     private JPanel left,right,pnPhieuTable,pnSachTable;
-    private JPanel pnInput,pn1,pn2;
+    private JPanel pnInput,pn1,pn2,pn2_1, pn2_2,pn2_3, pn2_4;
+    private InputField masach,tensach,soluong,gianhap,tacgia,theloai;
     private JTable phieuTable, sachTable;
     private JScrollPane scrollPNTable, scrollSachTable;
     private DefaultTableModel phieuTableModel, sachTableModel;
@@ -35,8 +37,8 @@ public class TaoPhieuNhapPanel extends JPanel{
     MainFrame m;
     
     public TaoPhieuNhapPanel(MainFrame m){
-        this.setBackground(Color.white);
-        this.setLayout(new BorderLayout(0,0));
+        this.setBackground(Color.decode("#ccc"));
+        this.setLayout(new BorderLayout(5,5));
         initComponent();
     }
     
@@ -44,19 +46,21 @@ public class TaoPhieuNhapPanel extends JPanel{
     public void initComponent(){
         left = new JPanel();
         left.setBackground(Color.white);
-        left.setPreferredSize(new Dimension(650,800));
-        left.setLayout(new BorderLayout(5,7));
+        left.setPreferredSize(new Dimension(690,800));
+        left.setLayout(new BorderLayout(5,0));
         left.setBorder(new EmptyBorder(10, 5, 0, 5));
         
         pnInput = new JPanel();
         pnInput.setPreferredSize(new Dimension(650, 600));
         pnInput.setLayout(new BorderLayout(0, 5));
+        pnInput.setBackground(Color.white);
+        pnInput.setBorder(new EmptyBorder(0, 0, 5, 0));
         left.add(pnInput, BorderLayout.CENTER);
         
         pn1 = new JPanel();
         pn1.setLayout(new BorderLayout(2, 7));
-//        pn1.setBackground(Color.PINK);
-        pn1.setPreferredSize(new Dimension(400, 600));
+        pn1.setBackground(Color.white);
+        pn1.setPreferredSize(new Dimension(390, 600));        
         pnInput.add(pn1, BorderLayout.CENTER);
         
         JPanel pnSearch = new JPanel();
@@ -77,6 +81,7 @@ public class TaoPhieuNhapPanel extends JPanel{
         pnSachTable = new JPanel();
         pnSachTable.setPreferredSize(new Dimension(400, 300));
         pnSachTable.setLayout(new BorderLayout(0,0));
+//        pnSachTable.setBackground(Color.white);
         pn1.add(pnSachTable, BorderLayout.CENTER);
         
         sachTable = new JTable();
@@ -97,12 +102,76 @@ public class TaoPhieuNhapPanel extends JPanel{
         scrollSachTable = new JScrollPane(sachTable);
         pnSachTable.add(scrollSachTable, BorderLayout.CENTER);
         
+        JPanel pnBtnAdd = new JPanel();
+        pnBtnAdd.setLayout(new FlowLayout(1,0,0));
+        pnBtnAdd.setBackground(Color.white);
+        pn1.add(pnBtnAdd, BorderLayout.SOUTH);
         
+        btnAdd = new JButton("Thêm sản phẩm");
+        btnAdd.setBackground(Color.decode("#00994C"));    
+        btnAdd.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        btnAdd.setForeground(Color.white);
+        btnAdd.setFocusPainted(false);
+        btnAdd.setBorder(null);
+        btnAdd.setPreferredSize(new Dimension(150, 35));
+        btnAdd.setCursor(new Cursor(Cursor.HAND_CURSOR) {
+        });
+        pnBtnAdd.add(btnAdd);
         
         pn2 = new JPanel();
-        pn2.setBackground(Color.red);
-        pn2.setPreferredSize(new Dimension(250, 500));
+        pn2.setBackground(Color.white);
+        pn2.setPreferredSize(new Dimension(290, 500));   
         pnInput.add(pn2, BorderLayout.EAST);
+        
+        pn2_1 = new JPanel();
+        pn2_1.setLayout(new FlowLayout());
+        pn2_1.setBackground(Color.white);
+        pn2_1.setPreferredSize(new Dimension(290, 60));
+        pn2.add(pn2_1);
+        
+        masach = new InputField("Mã sách", 90, 60);
+        masach.getTxtInput().setText("SACH001");
+        masach.getTxtInput().setEditable(false);
+        masach.getTxtInput().setForeground(Color.BLACK);
+        pn2_1.add(masach);
+        
+        tensach = new InputField("Tên sách", 190, 60);
+        tensach.getTxtInput().setEditable(false);
+        tensach.getTxtInput().setForeground(Color.BLACK);
+        pn2_1.add(tensach);
+        
+        pn2_2 = new JPanel();
+        pn2_2.setLayout(new FlowLayout());
+        pn2_2.setBackground(Color.white);
+        pn2_2.setPreferredSize(new Dimension(290, 60));
+        pn2.add(pn2_2);
+        
+        theloai = new InputField("Thể loại", 280, 60);
+        theloai.getTxtInput().setEditable(false);
+        pn2_2.add(theloai);
+                     
+        pn2_4 = new JPanel();
+        pn2_4.setLayout(new FlowLayout());
+        pn2_4.setBackground(Color.white);
+        pn2_4.setPreferredSize(new Dimension(290, 60));
+        pn2.add(pn2_4);
+        
+        tacgia = new InputField("Tên tác giả", 280, 60);
+        tacgia.getTxtInput().setEditable(false);
+        pn2_4.add(tacgia);
+        
+        pn2_3 = new JPanel();
+        pn2_3.setLayout(new FlowLayout());
+        pn2_3.setBackground(Color.white);
+        pn2_3.setPreferredSize(new Dimension(290, 60));
+        pn2.add(pn2_3);
+        
+        gianhap = new InputField("Giá nhập", 190, 60);
+        pn2_3.add(gianhap);
+        
+        soluong = new InputField("Số lượng", 90, 60);
+        pn2_3.add(soluong);
+        
         
         String[] colnamePhieuTable = {"Mã sách","Tên sách", "Đơn giá","Số lượng","Thành tiền"};
         phieuTableModel = new DefaultTableModel(colnamePhieuTable, 0){
@@ -113,7 +182,7 @@ public class TaoPhieuNhapPanel extends JPanel{
         };
         
         pnPhieuTable = new JPanel();
-        pnPhieuTable.setPreferredSize(new Dimension(400, 300));
+        pnPhieuTable.setPreferredSize(new Dimension(400, 290));
         pnPhieuTable.setLayout(new BorderLayout(0,0));
         left.add(pnPhieuTable, BorderLayout.SOUTH);
         
@@ -135,7 +204,7 @@ public class TaoPhieuNhapPanel extends JPanel{
         
         right = new JPanel();
         right.setBackground(Color.blue);
-        right.setPreferredSize(new Dimension(250, 800));
+        right.setPreferredSize(new Dimension(200, 800));        
         
         this.add(left, BorderLayout.CENTER);
         this.add(right, BorderLayout.EAST);

@@ -4,7 +4,9 @@
  */
 package UI.Component;
 
+import com.toedter.calendar.JDateChooser;
 import java.awt.*;
+import java.util.Date;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -17,6 +19,9 @@ public class InputField extends JPanel{
     private JLabel lbContent,lbData;
     private Font font = new Font("Segoe UI", Font.BOLD, 15);
     private Font txtfont = new Font("Segoe UI", Font.PLAIN, 15);
+    private JDateChooser dateChooser;    
+    private boolean isDateField;
+    
     public InputField(String content,int w,int h){
         this.setLayout(new GridLayout(2, 1));
         this.lbContent = new JLabel(content);
@@ -35,6 +40,30 @@ public class InputField extends JPanel{
         this.add(lbData);
         this.init(w, h);
     }
+    
+    public InputField(String content, int w, int h, boolean isDateField) {
+        this.isDateField = isDateField;
+        this.setLayout(new GridLayout(2, 1));
+        this.setPreferredSize(new Dimension(w, h));
+        this.setBackground(Color.white);
+        lbContent = new JLabel(content);
+        lbContent.setFont(font);
+        this.add(lbContent);        
+//        JPanel inputPanel = new JPanel(new BorderLayout());
+        if (isDateField) {
+            dateChooser = new JDateChooser();
+            dateChooser.setDateFormatString("dd/MM/yyyy");
+            dateChooser.setPreferredSize(new Dimension(w - 10, h));
+            dateChooser.setFont(txtfont);
+            this.add(dateChooser, BorderLayout.CENTER);
+        } else {
+            txtInput = new JTextField();
+            txtInput.setFont(txtfont);
+            txtInput.setPreferredSize(new Dimension(w, h));
+            this.add(txtInput, BorderLayout.CENTER);
+        }       
+    }
+        
     public void init(int width,int height){
         this.setPreferredSize(new Dimension(width,height));
         this.setBorder(new EmptyBorder(0,10,5,10));
@@ -51,5 +80,7 @@ public class InputField extends JPanel{
         this.txtInput.setText(txtInput);
     }
     
-    
+     public Date getDate() {
+        return dateChooser != null ? dateChooser.getDate() : null;
+    }
 }

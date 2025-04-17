@@ -57,7 +57,7 @@ public class SearchBar extends JPanel {
         btnRefesh.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
         btnRefesh.setPreferredSize(new Dimension(90, 30));
         btnRefesh.setFocusPainted(false);// khong hien thi vien khi click
-        // btnRefesh.setContentAreaFilled(false);// khong hien thi mau nen khi click
+        btnRefesh.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btnRefesh.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {                
