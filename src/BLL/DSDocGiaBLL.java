@@ -88,7 +88,15 @@ public class DSDocGiaBLL {
             return -1;
         }    
         
-     
+     public String getTenDocGiabyMa(String madg){ 
+         docDSDG();
+         for(DocGia dg :dsdg){ 
+             if(dg.getTrangThai() != 0 && dg.getMaDocGia().equals(madg)){ 
+                 return dg.getTenDocGia();
+             }
+         }
+         return "";       
+     }
         
         
 	

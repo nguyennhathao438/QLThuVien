@@ -4,7 +4,9 @@
  */
 package UI.Panel;
 
+import BLL.DSDocGiaBLL;
 import BLL.DSPhieuMuon;
+import BLL.DSThuThuBLL;
 import Model.PhieuMuon;
 import UI.Component.MainFunction;
 import UI.Component.SearchBar;
@@ -31,6 +33,8 @@ public class PhieuMuonPanel extends JPanel{
     private SearchBar searchBar;
     private MainFunction mainFunc;
     DSPhieuMuon pmbll = new DSPhieuMuon();
+    DSThuThuBLL ttbll = new DSThuThuBLL();
+    DSDocGiaBLL dgbll = new DSDocGiaBLL();
     public PhieuMuonPanel(){
         this.setBorder(BorderFactory.createEmptyBorder(7, 6, 7, 6));
         this.setLayout(new BorderLayout(0,0));
@@ -87,11 +91,10 @@ public class PhieuMuonPanel extends JPanel{
             if(a.getTrangThai()!= 0)
              tblModel.addRow(new Object[]{
                 a.getMaPhieuMuon(),
-                 a.getMaDocGia(),
                  a.getNgayMuon(),
                  a.getNgayTra(),
-                 a.getTenDocGia(),
-                 a.getTenThuThu(),
+                 dgbll.getTenDocGiabyMa(a.getMaDocGia()),
+                 ttbll.getTenThuThuByMa(a.getMaThuThu()),
                  getTrangThaiPM(a.getTrangThai())
             });              
         }

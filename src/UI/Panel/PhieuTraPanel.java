@@ -5,6 +5,7 @@
 package UI.Panel;
 
 import BLL.DSPhieuTraBLL;
+import BLL.DSThuThuBLL;
 import MODEL.PhieuTra;
 import UI.Component.MainFunction;
 import UI.Component.SearchBar;
@@ -50,6 +51,7 @@ public class PhieuTraPanel extends JPanel implements ItemListener,MouseListener{
     private MainFunction mainFunc;
     private JFrame parent;
     private DSPhieuTraBLL dspt=new DSPhieuTraBLL();
+    private DSThuThuBLL ttbll = new DSThuThuBLL();
     public PhieuTraPanel() {
         this.setBorder(BorderFactory.createEmptyBorder(7, 6, 7, 6));
         this.setLayout(new BorderLayout(0, 0));
@@ -127,7 +129,7 @@ public class PhieuTraPanel extends JPanel implements ItemListener,MouseListener{
                 a.getMaPhieuTra(),
                  a.getMaPhieuMuon(),
                  a.getNgayThucTra(),
-                 a.getTenThuThu(),
+                 ttbll.getTenThuThuByMa(a.getMaThuThu()),
                  getPhuThu(a.getMaPhuThu())
             });              
         }

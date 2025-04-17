@@ -19,7 +19,7 @@ public class PhieuMuonDAL {
     KetNoiCSDL kn = new KetNoiCSDL();
     public ArrayList<PhieuMuon> getAllPhieuMuon(){ 
         ArrayList<PhieuMuon> dspm = new ArrayList();
-        String query = "SELECT maPMuon,ngayMuon,ngayTra,PHIEUMUON.maDocGia,tenDocGia,PHIEUMUON.maThuThu,tenThuThu,PHIEUMUON.trangThai FROM PHIEUMUON JOIN DOCGIA ON PHIEUMUON.maDocGia= DOCGIA.maDocGia JOIN THUTHU ON THUTHU.maThuThu=PHIEUMUON.maThuThu ";
+        String query = "SELECT * FROM PHIEUMUON";
         try(Connection conn = kn.getConnection();
                 Statement stmt = conn.createStatement();
                         ResultSet rs= stmt.executeQuery(query);
@@ -29,8 +29,6 @@ public class PhieuMuonDAL {
                  pm.setMaPhieuMuon(rs.getString("maPMuon"));
                  pm.setNgayMuon(rs.getDate("ngayMuon"));
                  pm.setNgayTra(rs.getDate("ngayTra"));
-                 pm.setTenDocGia(rs.getString("tenDocGia"));
-                 pm.setTenThuThu(rs.getString("tenThuThu"));
                  pm.setMaDocGia(rs.getString("maDocGia"));
                  pm.setMaThuThu(rs.getString("maThuThu"));
                  pm.setTrangThai(rs.getInt("trangThai"));

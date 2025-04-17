@@ -147,4 +147,12 @@ public class DSTacGiaBLL {
         }
         return dssearch;
     }
+    public String getTenTacGiabyMa(String maTG){ 
+        for(TacGia a:dstg){ 
+            if(a.getMaTacGia().equals(maTG) && a.getTrangThai() !=0){ 
+                return a.getTenTacGia();
+            }
+        }
+        return "";
+    }
 }

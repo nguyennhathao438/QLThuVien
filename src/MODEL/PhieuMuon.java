@@ -7,15 +7,21 @@ public class PhieuMuon {
     private Date ngayMuon;
     private Date ngayTra;
     private String maDocGia;
-    private String tenDocGia;
     private String maThuThu;
-    private String tenThuThu;
     private int trangThai;
-    
-    public PhieuMuon(){ 
-        
-    }
 
+    public PhieuMuon() {
+    }
+     
+    public PhieuMuon(String maPhieuMuon, Date ngayMuon, Date ngayTra, String maDocGia, String maThuThu, int trangThai) {
+        this.maPhieuMuon = maPhieuMuon;
+        this.ngayMuon = ngayMuon;
+        this.ngayTra = ngayTra;
+        this.maDocGia = maDocGia;
+        this.maThuThu = maThuThu;
+        this.trangThai = trangThai;
+    }
+    
     public String getMaPhieuMuon() {
         return maPhieuMuon;
     }
@@ -32,16 +38,8 @@ public class PhieuMuon {
         return maDocGia;
     }
 
-    public String getTenDocGia() {
-        return tenDocGia;
-    }
-
     public String getMaThuThu() {
         return maThuThu;
-    }
-
-    public String getTenThuThu() {
-        return tenThuThu;
     }
 
     public int getTrangThai() {
@@ -64,16 +62,8 @@ public class PhieuMuon {
         this.maDocGia = maDocGia;
     }
 
-    public void setTenDocGia(String tenDocGia) {
-        this.tenDocGia = tenDocGia;
-    }
-
     public void setMaThuThu(String maThuThu) {
         this.maThuThu = maThuThu;
-    }
-
-    public void setTenThuThu(String tenThuThu) {
-        this.tenThuThu = tenThuThu;
     }
 
     public void setTrangThai(int trangThai) {
