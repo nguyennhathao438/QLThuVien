@@ -3,6 +3,7 @@ package BLL;
 
 import DAL.PhieuNhapDAL;
 import MODEL.PhieuNhap;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -82,6 +83,44 @@ public class DSPhieuNhap {
             }
             return result;
         }
+        
+        public ArrayList<PhieuNhap> filteredList(String ncc, String tt, LocalDateTime fromDate, LocalDateTime toDate, Double fromMoney, Double toMoney){
+            ArrayList<PhieuNhap> result = new ArrayList<>();
+            for (PhieuNhap pn : getDsPN()) {
+            boolean matches = true;
+
+            // Kiểm tra nhà cung cấp
+            if (!ncc.isEmpty() && !DSNhaCungCapBLL.getTenNCCByMa(pn.getMaNCC()).contains(ncc)) {
+                matches = false;
+            }
+
+            // Kiểm tra thủ thư
+            if (!tt.isEmpty() && !DSThuThuBLL.getTenThuThuByMa(pn.getMaThuThu()).contains(tt)) {
+                matches = false;
+            }
+
+            // Kiểm tra ngày
+            if (fromDate != null && pn.getThoiGian().isBefore(fromDate)) {
+                matches = false;
+            }
+            if (toDate != null && pn.getThoiGian().isAfter(toDate)) {
+                matches = false;
+            }
+
+            // Kiểm tra số tiền
+            if (fromMoney != null && pn.getTongTien() < fromMoney) {
+                matches = false;
+            }
+            if (toMoney != null && pn.getTongTien() > toMoney) {
+                matches = false;
+            }
+
+            if (matches) {
+                result.add(pn);
+            }
+        }
+           return result;
+    }
     public static ArrayList<PhieuNhap> getDsPN() {
         return dsPN;
     }
