@@ -10,7 +10,9 @@ public class DSThuThuBLL {
     static ArrayList<ThuThu> dsThuThu = new ArrayList<>();
     
     public DSThuThuBLL(){
-        this.dsThuThu = ttDAL.selectAll();
+        if(dsThuThu.size() == 0){
+            this.dsThuThu = ttDAL.selectAll();
+        }
     }
 
     public ThuThuDAL getTtDAL() {

@@ -27,6 +27,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
 import java.awt.event.*;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 /**
  *
@@ -48,6 +49,7 @@ public class PhieuNhapPanel extends JPanel implements ItemListener, MouseListene
     private InputField fromDate,toDate, fromMoney, toMoney;
     private InputSupportField nccField, ttField;
     private JButton btnFilter;    
+    private JButton btnReset;
     
     public PhieuNhapPanel(MainFrame mainFrame){
         this.mainFrame = mainFrame;
@@ -133,7 +135,7 @@ public class PhieuNhapPanel extends JPanel implements ItemListener, MouseListene
         
         
         btnFilter = new JButton("Lọc");
-        btnFilter.setPreferredSize(new Dimension(200, 40));
+        btnFilter.setPreferredSize(new Dimension(100, 40));
         btnFilter.setFocusPainted(false);
         btnFilter.setBackground(Color.decode("#00994C"));
         btnFilter.setForeground(Color.WHITE);
@@ -142,6 +144,15 @@ public class PhieuNhapPanel extends JPanel implements ItemListener, MouseListene
         btnFilter.addMouseListener(this);
         pnButton.add(btnFilter);
         
+        btnReset = new JButton("Đặt lại");
+        btnReset.setPreferredSize(new Dimension(100, 40));
+        btnReset.setFocusPainted(false);
+        btnReset.setBackground(Color.decode("#00994C"));
+        btnReset.setForeground(Color.WHITE);
+        btnReset.setFont(new Font("Segoe UI", Font.BOLD, 18));  
+        btnReset.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnReset.addMouseListener(this);
+        pnButton.add(btnReset);
         
         rightContent = new JPanel();
         rightContent.setLayout(new BorderLayout());
@@ -187,10 +198,12 @@ public class PhieuNhapPanel extends JPanel implements ItemListener, MouseListene
         tableModel.setRowCount(0);       
         for(int i = 0; i < dsPN.size(); i++){
             PhieuNhap pn = dsPN.get(i);
+            String tenNCC = DSNhaCungCapBLL.getTenNCCByMa(pn.getMaNCC());
+            String tenTT = DSThuThuBLL.getTenThuThuByMa(pn.getMaThuThu());
             tableModel.addRow(new Object[]{
-                pn.getMaPhieuNhap(),
-                !DSNhaCungCapBLL.getTenNCCByMa(pn.getMaNCC()).equals("") ? DSNhaCungCapBLL.getTenNCCByMa(pn.getMaNCC()) : null,
-                !DSThuThuBLL.getTenThuThuByMa(pn.getMaThuThu()).equals("") ? DSThuThuBLL.getTenThuThuByMa(pn.getMaThuThu()) : null,
+                pn.getMaPhieuNhap(),    
+                !tenNCC.equals("") ? tenNCC : null,
+                !tenTT.equals("") ? tenTT : null,
                 pn.getThoiGian().format(formatTime),
                 pn.getTongTien()
             });
@@ -225,10 +238,17 @@ public class PhieuNhapPanel extends JPanel implements ItemListener, MouseListene
         } else if(obj == mainFunc.getLstBtn().get("update")){
             
         } else if(obj == this.btnFilter){
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             String ncc = nccField.getTxtInput().getText().trim();
             String tt = ttField.getTxtInput().getText().trim();
-            String fromDateStr = fromDate.getDate().toString();
-            String toDateStr = toDate.getDate().toString();
+            String fromDateStr = "";
+            if(fromDate.getDate() != null){
+                fromDateStr = sdf.format(fromDate.getDate());
+            }
+            String toDateStr = "";
+            if(toDate.getDate() != null){
+                toDateStr = sdf.format(toDate.getDate());
+            }
             String fromMoneyStr = fromMoney.getTxtInput().getText().trim();
             String toMoneyStr = toMoney.getTxtInput().getText().trim();
             
@@ -245,18 +265,18 @@ public class PhieuNhapPanel extends JPanel implements ItemListener, MouseListene
                 }
                 
                 if(!fromMoneyStr.isEmpty()){                    
-                    fromMoneyParsed = Double.parseDouble(fromMoneyStr);             
+                    fromMoneyParsed = Double.valueOf(fromMoneyStr);             
                 }
                 
                 
                 if(!toMoneyStr.isEmpty()){                   
-                    toMoneyParsed = Double.parseDouble(toMoneyStr);                    
+                    toMoneyParsed = Double.valueOf(toMoneyStr);                    
                 }
                 
                 ArrayList<PhieuNhap> filterList = pnBLL.filteredList(ncc, tt, fromDateParsed, toDateParsed, fromMoneyParsed, toMoneyParsed);
                 
                 loadData(filterList);
-            } catch (Exception err) {
+            } catch (NumberFormatException err) {
                 err.printStackTrace();
             }
                 
@@ -278,6 +298,15 @@ public class PhieuNhapPanel extends JPanel implements ItemListener, MouseListene
             if(tt != null){
                 ttField.getTxtInput().setText(tt.getTenThuThu());
             }
+        } else if(obj == this.btnReset){
+            nccField.getTxtInput().setText("");
+            ttField.getTxtInput().setText("");
+            fromDate.setDate(null);
+            toDate.setDate(null);
+            fromMoney.getTxtInput().setText("");
+            toMoney.getTxtInput().setText("");
+            
+            loadData(DSPhieuNhap.getDsPN());
         }
     }
 
