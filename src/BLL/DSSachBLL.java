@@ -33,7 +33,7 @@ public class DSSachBLL {
                 showMess("Mã tác giả không được trống");
                 return;
             }
-            String themMS = "^S\\d{3,}";
+            String themMS = "^SACH\\d{3,}";
             if(!s.getMaSach().matches(themMS))
             {
                 showMess("Mã sách không hợp lệ. Ví dụ:S001");

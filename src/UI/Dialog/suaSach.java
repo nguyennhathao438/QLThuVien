@@ -31,18 +31,6 @@ public class suaSach extends javax.swing.JDialog {
         donGia.setText(String.valueOf(sach.getDonGia()));
     }
 
-    private void comfirmActionPerformed(java.awt.event.ActionEvent evt)
-    {
-        Sach s = new Sach();
-        s.setMaSach(maSach);
-        s.setTenSach(tenS.getText());
-        s.setNamXuatBan(Integer.parseInt(namXB.getText()));
-        s.setSoLuong(Integer.parseInt(soLuong.getText()));
-        s.setDonGia(Double.parseDouble(donGia.getText()));
-        pn.getSachBLL().suaSach(s);
-        pn.loadData(pn.getSachBLL().layAllSach());
-        this.dispose();
-    }
   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -82,6 +70,11 @@ public class suaSach extends javax.swing.JDialog {
         jLabel5.setText("Đơn giá:");
 
         confirm.setText("Xác nhận");
+        confirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -156,6 +149,18 @@ public class suaSach extends javax.swing.JDialog {
     private void maSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maSActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_maSActionPerformed
+
+    private void confirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmActionPerformed
+         Sach s = new Sach();
+        s.setMaSach(maSach);
+        s.setTenSach(tenS.getText());
+        s.setNamXuatBan(Integer.parseInt(namXB.getText()));
+        s.setSoLuong(Integer.parseInt(soLuong.getText()));
+        s.setDonGia(Double.parseDouble(donGia.getText()));
+        pn.getSachBLL().suaSach(s);
+        pn.loadData(pn.getSachBLL().layAllSach());
+        this.dispose();
+    }//GEN-LAST:event_confirmActionPerformed
 
     /**
      * @param args the command line arguments
