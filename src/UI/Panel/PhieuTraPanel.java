@@ -124,14 +124,15 @@ public class PhieuTraPanel extends JPanel implements ItemListener,MouseListener{
     public void loadData(ArrayList<PhieuTra> dspt){
         dtm.setRowCount(0);   
         for(PhieuTra a: dspt){
-            if(a.getTrangThai()!= 0)
+            if(a.getTrangThai()!= 0){
              dtm.addRow(new Object[]{
                 a.getMaPhieuTra(),
                  a.getMaPhieuMuon(),
                  a.getNgayThucTra(),
                  ttbll.getTenThuThuByMa(a.getMaThuThu()),
                  getPhuThu(a.getMaPhuThu())
-            });              
+            }); 
+            }             
         }
     }
     
