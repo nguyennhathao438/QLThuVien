@@ -38,8 +38,8 @@ public class TheLoaiDAL {
         return dsTL;
     }
     
-    public int themTheLoai(TheLoai tl)
-    {
-        int kq = -1;
-    }
+//    public int themTheLoai(TheLoai tl)
+//    {
+//        int kq = -1;
+//    }
 }

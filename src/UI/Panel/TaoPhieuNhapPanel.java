@@ -6,7 +6,11 @@ package UI.Panel;
 
 import BLL.DSNhaCungCapBLL;
 import BLL.DSPhieuNhap;
+import BLL.DSSachBLL;
+import BLL.DSTacGiaBLL;
+import BLL.DSThuThuBLL;
 import MODEL.CTPhieuNhap;
+import MODEL.PhieuNhap;
 import Model.Sach;
 import UI.Component.InputField;
 import UI.Component.PlaceHolderInput;
@@ -21,11 +25,18 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.security.Timestamp;
+import java.text.NumberFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Locale;
+import javax.management.StringValueExp;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -48,11 +59,15 @@ public class TaoPhieuNhapPanel extends JPanel{
     private InputField txtMaPhieu,txtThuThu;
     private PlaceHolderInput txtSearch;
     private SelectInput cboNCC;
-    MainFrame m;
-    ArrayList<Sach> ds = new ArrayList<>(); // sau khi co db thi bo
+    MainFrame m;    
     private JPanel pnBtnAdd;
     private JPanel pnBtnDelAndUpdate;
     private ArrayList<CTPhieuNhap> dsCTPN;
+    private DSSachBLL sachBLL = new DSSachBLL();
+    private DSTacGiaBLL tacgiaBLL = new DSTacGiaBLL();
+    private static boolean mark = false;
+    private static double money = 0;
+    private DSPhieuNhap pnBLL = new DSPhieuNhap();
     public TaoPhieuNhapPanel(MainFrame m){
 //        this.setBackground(Color.decode("#ccc"));
         this.m = m;
@@ -92,7 +107,7 @@ public class TaoPhieuNhapPanel extends JPanel{
             @Override
             public void keyReleased(KeyEvent e){
                 String text = txtSearch.getText().trim();
-                loadDataTblSach(searchByMaAndName(text));
+                loadDataTblSach(sachBLL.searchByMaAndName(text));
                 
             }
         });
@@ -141,9 +156,7 @@ public class TaoPhieuNhapPanel extends JPanel{
         }
         scrollSachTable = new JScrollPane(sachTable);
         pnSachTable.add(scrollSachTable, BorderLayout.CENTER);               
-        ds.add(new Sach("SACH001", "Triết Học Hiện Đại", 2015, 10, 250000,"1"));
-        ds.add(new Sach("SACH002", "Văn Học Việt Nam", 2018, 5, 150000,"1"));
-        loadDataTblSach(ds);
+        loadDataTblSach(DSSachBLL.getDsSach());
 
         pn2 = new JPanel();
         pn2.setBackground(Color.white);
@@ -235,6 +248,12 @@ public class TaoPhieuNhapPanel extends JPanel{
         btnUpdate.setBorder(null);
         btnUpdate.setPreferredSize(new Dimension(130, 35));
         btnUpdate.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnUpdate.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e){
+                btnUpdateClicked(e);
+            }
+        });
         pnBtnDelAndUpdate.add(btnUpdate);
         
         btnDel = new JButton("Xóa");
@@ -245,6 +264,12 @@ public class TaoPhieuNhapPanel extends JPanel{
         btnDel.setBorder(null);
         btnDel.setPreferredSize(new Dimension(130, 35));
         btnDel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnDel.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e){
+                btnDeleteClicked(e);
+            }
+        });
         pnBtnDelAndUpdate.add(btnDel);
         
         String[] colnamePhieuTable = {"Mã sách","Tên sách", "Đơn giá","Số lượng","Thành tiền"};
@@ -263,7 +288,12 @@ public class TaoPhieuNhapPanel extends JPanel{
         phieuTable = new JTable();
         phieuTable.setFillsViewportHeight(true);      
         phieuTable.setModel(phieuTableModel);
-        
+        phieuTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e){
+                tablePhieuClicked(e);
+            }           
+        });
         JTableHeader header = phieuTable.getTableHeader();
         header.setReorderingAllowed(false);
         header.setResizingAllowed(false);
@@ -296,6 +326,7 @@ public class TaoPhieuNhapPanel extends JPanel{
         lbBack.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e){
+                resetStaticVariable();
                 m.setRightPanel(new PhieuNhapPanel(m));
             }
         });
@@ -310,7 +341,7 @@ public class TaoPhieuNhapPanel extends JPanel{
         cboNCC = new SelectInput("Nhà cung cấp", arrTenNCC, 200, 60);
         right.add(cboNCC);
         
-        lbTotal = new InputField("TỔNG TIỀN:", "10.000.000D",210, 50);
+        lbTotal = new InputField("TỔNG TIỀN:", "0Đ",210, 50);
 //        lbTotal.setBorder(BorderFactory.createLineBorder(Color.yellow));
         lbTotal.getLbContent().setFont(new Font("Segoe UI", Font.BOLD, 15));
         lbTotal.getLbContent().setForeground(Color.red);
@@ -330,6 +361,12 @@ public class TaoPhieuNhapPanel extends JPanel{
         btnNhapHang.setBorder(null);
         btnNhapHang.setPreferredSize(new Dimension(210, 35));
         btnNhapHang.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnNhapHang.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e){
+                btnNhapHangClicked(e);
+            }
+        });
         pnBtnNhapHang.add(btnNhapHang);
         right.add(pnBtnNhapHang);
         
@@ -337,17 +374,26 @@ public class TaoPhieuNhapPanel extends JPanel{
         this.add(right, BorderLayout.EAST);
     }
     
-    public void actBtn(String type){
-        boolean check1 = type.equals("add");
-        boolean check2 = type.equals("update");
-        btnAdd.setEnabled(check1);
-        btnUpdate.setEnabled(check2);
-        btnDel.setEnabled(check2);
-        if(check1){
-            btnUpdate.setBackground(Color.lightGray);
-            btnDel.setBackground(Color.lightGray);
+        public void actBtn(String type) {
+        boolean isAdd = type.equals("add");
+        boolean isUpdate = type.equals("update");
+
+        btnAdd.setEnabled(isAdd);
+        btnUpdate.setEnabled(isUpdate);
+        btnDel.setEnabled(isUpdate);
+        
+        btnAdd.setBackground(Color.lightGray);
+        btnUpdate.setBackground(Color.lightGray);
+        btnDel.setBackground(Color.lightGray);
+        
+        if (isAdd) {
+            btnAdd.setBackground(Color.decode("#00994C")); 
+        } else if (isUpdate) {
+            btnUpdate.setBackground(Color.ORANGE);
+            btnDel.setBackground(Color.RED);      
         }
     }
+
     public void loadDataTblSach(ArrayList<Sach> dsSach){
         sachTableModel.setRowCount(0);
         if(!dsSach.isEmpty()){
@@ -362,38 +408,39 @@ public class TaoPhieuNhapPanel extends JPanel{
         }
     }
     
-    public ArrayList<Sach> searchByMaAndName(String text){
-        text = text.toLowerCase();
-        ArrayList<Sach> result = new ArrayList<>();
-        for(Sach s : ds){
-            if(s.getMaSach().toLowerCase().contains(text) || s.getTenSach().toLowerCase().contains(text)){
-                result.add(s);
-            }
-        }
-        return result;
-    }
     
     private void tableSachClicked(MouseEvent e){
         int index = this.sachTable.getSelectedRow();
         if(index >= 0){
+            resetForm();
+            String ma = (String)sachTable.getValueAt(index, 0);
             actBtn("add");
-            Sach s = ds.get(index);
-            masach.getTxtInput().setText(s.getMaSach());
-            tensach.getTxtInput().setText(s.getTenSach());
-//            theloai.getTxtInput().setText(sachBLL.getTheLoaiByMa(s.getMaSach()));
-//            tacgia.getTxtInput().setText(sachBLL.getTacGiaByMa(s.getMaSach()));
-
+            Sach s = DSSachBLL.getDsSach().get(sachBLL.getIndexbyMaSach(ma));            
+            setForm(s);
+        }
+    }
+    private void tablePhieuClicked(MouseEvent e){
+        int index = this.phieuTable.getSelectedRow();
+        if(index >= 0){
+            actBtn("update");
+            String ma = (String)sachTable.getValueAt(index, 0);            
+            Sach s = DSSachBLL.getDsSach().get(sachBLL.getIndexbyMaSach(ma));            
+            setForm(s);
+            gianhap.getTxtInput().setText(String.valueOf(dsCTPN.get(index).getDonGia()));
+            soluong.getTxtInput().setText(String.valueOf(dsCTPN.get(index).getSoLuong()));
         }
     }
     public boolean checkInfoNhapHang(){
         if(Validation.isEmpty(txtMaPhieu.getTxtInput().getText())){
             JOptionPane.showMessageDialog(null, "Nhập mã phiếu nhập trước khi thêm", "THÔNG BÁO", JOptionPane.WARNING_MESSAGE);
             return false;
-        }else{
+        }else if(!mark){
             boolean check = DSPhieuNhap.checkValidMaPN(txtMaPhieu.getTxtInput().getText());
             if(!check){
                 return check;
             }
+            txtMaPhieu.getTxtInput().setEditable(false);
+            mark = true;
         }
         
         if(Validation.isEmpty(gianhap.getTxtInput().getText())){
@@ -414,12 +461,133 @@ public class TaoPhieuNhapPanel extends JPanel{
         }
         return true;
     }        
-//    public CTPhieuNhap getInfoSach(){
-//        
-//    }
-    private void BtnAddClicked(MouseEvent e){
-        if(checkInfoNhapHang()){
-            
+    public CTPhieuNhap getInfoCTPhieu(){
+        String maPN = txtMaPhieu.getTxtInput().getText();
+        String maSach = masach.getTxtInput().getText();
+        int quantity = Integer.valueOf(soluong.getTxtInput().getText());
+        double dongia = Double.valueOf(gianhap.getTxtInput().getText());
+        return new CTPhieuNhap(maPN, maSach, quantity, dongia);
+    }
+    private void loadTableCTPN(ArrayList<CTPhieuNhap> dsCT){
+        phieuTableModel.setRowCount(0);
+        for(CTPhieuNhap ctpn : dsCT){
+//            double thanhtien = ctpn.getThanhTien();
+//            updateTotal(thanhtien);
+            phieuTableModel.addRow(new Object[]{
+                ctpn.getMaSach(),
+                sachBLL.getSachbyMa(ctpn.getMaSach()),
+                ctpn.getDonGia(),
+                ctpn.getSoLuong(),
+                ctpn.getThanhTien()
+            });
         }
-    } 
+    }
+    private void resetStaticVariable(){
+        money = 0;
+        mark = false;
+    }
+    private void setForm(Sach s){
+        masach.getTxtInput().setText(s.getMaSach());
+        tensach.getTxtInput().setText(s.getTenSach());
+//      theloai.getTxtInput().setText(sachBLL.getTheLoaiByMa(s.getMaSach()));
+        theloai.getTxtInput().setText(s.getMaTheLoai());
+        tacgia.getTxtInput().setText(tacgiaBLL.getTenTacGiabyMa(s.getMaTacGia()));
+    }
+    private void updateTotal(double tien,String type){
+        switch (type) {
+            case "add":
+                money += tien;
+                break;
+            case "delete":
+                money -= tien;
+                break;            
+        }
+        NumberFormat formatter = NumberFormat.getNumberInstance(new Locale("vi", "VN"));
+        formatter.setMinimumFractionDigits(0); // hien thi it nhat 22 chu so thap phan
+        formatter.setMaximumFractionDigits(0); // hien thi toi da 2 chu so thap phan
+
+        String formattedMoney = formatter.format(money);
+        lbTotal.getLbData().setText(formattedMoney + "Đ");
+    }
+    private void resetForm(){
+        masach.getTxtInput().setText("");
+        tensach.getTxtInput().setText("");
+        theloai.getTxtInput().setText("");
+        tacgia.getTxtInput().setText("");
+        gianhap.getTxtInput().setText("");
+        soluong.getTxtInput().setText("");
+    }
+    private void BtnAddClicked(MouseEvent e){
+        int index = sachTable.getSelectedRow();
+        if(index == -1){
+            JOptionPane.showMessageDialog(null, "Chọn sách cần nhập", "THÔNG BÁO", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        if(checkInfoNhapHang()){
+            btnAdd.setEnabled(false);
+            sachTable.clearSelection();
+            CTPhieuNhap ctpn = getInfoCTPhieu();
+            double thanhtien = ctpn.getThanhTien();
+            updateTotal(thanhtien,"add");
+            dsCTPN.add(ctpn);
+            loadTableCTPN(dsCTPN);
+            resetForm();
+            Timer timer = new Timer(300, new ActionListener() {
+                public void actionPerformed(ActionEvent evt) {
+                    btnAdd.setEnabled(true); // Mở lại nút sau 300ms
+                }
+            });
+            timer.setRepeats(false); // Chạy 1 lần duy nhất
+            timer.start(); 
+        }
+    }     
+    private void btnUpdateClicked(MouseEvent e){
+        int index = phieuTable.getSelectedRow();
+        if(index != -1){
+            money -= dsCTPN.get(index).getThanhTien();
+            CTPhieuNhap ctpn = getInfoCTPhieu();
+            dsCTPN.set(index, ctpn);
+            updateTotal(ctpn.getThanhTien(), "add");
+            loadTableCTPN(dsCTPN);
+            resetForm();
+        }else{
+            JOptionPane.showMessageDialog(null, "Chọn chi tiết phiếu cần sửa", "THÔNG BÁO", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+    }    
+    private void btnDeleteClicked(MouseEvent e){
+        int index = phieuTable.getSelectedRow();
+        if(index != -1){
+            double thanhtien = dsCTPN.get(index).getThanhTien();
+            updateTotal(thanhtien,"delete");
+            dsCTPN.remove(index);
+            phieuTableModel.removeRow(index);            
+            resetForm();                        
+            System.out.println(dsCTPN.size());
+        }else{
+            JOptionPane.showMessageDialog(null, "Chọn chi tiết phiếu cần xóa", "THÔNG BÁO", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+    }
+    private void btnNhapHangClicked(MouseEvent e){
+        if(dsCTPN.isEmpty()){
+             JOptionPane.showMessageDialog(this, "Chưa có sản phẩm nào!", "Cảnh báo !", JOptionPane.ERROR_MESSAGE);
+        }else{
+            int input = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn tạo phiếu nhập!", "Xác nhận tạo phiếu", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            if(input == JOptionPane.OK_OPTION){
+                String maPNhap = txtMaPhieu.getTxtInput().getText();
+                String maThuThu = DSThuThuBLL.getMaThuThuByTen(txtThuThu.getTxtInput().getText());
+                LocalDateTime ngaytao = LocalDateTime.now();
+                double tongtien = TaoPhieuNhapPanel.money;
+                PhieuNhap pn = new PhieuNhap(maPNhap, ngaytao, tongtien, maPNhap, maThuThu);
+                boolean result = pnBLL.add(pn, dsCTPN);
+                if(result){
+                    JOptionPane.showMessageDialog(this, "Nhập hàng thành công !");                    
+                    m.setRightPanel(new PhieuNhapPanel(m));
+                } else {
+                    JOptionPane.showMessageDialog(this, "Nhập hàng không thành công !", "Cảnh báo !", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+    }
 }

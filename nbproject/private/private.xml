@@ -5,7 +5,7 @@
             <url>src/BLL/DSSachBLL.java</url>
             <bookmark id="2">
                 <name/>
-                <line>21</line>
+                <line>23</line>
                 <key/>
             </bookmark>
         </file>
@@ -15,15 +15,13 @@
             <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/UI/Panel/PhieuNhapPanel.java</file>
             <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/BLL/DSPhieuNhap.java</file>
             <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/UI/MainFrame.java</file>
-            <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/BLL/DSSachBLL.java</file>
+            <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/BLL/DSNhaCungCapBLL.java</file>
+            <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/DAL/PhieuNhapDAL.java</file>
             <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/MODEL/CTPhieuNhap.java</file>
             <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/UI/Panel/NhaCungCapPanel.java</file>
-            <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/MODEL/Sach.java</file>
-            <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/MODEL/SachNhap.java</file>
+            <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/BLL/DSThuThuBLL.java</file>
             <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/UI/Panel/TaoPhieuNhapPanel.java</file>
-            <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/UI/Component/Validation.java</file>
-            <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/DAL/KetNoiCSDL.java</file>
-
+            <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/DAL/CTPhieuNhapDAL.java</file>
         </group>
     </open-files>
 </project-private>

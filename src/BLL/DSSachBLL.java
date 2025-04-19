@@ -13,7 +13,9 @@ public class DSSachBLL {
         
         public DSSachBLL()
         {
-            this.dsSach = sachDAL.layDSSach();
+            if(dsSach.size() == 0){
+                this.dsSach = sachDAL.layDSSach();
+            }
         }
         
         public static ArrayList<Sach> layAllSach()
@@ -189,4 +191,18 @@ public class DSSachBLL {
            }
            return "";
        }
+
+        public static ArrayList<Sach> getDsSach() {
+            return dsSach;
+        }
+       public ArrayList<Sach> searchByMaAndName(String text){
+        text = text.toLowerCase();
+        ArrayList<Sach> result = new ArrayList<>();
+        for(Sach s : dsSach){
+            if(s.getMaSach().toLowerCase().contains(text) || s.getTenSach().toLowerCase().contains(text)){
+                result.add(s);
+            }
+        }
+        return result;
+    }
 }

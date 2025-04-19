@@ -31,6 +31,8 @@ public class SachDAL {
                 s.setSoLuong(rs.getInt("soLuong"));
                 s.setDonGia(rs.getDouble("donGia"));
                 s.setTrangThai(rs.getInt("trangThai"));
+                s.setMaTheLoai(rs.getString("maTheLoai"));
+                s.setMaTacGia(rs.getString("maTacGia"));
                 dsSach.add(s);
             }
         } catch (SQLException ex) {
