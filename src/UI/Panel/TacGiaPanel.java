@@ -148,7 +148,7 @@ public class TacGiaPanel extends JPanel implements ItemListener,MouseListener {
         }else{
             Window parentWindow = SwingUtilities.getWindowAncestor(this);
             String matg=(String) bangTacGia.getValueAt(row, 0);
-            new suaTacGia((Frame) parentWindow,true,matg,this).setVisible(true);
+                new suaTacGia((Frame) parentWindow,true,matg,this).setVisible(true);
         }
         }else if(e.getSource() == mainFunc.getLstBtn().get("delete")){
             int row = bangTacGia.getSelectedRow();
