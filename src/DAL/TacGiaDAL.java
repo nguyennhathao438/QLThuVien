@@ -98,7 +98,6 @@ public class TacGiaDAL {
             tg.setSoDienThoai(rs.getString("soDienThoai"));
             tg.setNamSinh(rs.getInt("namSinh"));
             tg.setTrangThai(rs.getInt("trangThai"));
-  
             }
             
         } catch (SQLServerException ex) {
