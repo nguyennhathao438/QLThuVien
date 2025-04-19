@@ -4,6 +4,8 @@ package BLL;
 import DAL.PhieuTraDAL;
 import MODEL.CTPhat;
 import MODEL.PhieuTra;
+import MODEL.SachTra;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -14,6 +16,7 @@ public class DSPhieuTraBLL {
     PhieuTraDAL ptdal=new PhieuTraDAL();
     static ArrayList<PhieuTra> dspt =new ArrayList();
     DSThuThuBLL ttbll = new DSThuThuBLL();
+    ArrayList<SachTra> dsst=new ArrayList();
     public DSPhieuTraBLL(){ 
         this.dspt = ptdal.layDSPTra();
     }
@@ -102,5 +105,34 @@ public class DSPhieuTraBLL {
                 
         return dssearch;
     }
-
+    public ArrayList<SachTra> getSachChuaTra(String mapm){ 
+        this.dsst = ptdal.laySachChuaTra(mapm);
+        return dsst;
+    }
+    public boolean taoPhieuTra(PhieuTra pt,ArrayList<SachTra> dsdt,ArrayList<SachTra> dsct){ 
+        String regex="^PTRA\\d{3,}";
+        if(!pt.getMaPhieuTra().matches(regex)){ 
+            showMess("Mã phiếu trả không hợp lệ Vd:PRA014");
+            return false;
+        }
+        if(dsdt.size()==0){ 
+            showMess("Không tìm thấy sách trả");
+            return false;
+        }
+        if(dsct.size()==0){ 
+            showMess("Không tìm thấy sách chưa trả");
+            return false ;
+        }
+        try {
+            if(ptdal.taoPhieuTra(pt, dsdt, dsct)>0){
+                showMess("Tạo phiếu trả thành công");
+                
+            }else{ 
+                showMess("Tạo phiếu trả thất bại");
+            }
+        } catch (SQLServerException ex) {
+            Logger.getLogger(DSPhieuTraBLL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
+    }
 }

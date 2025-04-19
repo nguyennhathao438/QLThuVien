@@ -4,6 +4,7 @@ package DAL;
 import MODEL.CTPhat;
 import MODEL.PhieuTra;
 import MODEL.QuyDinh;
+import MODEL.SachTra;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.*;
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class PhieuTraDAL {
             pt.setMaPhieuTra(rs.getString("maPTra"));
             pt.setNgayThucTra(rs.getDate("ngayThucTra"));
             pt.setTrangThai(rs.getInt("trangThai"));
+            pt.setMaThuThu(rs.getString("maThuThu"));
             pt.setMaPhuThu(rs.getString("maPhuThu"));
             dspt.add(pt);
         }
@@ -132,5 +134,71 @@ public class PhieuTraDAL {
             Logger.getLogger(PhieuTraDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
         return kq ;
+    }
+    public ArrayList<SachTra> laySachChuaTra(String mapm){ 
+        ArrayList<SachTra> dsst = new ArrayList();
+        String query ="SELECT maSach, soLuongChuaTra  FROM CTPHIEUMUON WHERE maPhieuMuon= ? ";
+        try(Connection conn = kn.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(query);
+                ){ 
+            stmt.setString(1,mapm);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){ 
+                SachTra st = new SachTra();
+                st.setMaSach(rs.getString("maSach"));
+                st.setSoLuongChuaTra(rs.getInt("soLuongChuaTra"));
+                dsst.add(st);
+            }
+        } catch (SQLServerException ex) {
+             Logger.getLogger(PhieuTraDAL.class.getName()).log(Level.SEVERE, null, ex);
+         } catch (SQLException ex) {
+             Logger.getLogger(PhieuTraDAL.class.getName()).log(Level.SEVERE, null, ex);
+         }
+        return dsst;
+        
+    }
+    public int taoPhieuTra(PhieuTra pt,ArrayList<SachTra> dsdt,ArrayList<SachTra> dsct) throws SQLServerException{ 
+        int kt = -1;
+        String qcttra="INSERT INTO CTPHIEUTRA (maPhieuTra,maSach,soLuong) VALUES (?,?,?)";
+        String qctmuon="UPDATE CTPHIEUMUON SET soLuongChuaTra =? WHERE maSach = ? AND maPhieuMuon = ? ";
+        String qtra ="INSERT INTO PHIEUTRA (maPTra,ngayThucTra,maPMuon,maThuThu,trangThai) VALUES (?,?,?,?,1)";
+        Connection conn = kn.getConnection();
+        try( PreparedStatement pcttra = conn.prepareStatement(qcttra);
+                PreparedStatement pctmuon = conn.prepareStatement(qctmuon);
+                PreparedStatement ptra = conn.prepareStatement(qtra)){ 
+            conn.setAutoCommit(false);
+            //Sách chưa trả trong CTPHIEUMUON
+            for(SachTra a:dsct){ 
+                pctmuon.setInt(1,a.getSoLuongChuaTra());
+                pctmuon.setString(2,a.getMaSach());
+                pctmuon.setString(3,pt.getMaPhieuMuon());
+                pctmuon.executeUpdate();
+            }
+            //Phiếu trả
+            ptra.setString(1,pt.getMaPhieuTra());
+            ptra.setDate(2, new java.sql.Date(pt.getNgayThucTra().getTime()) );
+            ptra.setString(3,pt.getMaPhieuMuon());
+            ptra.setString(4,pt.getMaThuThu());
+            ptra.executeUpdate();
+            //Chi tiết trả
+            for(SachTra a:dsdt){ 
+                pcttra.setString(1,pt.getMaPhieuTra());
+                 pcttra.setString(2,a.getMaSach());
+                 pcttra.setInt(3,a.getSoLuongChuaTra());
+                 pcttra.executeUpdate();
+            }
+            conn.commit();
+            kt = 1;
+            
+        } catch (Exception e) {
+            try {
+                conn.rollback();
+                conn.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(PhieuTraDAL.class.getName()).log(Level.SEVERE, null, ex);
+            }
+             e.printStackTrace();
+         } 
+        return kt;
     }
 }

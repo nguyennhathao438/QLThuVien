@@ -84,6 +84,7 @@ public class DSNhaCungCapBLL {
             }
             return "";
         }
+        
         public boolean checkValidationForm(NhaCungCap ncc){
             if(ncc.getMaNCC().isEmpty()){
                 JOptionPane.showMessageDialog(null, "Mã không được rỗng!", "THÔNG BÁO", JOptionPane.WARNING_MESSAGE);
@@ -106,21 +107,23 @@ public class DSNhaCungCapBLL {
         public boolean checkValidationData(NhaCungCap ncc){
             switch (checkMaNCC(ncc.getMaNCC(), idArray)) {
                 case 2:
-                    JOptionPane.showConfirmDialog(null, "Sai định dạng!(Ví dụ: NCC101)", "THÔNG BÁO", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Sai định dạng!(Ví dụ: NCC101)", "THÔNG BÁO", JOptionPane.WARNING_MESSAGE);
                     return false;                    
                 case 3:
-                    JOptionPane.showConfirmDialog(null, "Mã đã tồn tại!", "THÔNG BÁO", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Mã đã tồn tại!", "THÔNG BÁO", JOptionPane.WARNING_MESSAGE);
                     return false;                                
             }
             
             return true;
         }
+        
         public boolean validationPhone(String phone){
             // Xóa các dấu cách, dấu gạch hoặc dấu chấm (nếu có)
             phone = phone.replaceAll("[\\s\\-\\.]", "");
             String regex = "^0\\d{9}$";
             return phone.matches(regex);
         }
+        
         public int checkMaNCC(String ma, ArrayList<String> existingCode){
             String regex = "^NCC\\d{3,}"; // ma co it nhat 3 chu so
             if(!ma.matches(regex)){
@@ -131,6 +134,7 @@ public class DSNhaCungCapBLL {
             }
             return 1;
         }
+        
         public ArrayList<NhaCungCap> search(String text,String type){
             ArrayList<NhaCungCap> result = new ArrayList<>();
             text = text.toLowerCase();
@@ -172,6 +176,15 @@ public class DSNhaCungCapBLL {
                     throw new AssertionError();
             }
             return result;
+        }
+        
+        public static String[] getArrTenNCC(){
+            int size = dsNCC.size();
+            String[] arr = new String[size];
+            for(int i = 0; i < size; i++){
+                arr[i] = dsNCC.get(i).getTenNCC();
+            }
+            return arr;
         }
         public static ArrayList<NhaCungCap> getdsNCC(){
 		return dsNCC;

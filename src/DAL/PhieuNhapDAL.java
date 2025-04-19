@@ -87,6 +87,5 @@ public class PhieuNhapDAL {
             System.err.println("Loi khi xoa phieu nhap!");
             return false;
         }
-        
     }
 }
