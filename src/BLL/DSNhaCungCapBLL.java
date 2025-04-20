@@ -186,6 +186,14 @@ public class DSNhaCungCapBLL {
             }
             return arr;
         }
+        public static String getMaNCCByTen(String ten){
+            for(NhaCungCap ncc : dsNCC){
+                if(ten.equals(ncc.getTenNCC())){
+                    return ncc.getMaNCC();
+                }
+            }
+            return null;
+        }
         public static ArrayList<NhaCungCap> getdsNCC(){
 		return dsNCC;
 	}

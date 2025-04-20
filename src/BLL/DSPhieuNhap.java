@@ -3,8 +3,10 @@ package BLL;
 
 import DAL.CTPhieuNhapDAL;
 import DAL.PhieuNhapDAL;
+import DAL.SachDAL;
 import MODEL.CTPhieuNhap;
 import MODEL.PhieuNhap;
+import Model.Sach;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -16,7 +18,7 @@ public class DSPhieuNhap {
     private PhieuNhapDAL pnDAL = new PhieuNhapDAL();
     private DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
     private CTPhieuNhapDAL ctpnDAL = new CTPhieuNhapDAL();
-    
+    private SachDAL sachDAL = new SachDAL();
     public DSPhieuNhap(){
         if(dsPN.isEmpty()){
            this.dsPN = pnDAL.selectAll();
@@ -28,8 +30,24 @@ public class DSPhieuNhap {
     public boolean add(PhieuNhap pn, ArrayList<CTPhieuNhap> dsCTPN){
         boolean check = pnDAL.insert(pn);
         if(check){
+            dsPN.add(pn);
             check = ctpnDAL.insert(dsCTPN);
             
+        }
+        return check;
+    }
+    
+    public boolean updateSoLuongSach(ArrayList<CTPhieuNhap> dsCTPN){
+        boolean check = sachDAL.updateSoLuongSach(dsCTPN);
+        if(check){
+            for(CTPhieuNhap ctpn : dsCTPN){
+                for(Sach s : DSSachBLL.getDsSach()){
+                    if(s.getMaSach().equals(ctpn.getMaSach())){
+                        s.setSoLuong(s.getSoLuong() + ctpn.getSoLuong());
+                        break;
+                    }
+                }
+            }
         }
         return check;
     }
@@ -69,7 +87,7 @@ public class DSPhieuNhap {
                         }
                     }
                     break;
-                case "Tên thủ thư":
+                case "Thủ thư":
                     for(int i = 0; i < dsPN.size(); i++){
                         if(DSThuThuBLL.getTenThuThuByMa(dsPN.get(i).getMaThuThu()).toLowerCase().contains(text)){
                             result.add(dsPN.get(i));
@@ -128,10 +146,10 @@ public class DSPhieuNhap {
             }
 
             // Kiểm tra số tiền
-            if (fromMoney != null && pn.getTongTien() <= fromMoney) {
+            if (fromMoney != null && pn.getTongTien() < fromMoney) {
                 matches = false;
             }
-            if (toMoney != null && pn.getTongTien() >= toMoney) {
+            if (toMoney != null && pn.getTongTien() > toMoney) {
                 matches = false;
             }
 

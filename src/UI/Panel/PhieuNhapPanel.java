@@ -196,17 +196,19 @@ public class PhieuNhapPanel extends JPanel implements ItemListener, MouseListene
     }
     public void loadData(ArrayList<PhieuNhap> dsPN){
         tableModel.setRowCount(0);       
-        for(int i = 0; i < dsPN.size(); i++){
-            PhieuNhap pn = dsPN.get(i);
-            String tenNCC = DSNhaCungCapBLL.getTenNCCByMa(pn.getMaNCC());
-            String tenTT = DSThuThuBLL.getTenThuThuByMa(pn.getMaThuThu());
-            tableModel.addRow(new Object[]{
-                pn.getMaPhieuNhap(),    
-                !tenNCC.equals("") ? tenNCC : null,
-                !tenTT.equals("") ? tenTT : null,
-                pn.getThoiGian().format(formatTime),
-                pn.getTongTien()
-            });
+        if(dsPN != null){
+            for(int i = 0; i < dsPN.size(); i++){
+                PhieuNhap pn = dsPN.get(i);
+                String tenNCC = DSNhaCungCapBLL.getTenNCCByMa(pn.getMaNCC());
+                String tenTT = DSThuThuBLL.getTenThuThuByMa(pn.getMaThuThu());
+                tableModel.addRow(new Object[]{
+                    pn.getMaPhieuNhap(),    
+                    !tenNCC.equals("") ? tenNCC : null,
+                    !tenTT.equals("") ? tenTT : null,
+                    pn.getThoiGian().format(formatTime),
+                    pn.getTongTien()
+                });
+            }
         }
     }
 

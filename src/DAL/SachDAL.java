@@ -4,6 +4,7 @@
  */
 package DAL;
 
+import MODEL.CTPhieuNhap;
 import Model.Sach;
 import java.util.ArrayList;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
@@ -120,5 +121,26 @@ public class SachDAL {
             Logger.getLogger(SachDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
         return s;
+    }
+    
+    public boolean updateSoLuongSach(ArrayList<CTPhieuNhap> ctpn){
+        String query = "UPDATE SACH SET soLuong = soLuong + ? WHERE maSach = ?";
+        for(int i = 0; i < ctpn.size(); i++){
+            try (Connection conn = kn.getConnection();
+                 PreparedStatement prs = conn.prepareStatement(query)){
+                
+                prs.setInt(1, ctpn.get(i).getSoLuong());
+                prs.setString(2, ctpn.get(i).getMaSach());
+                
+                if(prs.executeUpdate() <= 0){
+                    return false;
+                }
+                
+            } catch (Exception e) {
+                System.err.println("Khong the cap nhat so luong sach");
+                return false;
+            }
+        }
+        return true;
     }
 }

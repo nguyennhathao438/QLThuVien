@@ -398,12 +398,14 @@ public class TaoPhieuNhapPanel extends JPanel{
         sachTableModel.setRowCount(0);
         if(!dsSach.isEmpty()){
                 for(Sach s : dsSach){
-                sachTableModel.addRow(new Object[]{
+                if(s.getTrangThai() != 0){
+                    sachTableModel.addRow(new Object[]{
                     s.getMaSach(),
                     s.getTenSach(),
                     s.getSoLuong()
 
                 });
+                }
             }
         }
     }
@@ -577,11 +579,14 @@ public class TaoPhieuNhapPanel extends JPanel{
             if(input == JOptionPane.OK_OPTION){
                 String maPNhap = txtMaPhieu.getTxtInput().getText();
                 String maThuThu = DSThuThuBLL.getMaThuThuByTen(txtThuThu.getTxtInput().getText());
+                String maNCC = DSNhaCungCapBLL.getMaNCCByTen((String)cboNCC.getCboChoose().getSelectedItem());
                 LocalDateTime ngaytao = LocalDateTime.now();
                 double tongtien = TaoPhieuNhapPanel.money;
-                PhieuNhap pn = new PhieuNhap(maPNhap, ngaytao, tongtien, maPNhap, maThuThu);
+                PhieuNhap pn = new PhieuNhap(maPNhap, ngaytao, tongtien, maNCC, maThuThu);
                 boolean result = pnBLL.add(pn, dsCTPN);
-                if(result){
+                boolean resultUpdateSoLuongSach = pnBLL.updateSoLuongSach(dsCTPN);
+                if(result && resultUpdateSoLuongSach){
+                    resetStaticVariable();
                     JOptionPane.showMessageDialog(this, "Nhập hàng thành công !");                    
                     m.setRightPanel(new PhieuNhapPanel(m));
                 } else {
