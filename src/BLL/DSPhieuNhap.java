@@ -51,9 +51,9 @@ public class DSPhieuNhap {
         }
         return check;
     }
-//    public boolean update(PhieuNhap pn){
-//        
-//    }
+    public ArrayList<CTPhieuNhap> getCTPN(PhieuNhap pn){
+        return ctpnDAL.selectAll(pn.getMaPhieuNhap());
+    }
 //    public boolean delete(PhieuNhap pn){        
 //    }
         
@@ -159,6 +159,14 @@ public class DSPhieuNhap {
         }
            return result;
     }
+        public PhieuNhap getPNByMa(String ma){
+            for(PhieuNhap pn : dsPN){
+                if(pn.getMaPhieuNhap().equals(ma)){
+                    return pn;
+                }
+            }
+            return null;
+        }        
         
         public boolean validationFilter(String ncc, String tt, LocalDateTime fromDate, LocalDateTime toDate, Double fromMoney, Double toMoney){
            if(fromDate != null && toDate != null && fromDate.isAfter(toDate)){
@@ -207,6 +215,8 @@ public class DSPhieuNhap {
             }
             return result;
         }
+        
+        
         public static ArrayList<PhieuNhap> getDsPN() {
             return dsPN;
         }

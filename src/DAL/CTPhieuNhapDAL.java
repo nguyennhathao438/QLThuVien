@@ -59,4 +59,18 @@ public class CTPhieuNhapDAL {
         }
         return dsCTPN;
     }
+    
+    public boolean delete(String ma){
+        String query = "DELETE FROM CTPHIEUNHAP WHERE maPNhap = ?";
+        try (Connection conn = kn.getConnection();
+             PreparedStatement prs = conn.prepareStatement(query)){
+            
+            prs.setString(1, ma);
+            
+            return prs.executeUpdate() > 0;
+        } catch (Exception e) {
+            System.err.println("Khong the xoa chi tiet phieu nhap");
+            return false;
+        }        
+    }
 }

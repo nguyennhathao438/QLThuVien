@@ -68,6 +68,8 @@ public class TaoPhieuNhapPanel extends JPanel{
     private static boolean mark = false;
     private static double money = 0;
     private DSPhieuNhap pnBLL = new DSPhieuNhap();
+    
+    
     public TaoPhieuNhapPanel(MainFrame m){
 //        this.setBackground(Color.decode("#ccc"));
         this.m = m;
@@ -472,9 +474,7 @@ public class TaoPhieuNhapPanel extends JPanel{
     }
     private void loadTableCTPN(ArrayList<CTPhieuNhap> dsCT){
         phieuTableModel.setRowCount(0);
-        for(CTPhieuNhap ctpn : dsCT){
-//            double thanhtien = ctpn.getThanhTien();
-//            updateTotal(thanhtien);
+        for(CTPhieuNhap ctpn : dsCT){           
             phieuTableModel.addRow(new Object[]{
                 ctpn.getMaSach(),
                 sachBLL.getSachbyMa(ctpn.getMaSach()),
