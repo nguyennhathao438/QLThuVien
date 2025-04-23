@@ -2,6 +2,7 @@
 package DAL;
 
 import MODEL.CTPhat;
+import MODEL.CTPhieuTra;
 import MODEL.PhieuTra;
 import MODEL.QuyDinh;
 import MODEL.SachTra;
@@ -146,7 +147,7 @@ public class PhieuTraDAL {
             while(rs.next()){ 
                 SachTra st = new SachTra();
                 st.setMaSach(rs.getString("maSach"));
-                st.setSoLuongChuaTra(rs.getInt("soLuongChuaTra"));
+                st.setSoLuong(rs.getInt("soLuongChuaTra"));
                 dsst.add(st);
             }
         } catch (SQLServerException ex) {
@@ -169,7 +170,7 @@ public class PhieuTraDAL {
             conn.setAutoCommit(false);
             //Sách chưa trả trong CTPHIEUMUON
             for(SachTra a:dsct){ 
-                pctmuon.setInt(1,a.getSoLuongChuaTra());
+                pctmuon.setInt(1,a.getSoLuong());
                 pctmuon.setString(2,a.getMaSach());
                 pctmuon.setString(3,pt.getMaPhieuMuon());
                 pctmuon.executeUpdate();
@@ -184,7 +185,7 @@ public class PhieuTraDAL {
             for(SachTra a:dsdt){ 
                 pcttra.setString(1,pt.getMaPhieuTra());
                  pcttra.setString(2,a.getMaSach());
-                 pcttra.setInt(3,a.getSoLuongChuaTra());
+                 pcttra.setInt(3,a.getSoLuong());
                  pcttra.executeUpdate();
             }
             conn.commit();
@@ -200,5 +201,43 @@ public class PhieuTraDAL {
              e.printStackTrace();
          } 
         return kt;
+    }
+    public CTPhieuTra getCTPhieuTra(String maPhieuMuon){ 
+        CTPhieuTra ctpt = new CTPhieuTra();
+        String query ="SELECT * FROM PHIEUTRA \n" +
+"JOIN CTPHIEUTRA ON PHIEUTRA.maPTra = CTPHIEUTRA.maPhieuTra\n" +
+"WHERE maPTra =?";
+        try(Connection conn = kn.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(query);
+                ){ 
+            stmt.setString(1,maPhieuMuon);
+            ResultSet rs = stmt.executeQuery();
+            ArrayList<SachTra> dsst = new ArrayList();
+            SachTra st;
+            if(rs.next()){ 
+                ctpt.setMaPhieuTra(rs.getString("maPTra"));
+                ctpt.setMaPhieuMuon(rs.getString("maPMuon"));
+                ctpt.setMaPhuThu(rs.getString("maPhuThu"));
+                ctpt.setMaThuThu(rs.getString("maThuThu"));
+                ctpt.setNgayThucTra(rs.getDate("ngayThucTra"));
+                ctpt.setTrangThai(rs.getInt("trangThai"));
+                st = new SachTra();
+                st.setMaSach(rs.getString("maSach"));
+                st.setSoLuong(rs.getInt("soLuong"));
+                dsst.add(st);
+            }
+            while(rs.next()){
+                st = new SachTra();
+                st.setMaSach(rs.getString("maSach"));
+                st.setSoLuong(rs.getInt("soLuong"));
+                dsst.add(st);
+            }
+            ctpt.setDsst(dsst);
+        } catch (SQLServerException ex) {
+             Logger.getLogger(PhieuTraDAL.class.getName()).log(Level.SEVERE, null, ex);
+         } catch (SQLException ex) {
+             Logger.getLogger(PhieuTraDAL.class.getName()).log(Level.SEVERE, null, ex);
+         }
+        return ctpt;
     }
 }

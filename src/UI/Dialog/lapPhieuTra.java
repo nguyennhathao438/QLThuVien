@@ -54,8 +54,8 @@ public class lapPhieuTra extends javax.swing.JDialog {
         }
         dtm.setRowCount(0);
         for(SachTra a:dsst){ 
-            if(a.getSoLuongChuaTra()> 0)
-            dtm.addRow(new Object[]{a.getMaSach(),"tạm chưa có",a.getSoLuongChuaTra()});
+            if(a.getSoLuong()> 0)
+            dtm.addRow(new Object[]{a.getMaSach(),"tạm chưa có",a.getSoLuong()});
         }
     }
     
@@ -377,10 +377,10 @@ public class lapPhieuTra extends javax.swing.JDialog {
                 if(dschuatra.get(i).getMaSach().equals(mast)){ 
                     
                     st.setMaSach(dschuatra.get(i).getMaSach());
-                    st.setSoLuongChuaTra(sl); 
-                    int thissl =dschuatra.get(i).getSoLuongChuaTra()-sl;
+                    st.getSoLuong(); 
+                    int thissl =dschuatra.get(i).getSoLuong()-sl;
                      
-                    dschuatra.get(i).setSoLuongChuaTra(thissl);                  
+                    dschuatra.get(i).setSoLuong(thissl);                  
                     break;
                 }
             }
@@ -393,8 +393,8 @@ public class lapPhieuTra extends javax.swing.JDialog {
                 }
             }
             if(kt){ 
-                int thissl =dsdatra.get(index).getSoLuongChuaTra()+sl;
-                    dsdatra.get(index).setSoLuongChuaTra(thissl);
+                int thissl =dsdatra.get(index).getSoLuong()+sl;
+                    dsdatra.get(index).setSoLuong(thissl);
             }else{ 
                 dsdatra.add(st);
             }       
@@ -405,7 +405,7 @@ public class lapPhieuTra extends javax.swing.JDialog {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         for(SachTra a:dschuatra){ 
-            a.setSoLuongChuaTra(0);
+            a.setSoLuong(0);
         }
         dsdatra = ptbll.getSachChuaTra(maPhieuMuon.getText());
         loadData(dtm,dschuatra);
@@ -414,7 +414,7 @@ public class lapPhieuTra extends javax.swing.JDialog {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         for(SachTra a:dsdatra){ 
-            a.setSoLuongChuaTra(0);
+            a.setSoLuong(0);
         }
         dschuatra = ptbll.getSachChuaTra(maPhieuMuon.getText());
         loadData(dtm,dschuatra);

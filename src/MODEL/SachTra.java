@@ -3,31 +3,31 @@ package MODEL;
 
 public class SachTra {
     private String maSach;
-    private int soLuongChuaTra;
+    private int soLuong;
 
     public SachTra() {
     }
 
-    public SachTra(String maSach, int soLuongChuaTra) {
+    public SachTra(String maSach, int soLuong) {
         this.maSach = maSach;
-        this.soLuongChuaTra = soLuongChuaTra;
+        this.soLuong = soLuong;
     }
     
     public String getMaSach() {
         return maSach;
     }
 
-    public int getSoLuongChuaTra() {
-        return soLuongChuaTra;
+    public int getSoLuong() {
+        return soLuong;
     }
 
     public void setMaSach(String maSach) {
         this.maSach = maSach;
     }
 
-    public void setSoLuongChuaTra(int soLuongChuaTra) {
-        this.soLuongChuaTra = soLuongChuaTra;
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
     }
-   
+    
     
 }

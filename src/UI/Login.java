@@ -215,5 +215,8 @@ public class Login extends JFrame {
     public void setInputFieldPanel(JPanel inputFieldPanel) {
         this.inputFieldPanel = inputFieldPanel;
     }
+    public static void main(String args[]){ 
+        new Login().setVisible(true);
+    }
 }
 
