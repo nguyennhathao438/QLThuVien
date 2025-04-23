@@ -112,7 +112,7 @@ public class DSPhieuTraBLL {
     public boolean taoPhieuTra(PhieuTra pt,ArrayList<SachTra> dsdt,ArrayList<SachTra> dsct){ 
         String regex="^PTRA\\d{3,}";
         if(!pt.getMaPhieuTra().matches(regex)){ 
-            showMess("Mã phiếu trả không hợp lệ Vd:PRA014");
+            showMess("Mã phiếu trả không hợp lệ Vd:PTRA014");
             return false;
         }
         if(dsdt.size()==0){ 

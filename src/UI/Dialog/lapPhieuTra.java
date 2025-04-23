@@ -5,6 +5,8 @@
 package UI.Dialog;
 
 import BLL.DSPhieuTraBLL;
+import BLL.LoginBLL;
+import DAL.LoginDAL;
 import MODEL.PhieuTra;
 import MODEL.SachTra;
 import java.awt.Color;
@@ -24,9 +26,12 @@ public class lapPhieuTra extends javax.swing.JDialog {
     DefaultTableModel dtm1 = new DefaultTableModel();
     ArrayList<SachTra> dschuatra =new ArrayList();
     ArrayList<SachTra> dsdatra =new ArrayList();
+    LoginBLL lgbll =new LoginBLL();
     DSPhieuTraBLL ptbll = new DSPhieuTraBLL();
        public lapPhieuTra(java.awt.Frame parent, boolean modal,String mapm) {
+           
         super(parent, modal);   
+        System.out.println(lgbll.getMaThuThu());
         initComponents();
         setLocationRelativeTo(null);
         maPhieuMuon.setText(mapm);
@@ -377,7 +382,7 @@ public class lapPhieuTra extends javax.swing.JDialog {
                 if(dschuatra.get(i).getMaSach().equals(mast)){ 
                     
                     st.setMaSach(dschuatra.get(i).getMaSach());
-                    st.getSoLuong(); 
+                    st.setSoLuong(sl);
                     int thissl =dschuatra.get(i).getSoLuong()-sl;
                      
                     dschuatra.get(i).setSoLuong(thissl);                  
@@ -392,10 +397,12 @@ public class lapPhieuTra extends javax.swing.JDialog {
                     kt=true;                  
                 }
             }
+            System.out.println(kt + " "+ st.getSoLuong());
             if(kt){ 
                 int thissl =dsdatra.get(index).getSoLuong()+sl;
                     dsdatra.get(index).setSoLuong(thissl);
             }else{ 
+                
                 dsdatra.add(st);
             }       
         }
@@ -426,7 +433,8 @@ public class lapPhieuTra extends javax.swing.JDialog {
         pt.setMaPhieuTra(maPTra.getText());
         Date date =new Date();
         pt.setNgayThucTra(date);
-        pt.setMaThuThu("THUTHU001");
+        System.out.println(lgbll.getMaThuThu());
+        pt.setMaThuThu(lgbll.getMaThuThu());
         pt.setMaPhieuMuon(maPhieuMuon.getText());
         if(ptbll.taoPhieuTra(pt, dsdatra, dschuatra)){ 
             this.dispose();

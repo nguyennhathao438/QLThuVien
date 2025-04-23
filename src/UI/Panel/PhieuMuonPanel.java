@@ -60,7 +60,7 @@ public class PhieuMuonPanel extends JPanel{
         
         tblPanel = new JPanel();
         tblPanel.setLayout(new BorderLayout());
-        String[] header = {"Mã phiếu", "Ngày mượn", "Ngày trả", "Tên độc giả", "Tên thủ thư"};
+        String[] header = {"Mã phiếu", "Ngày mượn", "Ngày trả", "Tên độc giả", "Tên thủ thư","Trạng Thái"};
         tblModel = new DefaultTableModel(header, 0);
         tblPhMuon = new JTable();
         tblPhMuon.setModel(tblModel);
@@ -74,13 +74,13 @@ public class PhieuMuonPanel extends JPanel{
         
         //Lấy thông tin mô hình cột của bảng.
         TableColumnModel columns = tblPhMuon.getColumnModel();
-        columns.getColumn(0).setPreferredWidth(200);
-        columns.getColumn(1).setPreferredWidth(200);
-        columns.getColumn(2).setPreferredWidth(200);
+        columns.getColumn(0).setPreferredWidth(150);
+        columns.getColumn(1).setPreferredWidth(175);
+        columns.getColumn(2).setPreferredWidth(175);
         columns.getColumn(3).setPreferredWidth(150);
         columns.getColumn(4).setPreferredWidth(150);
-        
-        
+        columns.getColumn(4).setPreferredWidth(100);
+             
         scrollPane = new JScrollPane(tblPhMuon);
         tblPanel.add(scrollPane, BorderLayout.CENTER);
         this.add(tblPanel, BorderLayout.CENTER);
@@ -154,7 +154,7 @@ public class PhieuMuonPanel extends JPanel{
                 if(row == -1 ){
                     JOptionPane.showMessageDialog(null,  "Click vào phiếu mươn");
                 }else { 
-                    String trangThai = (String) tblPhMuon.getValueAt(row, 4);
+                    String trangThai = (String) tblPhMuon.getValueAt(row, 5);
                     if(trangThai.equals("Đã trả")){ 
                         JOptionPane.showMessageDialog(null,  "Phiếu mượn này đã trả đủ");
                     }else{ 
