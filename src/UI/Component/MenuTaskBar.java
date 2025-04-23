@@ -18,6 +18,8 @@ import UI.Panel.PhieuMuonPanel;
 import UI.Panel.PhieuTraPanel;
 import UI.Panel.QuyDinhPanel;
 import UI.Panel.TacGiaPanel;
+import UI.Panel.SachPanel;
+import UI.Panel.TheLoaiPanel;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -94,10 +96,10 @@ public class MenuTaskBar extends JPanel{
                             TrangChuPanel trangchu = new TrangChuPanel();
                             mainFrame.setRightPanel(trangchu);
                             break;
-//                        case 1:
-//                            SachPanel sach = new SachPanel();
-//                            mainFrame.setRightPanel(sach);
-//                            break;
+                        case 1:
+                            SachPanel sach = new SachPanel();
+                            mainFrame.setRightPanel(sach);
+                            break;
 //                        case 2:
 //                            TheLoaiPanel theloai = new TheLoaiPanel();
 //                            mainFrame.setRightPanel(theloai);
@@ -134,6 +136,10 @@ public class MenuTaskBar extends JPanel{
 //                            ThongKePanel thongke = new ThongKePanel();
 //                            mainFrame.setRightPanel(thongke);
 //                            break;
+                         case 11:
+                            SwingUtilities.getWindowAncestor(itemTaskBars[index]).dispose();
+                            new Login().setVisible(true);
+                            break;
 //                        default:
 //                            break;
                     }

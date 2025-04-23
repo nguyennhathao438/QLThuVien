@@ -31,8 +31,7 @@ public class NhaCungCapDialog extends JDialog implements MouseListener{
     
     public NhaCungCapDialog(JFrame frame, String title,String type,NhaCungCapPanel pnNCC){
         super(frame,true);
-        this.pnNCC = pnNCC;
-        maNCC = new InputField("Mã nhà cung cấp", 200, 40);
+        this.pnNCC = pnNCC;        
 //        tenNCC = new InputField("Tên nhà cung cấp", 200, 40);
 //        sdtNCC = new InputField("Số điện thoại", 200, 40);
 //        trangthaiNCC = new InputField("Trạng thái", 200, 40);
@@ -66,6 +65,10 @@ public class NhaCungCapDialog extends JDialog implements MouseListener{
         pnCenter.setBackground(Color.WHITE);
         pnCenter.setPreferredSize(new Dimension(300, 220));
         
+        maNCC = new InputField("Mã nhà cung cấp", 200, 40);
+        if(type.equals("update")){
+            maNCC.getTxtInput().setEditable(false);
+        }
         tenNCC = new InputField("Tên nhà cung cấp", 200, 40);
         sdtNCC = new InputField("Số điện thoại", 200, 40);
         
@@ -105,7 +108,8 @@ public class NhaCungCapDialog extends JDialog implements MouseListener{
             case "create":
                 pnBottom.add(btnAdd);
                 break;
-            case "update":                
+            case "update":        
+                maNCC.getTxtInput().setText(nccModel.getMaNCC());
                 tenNCC.setTxtInput(nccModel.getTenNCC());
                 sdtNCC.setTxtInput(nccModel.getSoDienThoai());
 //                trangthaiNCC.setTxtInput(String.valueOf(nccModel.getTrangThai()));

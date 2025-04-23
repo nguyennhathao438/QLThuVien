@@ -28,6 +28,14 @@ public class PhieuNhap {
         this.trangThai = trangThai;
     }
 
+    public PhieuNhap(String maPhieuNhap, LocalDateTime thoiGian, double tongTien, String maNCC, String maThuThu) {
+        this.maPhieuNhap = maPhieuNhap;
+        this.thoiGian = thoiGian;
+        this.tongTien = tongTien;
+        this.maNCC = maNCC;
+        this.maThuThu = maThuThu;
+    }
+
     // Getter và Setter
     public String getMaPhieuNhap() {
         return maPhieuNhap;

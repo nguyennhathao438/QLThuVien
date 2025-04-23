@@ -60,7 +60,7 @@ public class NhaCungCapPanel extends JPanel implements ItemListener,MouseListene
             @Override
             public void keyReleased(KeyEvent e){                
                 String type = (String)searchBar.getCboChoose().getSelectedItem();
-                String text = searchBar.getTxtSearch().getText();
+                String text = searchBar.getTxtSearch().getText().trim();
                 loadData(nccBLL.search(text, type));
             }
         });

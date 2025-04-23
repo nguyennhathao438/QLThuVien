@@ -6,12 +6,24 @@ public class Sach {
 	private int namXuatBan;
 	private int soLuong;
 	private double donGia;
-	private String trangThai;
-
+	private int trangThai;
+        private String maTheLoai;
+        private String maTacGia;
 	public Sach(){
 	}
 
-	public Sach(String maSach, String tenSach, int namXuatBan, int soLuong, double donGia, String trangThai){
+        public Sach(String maSach, String tenSach, int namXuatBan, int soLuong, double donGia, int trangThai, String maTheLoai, String maTacGia) {
+            this.maSach = maSach;
+            this.tenSach = tenSach;
+            this.namXuatBan = namXuatBan;
+            this.soLuong = soLuong;
+            this.donGia = donGia;
+            this.trangThai = trangThai;
+            this.maTheLoai = maTheLoai;
+            this.maTacGia = maTacGia;
+        }
+
+	public Sach(String maSach, String tenSach, int namXuatBan, int soLuong, double donGia, int trangThai){
 		this.maSach = maSach;
 		this.tenSach = tenSach;
 		this.namXuatBan = namXuatBan;
@@ -60,14 +72,31 @@ public class Sach {
 		this.donGia = donGia;
 	}
 
-	public String getTrangThai() {
+	public int getTrangThai() {
 		return trangThai;
 	}
 
-	public void setTrangThai(String trangThai) {
+	public void setTrangThai(int trangThai) {
 		this.trangThai = trangThai;
 	}
 
+        public String getMaTheLoai() {
+            return maTheLoai;
+        }
+
+        public void setMaTheLoai(String maTheLoai) {
+            this.maTheLoai = maTheLoai;
+        }
+
+        public String getMaTacGia() {
+            return maTacGia;
+        }
+
+        public void setMaTacGia(String maTacGia) {
+            this.maTacGia = maTacGia;
+        }
+
+        
 	@Override
 	public String toString(){
 		return tenSach;

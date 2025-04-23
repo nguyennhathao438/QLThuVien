@@ -32,10 +32,12 @@ public class InputField extends JPanel{
         this.init(w, h);
     }
     public InputField(String content,String data,int w,int h){
-        this.setLayout(new FlowLayout(0, 7, 0));
-        this.lbContent = new JLabel(content);
-        this.lbData = new JLabel(data);
-        lbData.setPreferredSize(new Dimension(150,30));
+        this.setLayout(new FlowLayout(0, 7, 10));
+        this.lbContent = new JLabel(content, JLabel.CENTER);
+        this.lbData = new JLabel(data, JLabel.CENTER);
+//        this.lbData.setPreferredSize(new Dimension(w ,h));
+        this.lbData.setFont(txtfont);
+//        this.lbData.setBorder(BorderFactory.createLineBorder(Color.red));
         this.add(lbContent);
         this.add(lbData);
         this.init(w, h);
@@ -83,4 +85,28 @@ public class InputField extends JPanel{
      public Date getDate() {
         return dateChooser != null ? dateChooser.getDate() : null;
     }
+     public void setDate(Date date) {
+        if (isDateField && dateChooser != null) {
+            dateChooser.setDate(date); // Thiết lập ngày cho JDateChooser
+        }
+    }
+
+    public JLabel getLbData() {
+        return lbData;
+    }
+
+    public void setLbData(JLabel lbData) {
+        this.lbData = lbData;
+    }
+
+    public JLabel getLbContent() {
+        return lbContent;
+    }
+
+    public void setLbContent(JLabel lbContent) {
+        this.lbContent = lbContent;
+    }
+     
+     
+
 }

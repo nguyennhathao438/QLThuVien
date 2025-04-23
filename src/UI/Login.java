@@ -8,6 +8,7 @@ package UI;
  *
  * @author Nghia0605
  */
+import BLL.LoginBLL;
 import javax.swing.*;
 import javax.swing.border.Border;
 
@@ -25,7 +26,7 @@ public class Login extends JFrame {
     private JPasswordField txtPass;
     private JPanel btnLogin;
     private JPanel inputFieldPanel;
-
+    private LoginBLL lgbll = new LoginBLL();
     public Login() {
         this.setTitle("Đăng nhập");
         this.setLayout(new BorderLayout());
@@ -108,7 +109,14 @@ public class Login extends JFrame {
         btnLogin.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                JOptionPane.showMessageDialog(null, "Login");
+                String taikhoan = txtUsername.getText();
+                char token[] = txtPass.getPassword();
+                String matkhau=new String(token);          
+                if(lgbll.ktDangNhap(taikhoan, matkhau)){
+                    new MainFrame().setVisible(true);
+                    dispose();
+                }
+                
             }
 
             @Override

@@ -8,6 +8,7 @@ package UI;
  *
  * @author Nghia0605
  */
+import BLL.LoginBLL;
 import javax.swing.*;
 //import javax.swing.border.Border;
 
@@ -20,7 +21,7 @@ public class MainFrame extends JFrame {
     private JPanel leftPanel, rightPanel, userInfoPanel;
     private JLabel lbUsername;
     private MenuTaskBar menuTaskBar;
-
+    private LoginBLL lgbll = new LoginBLL();
     public MainFrame() {
         this.setTitle("QUẢN LÝ THƯ VIỆN");
         this.setSize(1200, 800);
@@ -48,7 +49,7 @@ public class MainFrame extends JFrame {
         JLabel lbIconUser = new JLabel(iconUser);
         userInfoPanel.add(lbIconUser);
 
-        lbUsername = new JLabel("Tên đăng nhập");
+        lbUsername = new JLabel(lgbll.getTenThuThu());
         lbUsername.setFont(new Font("Segoe UI", Font.BOLD, 16));    
         lbUsername.setPreferredSize(new Dimension(170, 30));
         userInfoPanel.add(lbUsername);
@@ -76,8 +77,5 @@ public class MainFrame extends JFrame {
         rightPanel.repaint();
     }
 
-    public static void main(String[] args) {
-        new MainFrame();
-    }
 
 }
