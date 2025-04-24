@@ -136,7 +136,8 @@ public class themSach extends javax.swing.JDialog {
         sach.setMaSach(maS.getText().trim());
         sach.setTenSach(tenS.getText().trim());
         sach.setNamXuatBan(Integer.parseInt(namXB.getText()));
-        sach.setSoLuong(Integer.parseInt(soLuong.getText()));
+        sach.setSoLuong(0);
+        soLuong.setEditable(false);
         sach.setDonGia(Double.parseDouble(donGia.getText()));
         sach.setTrangThai(1);
         spn.getSachBLL().themSach(sach);

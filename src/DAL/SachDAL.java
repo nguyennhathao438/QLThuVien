@@ -30,7 +30,7 @@ public class SachDAL {
                 s.setNamXuatBan(rs.getInt("namXuatBan"));
                 s.setSoLuong(rs.getInt("soLuong"));
                 s.setDonGia(rs.getDouble("donGia"));
-                s.setTrangThai(rs.getInt("trangThai"));
+//                s.setTrangThai(rs.getInt("trangThai"));
                 dsSach.add(s);
             }
         } catch (SQLException ex) {

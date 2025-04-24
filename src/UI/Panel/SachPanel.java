@@ -25,6 +25,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -112,7 +113,7 @@ public class SachPanel extends JPanel implements ItemListener,MouseListener{
         headers.setBackground(Color.decode("#66B2FF"));
         
         TableColumnModel column = bangSach.getColumnModel();
-         column.getColumn(0).setPreferredWidth(80);
+        column.getColumn(0).setPreferredWidth(80);
         column.getColumn(1).setPreferredWidth(400);
         column.getColumn(2).setPreferredWidth(120);
         column.getColumn(3).setPreferredWidth(300);
@@ -197,6 +198,66 @@ public class SachPanel extends JPanel implements ItemListener,MouseListener{
             searchBar.getCboChoose().setSelectedItem(0);
             searchBar.getTxtSearch().setText("");
             loadData(dsSach.layAllSach());
+        }else if(e.getSource() == mainFunc.getLstBtn().get("exportexcel"))
+        {
+            xuatExcel();
+        }else if(e.getSource() == mainFunc.getLstBtn().get("importexcel"))
+        {
+            docExcel();
+        }
+    }
+    
+    private void xuatExcel()
+    {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Chọn noi lưu file");
+        int luaChon = fileChooser.showSaveDialog(this);
+        
+        if(luaChon == JFileChooser.APPROVE_OPTION)
+        {
+            String filePath = fileChooser.getSelectedFile().getAbsolutePath();
+            if(!filePath.endsWith(".xlsx"))
+            {
+                filePath += ".xlsx";
+            }
+            ArrayList<Sach> ds1 = dsSach.layAllSach();
+            ArrayList<Sach> ds2 = new ArrayList<>();
+            for(Sach s : ds1)
+            {
+                if(s.getTrangThai() == 1)
+                {
+                    ds2.add(s);
+                }
+            }
+            EXCEL.ExportExcel.xuatExcel(ds2, filePath);
+            JOptionPane.showMessageDialog(this,"Xuất file thành công");
+        }
+    }
+    
+    private void docExcel()
+    {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Chọn file để đọc");
+        int luaChon = fileChooser.showOpenDialog(this);
+        
+        if(luaChon == JFileChooser.APPROVE_OPTION)
+        {
+            String filePath = fileChooser.getSelectedFile().getAbsolutePath();
+            ArrayList<Sach> dsSachExcel = EXCEL.ExportExcel.docExcel(filePath);
+        
+            //Them vao danh sach chinh va cap nhat
+            for(Sach s : dsSachExcel)
+            {
+                if(s.getTrangThai() == 1)
+                {
+                    dsSach.themSach(s);
+                }
+            }
+            loadData(dsSach.layAllSach());
+        
+            //Chi hien thi
+            //loadData(dsSachExcel);
+            JOptionPane.showMessageDialog(this,"Đọc file thành công");
         }
     }
 
