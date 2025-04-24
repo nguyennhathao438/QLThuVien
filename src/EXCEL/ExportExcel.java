@@ -30,6 +30,8 @@ public class ExportExcel {
             header.createCell(2).setCellValue("Năm xuất bản");
             header.createCell(3).setCellValue("Số lượng");
             header.createCell(4).setCellValue("Đơn giá");
+            header.createCell(5).setCellValue("Mã tác giả");
+            header.createCell(6).setCellValue("Mã thể loại");
 
             int rowIndex = 1;
             for (Sach s : ds) {
@@ -39,6 +41,8 @@ public class ExportExcel {
                 row.createCell(2).setCellValue(s.getNamXuatBan());
                 row.createCell(3).setCellValue(s.getSoLuong());
                 row.createCell(4).setCellValue(s.getDonGia());
+                row.createCell(5).setCellValue(s.getMaTacGia());
+                row.createCell(6).setCellValue(s.getMaTheLoai());
             }
 
             FileOutputStream fos = new FileOutputStream(filePath);
@@ -65,6 +69,8 @@ public class ExportExcel {
                 s.setNamXuatBan((int)row.getCell(2).getNumericCellValue());
                 s.setSoLuong((int)row.getCell(3).getNumericCellValue());
                 s.setDonGia(row.getCell(4).getNumericCellValue());
+                s.setMaTacGia(row.getCell(5).getStringCellValue());
+                s.setMaTheLoai(row.getCell(6).getStringCellValue());
                 s.setTrangThai(1);
                 dsSach.add(s);
             }

@@ -31,11 +31,9 @@ public class SachDAL {
                 s.setNamXuatBan(rs.getInt("namXuatBan"));
                 s.setSoLuong(rs.getInt("soLuong"));
                 s.setDonGia(rs.getDouble("donGia"));
-//                s.setTrangThai(rs.getInt("trangThai"));
                 s.setTrangThai(rs.getInt("trangThai"));
                 s.setMaTheLoai(rs.getString("maTheLoai"));
                 s.setMaTacGia(rs.getString("maTacGia"));
-
                 dsSach.add(s);
             }
         } catch (SQLException ex) {
@@ -47,7 +45,7 @@ public class SachDAL {
     public int themSach(Sach s)
     {
         int kq = -1;
-        String query = "INSERT INTO SACH(maSach,tenSach,namXuatBan,soLuong,donGia,trangThai) VALUES(?,?,?,?,?,1)";
+        String query = "INSERT INTO SACH(maSach,tenSach,namXuatBan,soLuong,donGia,maTacGia,maTheLoai,trangThai) VALUES(?,?,?,?,?,?,?,1)";
         try(Connection conn = kn.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(query))
         {
@@ -56,6 +54,8 @@ public class SachDAL {
             stmt.setInt(3,s.getNamXuatBan());
             stmt.setInt(4,s.getSoLuong());
             stmt.setDouble(5, s.getDonGia());
+            stmt.setString(6, s.getMaTacGia());
+            stmt.setString(7, s.getMaTheLoai());
             kq = stmt.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(SachDAL.class.getName()).log(Level.SEVERE, null, ex);
@@ -81,7 +81,7 @@ public class SachDAL {
     public int suaSach(Sach s)
     {
         int kq = -1;
-        String query = "UPDATE SACH SET tenSach=?,namXuatBan=?,soLuong=?,donGia=? WHERE maSach=?";
+        String query = "UPDATE SACH SET tenSach=?,namXuatBan=?,soLuong=?,donGia=?,maTacGia=?,maTheLoai? WHERE maSach=?";
         try(Connection conn = kn.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(query))
         {
@@ -91,6 +91,8 @@ public class SachDAL {
             stmt.setInt(3, s.getSoLuong());
             stmt.setDouble(4, s.getDonGia());
             stmt.setString(5, s.getMaSach());
+            stmt.setString(6, s.getMaTacGia());
+            stmt.setString(7, s.getMaTheLoai());
             kq = stmt.executeUpdate();
         }catch (SQLException ex) {
             Logger.getLogger(SachDAL.class.getName()).log(Level.SEVERE, null, ex);
@@ -114,6 +116,8 @@ public class SachDAL {
                 s.setNamXuatBan(rs.getInt("namXuatBan"));
                 s.setSoLuong(rs.getInt("soLuong"));
                 s.setDonGia(rs.getDouble("donGia"));
+                s.setMaTacGia(rs.getString("maTacGia"));
+                s.setMaTheLoai(rs.getString("maTheLoai"));
                 s.setTrangThai(rs.getInt("trangThai"));
             }
         } catch (SQLServerException ex) {

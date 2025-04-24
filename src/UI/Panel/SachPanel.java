@@ -8,8 +8,10 @@ import BLL.DSSachBLL;
 import Model.Sach;
 import UI.Component.MainFunction;
 import UI.Component.SearchBar;
+import UI.Dialog.chiTietSach;
 import UI.Dialog.suaSach;
 import UI.Dialog.themSach;
+import UI.Dialog.thongBaoExcel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -69,7 +71,7 @@ public class SachPanel extends JPanel implements ItemListener,MouseListener{
         headerPanel.setLayout(new FlowLayout(0, 0, 4));
         headerPanel.setBackground(Color.white);
         
-        String[] function = {"create", "delete", "update", "exportexcel", "importexcel"};
+        String[] function = {"create", "delete", "detail", "update", "exportexcel", "importexcel"};
         mainFunc = new MainFunction(function);
         headerPanel.add(mainFunc);
         for(String func : function)
@@ -89,7 +91,7 @@ public class SachPanel extends JPanel implements ItemListener,MouseListener{
                     {
                         String type = (String)searchBar.getCboChoose().getSelectedItem();
                         String text = searchBar.getTxtSearch().getText();
-                        loadData(dsSach.searchSach(type,text));
+                        loadData(dsSach.searchSach(text,type));
                     }
                 });
         
@@ -203,7 +205,20 @@ public class SachPanel extends JPanel implements ItemListener,MouseListener{
             xuatExcel();
         }else if(e.getSource() == mainFunc.getLstBtn().get("importexcel"))
         {
-            docExcel();
+            Window parentWindow = SwingUtilities.getWindowAncestor(this);
+            new thongBaoExcel((Frame) parentWindow,true).setVisible(true);
+        }else if(e.getSource() == mainFunc.getLstBtn().get("detail"))
+        {
+            int index = bangSach.getSelectedRow();
+            if(index == -1)
+            {
+                JOptionPane.showMessageDialog(this,"Vui lòng chọn sách");
+            } else
+            {
+                String maS = (String) bangSach.getValueAt(index, 0);
+                Window parentWindow = SwingUtilities.getWindowAncestor(this);
+                new chiTietSach((Frame) parentWindow,true,maS,this).setVisible(true);
+            }
         }
     }
     
@@ -234,32 +249,7 @@ public class SachPanel extends JPanel implements ItemListener,MouseListener{
         }
     }
     
-    private void docExcel()
-    {
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Chọn file để đọc");
-        int luaChon = fileChooser.showOpenDialog(this);
-        
-        if(luaChon == JFileChooser.APPROVE_OPTION)
-        {
-            String filePath = fileChooser.getSelectedFile().getAbsolutePath();
-            ArrayList<Sach> dsSachExcel = EXCEL.ExportExcel.docExcel(filePath);
-        
-            //Them vao danh sach chinh va cap nhat
-            for(Sach s : dsSachExcel)
-            {
-                if(s.getTrangThai() == 1)
-                {
-                    dsSach.themSach(s);
-                }
-            }
-            loadData(dsSach.layAllSach());
-        
-            //Chi hien thi
-            //loadData(dsSachExcel);
-            JOptionPane.showMessageDialog(this,"Đọc file thành công");
-        }
-    }
+   
 
     @Override
     public void mousePressed(MouseEvent e) {

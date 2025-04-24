@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.ArrayList;
+
 public class Sach {
 	private String maSach;
 	private String tenSach;
@@ -9,6 +11,7 @@ public class Sach {
 	private int trangThai;
         private String maTheLoai;
         private String maTacGia;
+        private ArrayList<Sach> dss = new ArrayList<>();
 	public Sach(){
 	}
 
@@ -31,6 +34,11 @@ public class Sach {
 		this.donGia = donGia;
 		this.trangThai = trangThai;
 	}
+        
+        public ArrayList<Sach> getDSSach()
+        {
+            return dss;
+        }
 
 	public String getMaSach() {
 		return maSach;
