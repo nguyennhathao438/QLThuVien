@@ -10,7 +10,9 @@ public class DSTacGiaBLL {
 	static ArrayList<TacGia> dstg = new ArrayList<>();
         TacGiaDAL tgdal = new TacGiaDAL();
     public DSTacGiaBLL() {
-        this.dstg=tgdal.layDSTacGia();
+        if(dstg.size() == 0){
+            this.dstg=tgdal.layDSTacGia();
+        }
     }
     public static ArrayList<TacGia> layAllTacGia(){ 
         return dstg ; 

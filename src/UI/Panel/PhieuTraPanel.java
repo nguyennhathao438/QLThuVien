@@ -9,6 +9,7 @@ import BLL.DSThuThuBLL;
 import MODEL.PhieuTra;
 import UI.Component.MainFunction;
 import UI.Component.SearchBar;
+import UI.Dialog.ChiTietPhieuTraDialog;
 import UI.Dialog.chiTietPhat;
 import UI.Dialog.phat;
 import java.awt.BorderLayout;
@@ -66,7 +67,7 @@ public class PhieuTraPanel extends JPanel implements ItemListener,MouseListener{
         headerPanel.setLayout(new FlowLayout(0, 0, 4));
         headerPanel.setBackground(Color.white);
 
-        String[] function = { "delete" ,"punish"}; //"detail", 
+        String[] function = { "delete","detail" ,"punish"}; //"detail", 
         mainFunc = new MainFunction(function);
         headerPanel.add(mainFunc);
         for(String func : function){
@@ -175,7 +176,7 @@ public class PhieuTraPanel extends JPanel implements ItemListener,MouseListener{
             int row = bangPhieuTra.getSelectedRow();
             if(row == -1 ){ 
                 JOptionPane.showMessageDialog(bangPhieuTra,"Vui lòng chọn phiếu trả để phạt");
-            }else{ 
+            }else { 
                 int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xoá");
                 if(confirm == JOptionPane.YES_OPTION){
                 String maPtra = (String) bangPhieuTra.getValueAt(row,0);
@@ -187,6 +188,15 @@ public class PhieuTraPanel extends JPanel implements ItemListener,MouseListener{
                searchBar.getCboChoose().setSelectedIndex(0);
            searchBar.getTxtSearch().setText("");
            loadData(dspt.getAllPhieuTra());
+        }else if(e.getSource() == mainFunc.getLstBtn().get("detail")){ 
+            int row = bangPhieuTra.getSelectedRow();
+            if(row == -1 ){
+                JOptionPane.showMessageDialog(bangPhieuTra,"Vui lòng chọn phiếu trả");
+            }else{
+            String maPTra = (String) bangPhieuTra.getValueAt(row, 0);
+                    Window parentWindow = SwingUtilities.getWindowAncestor(this);
+        new ChiTietPhieuTraDialog((JFrame) (Frame) parentWindow,true,maPTra).setVisible(true);
+            }
         }
     }
 

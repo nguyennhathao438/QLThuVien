@@ -5,6 +5,8 @@
 package UI.Dialog;
 
 import BLL.DSPhieuTraBLL;
+import BLL.LoginBLL;
+import DAL.LoginDAL;
 import MODEL.PhieuTra;
 import MODEL.SachTra;
 import java.awt.Color;
@@ -24,9 +26,12 @@ public class lapPhieuTra extends javax.swing.JDialog {
     DefaultTableModel dtm1 = new DefaultTableModel();
     ArrayList<SachTra> dschuatra =new ArrayList();
     ArrayList<SachTra> dsdatra =new ArrayList();
+    LoginBLL lgbll =new LoginBLL();
     DSPhieuTraBLL ptbll = new DSPhieuTraBLL();
        public lapPhieuTra(java.awt.Frame parent, boolean modal,String mapm) {
+           
         super(parent, modal);   
+        System.out.println(lgbll.getMaThuThu());
         initComponents();
         setLocationRelativeTo(null);
         maPhieuMuon.setText(mapm);
@@ -54,8 +59,8 @@ public class lapPhieuTra extends javax.swing.JDialog {
         }
         dtm.setRowCount(0);
         for(SachTra a:dsst){ 
-            if(a.getSoLuongChuaTra()> 0)
-            dtm.addRow(new Object[]{a.getMaSach(),"tạm chưa có",a.getSoLuongChuaTra()});
+            if(a.getSoLuong()> 0)
+            dtm.addRow(new Object[]{a.getMaSach(),"tạm chưa có",a.getSoLuong()});
         }
     }
     
@@ -377,10 +382,10 @@ public class lapPhieuTra extends javax.swing.JDialog {
                 if(dschuatra.get(i).getMaSach().equals(mast)){ 
                     
                     st.setMaSach(dschuatra.get(i).getMaSach());
-                    st.setSoLuongChuaTra(sl); 
-                    int thissl =dschuatra.get(i).getSoLuongChuaTra()-sl;
+                    st.setSoLuong(sl);
+                    int thissl =dschuatra.get(i).getSoLuong()-sl;
                      
-                    dschuatra.get(i).setSoLuongChuaTra(thissl);                  
+                    dschuatra.get(i).setSoLuong(thissl);                  
                     break;
                 }
             }
@@ -392,10 +397,12 @@ public class lapPhieuTra extends javax.swing.JDialog {
                     kt=true;                  
                 }
             }
+            System.out.println(kt + " "+ st.getSoLuong());
             if(kt){ 
-                int thissl =dsdatra.get(index).getSoLuongChuaTra()+sl;
-                    dsdatra.get(index).setSoLuongChuaTra(thissl);
+                int thissl =dsdatra.get(index).getSoLuong()+sl;
+                    dsdatra.get(index).setSoLuong(thissl);
             }else{ 
+                
                 dsdatra.add(st);
             }       
         }
@@ -405,7 +412,7 @@ public class lapPhieuTra extends javax.swing.JDialog {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         for(SachTra a:dschuatra){ 
-            a.setSoLuongChuaTra(0);
+            a.setSoLuong(0);
         }
         dsdatra = ptbll.getSachChuaTra(maPhieuMuon.getText());
         loadData(dtm,dschuatra);
@@ -414,7 +421,7 @@ public class lapPhieuTra extends javax.swing.JDialog {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         for(SachTra a:dsdatra){ 
-            a.setSoLuongChuaTra(0);
+            a.setSoLuong(0);
         }
         dschuatra = ptbll.getSachChuaTra(maPhieuMuon.getText());
         loadData(dtm,dschuatra);
@@ -426,7 +433,8 @@ public class lapPhieuTra extends javax.swing.JDialog {
         pt.setMaPhieuTra(maPTra.getText());
         Date date =new Date();
         pt.setNgayThucTra(date);
-        pt.setMaThuThu("THUTHU001");
+        System.out.println(lgbll.getMaThuThu());
+        pt.setMaThuThu(lgbll.getMaThuThu());
         pt.setMaPhieuMuon(maPhieuMuon.getText());
         if(ptbll.taoPhieuTra(pt, dsdatra, dschuatra)){ 
             this.dispose();

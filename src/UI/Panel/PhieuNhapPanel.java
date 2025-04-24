@@ -15,6 +15,7 @@ import UI.Component.InputSupportField;
 import UI.Component.MainFunction;
 import UI.Component.RoundedPanel;
 import UI.Component.SearchBar;
+import UI.Dialog.CTPhieuNhapDialog;
 import UI.Dialog.InputSupportDialog;
 import UI.MainFrame;
 import javax.swing.*;
@@ -50,6 +51,8 @@ public class PhieuNhapPanel extends JPanel implements ItemListener, MouseListene
     private InputSupportField nccField, ttField;
     private JButton btnFilter;    
     private JButton btnReset;
+    private CTPhieuNhapDialog ctpnDialog;
+    
     
     public PhieuNhapPanel(MainFrame mainFrame){
         this.mainFrame = mainFrame;
@@ -196,17 +199,19 @@ public class PhieuNhapPanel extends JPanel implements ItemListener, MouseListene
     }
     public void loadData(ArrayList<PhieuNhap> dsPN){
         tableModel.setRowCount(0);       
-        for(int i = 0; i < dsPN.size(); i++){
-            PhieuNhap pn = dsPN.get(i);
-            String tenNCC = DSNhaCungCapBLL.getTenNCCByMa(pn.getMaNCC());
-            String tenTT = DSThuThuBLL.getTenThuThuByMa(pn.getMaThuThu());
-            tableModel.addRow(new Object[]{
-                pn.getMaPhieuNhap(),    
-                !tenNCC.equals("") ? tenNCC : null,
-                !tenTT.equals("") ? tenTT : null,
-                pn.getThoiGian().format(formatTime),
-                pn.getTongTien()
-            });
+        if(dsPN != null){
+            for(int i = 0; i < dsPN.size(); i++){
+                PhieuNhap pn = dsPN.get(i);
+                String tenNCC = DSNhaCungCapBLL.getTenNCCByMa(pn.getMaNCC());
+                String tenTT = DSThuThuBLL.getTenThuThuByMa(pn.getMaThuThu());
+                tableModel.addRow(new Object[]{
+                    pn.getMaPhieuNhap(),    
+                    !tenNCC.equals("") ? tenNCC : null,
+                    !tenTT.equals("") ? tenTT : null,
+                    pn.getThoiGian().format(formatTime),
+                    pn.getTongTien()
+                });
+            }
         }
     }
 
@@ -232,6 +237,17 @@ public class PhieuNhapPanel extends JPanel implements ItemListener, MouseListene
             TaoPhieuNhapPanel taophieunhap = new TaoPhieuNhapPanel(mainFrame);
             mainFrame.setRightPanel(taophieunhap);
         } else if(obj == mainFunc.getLstBtn().get("detail")){
+            JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
+            int index = tablePN.getSelectedRow();
+            if(index != -1){
+                String ma = (String)tableModel.getValueAt(index, 0);
+                ctpnDialog = new CTPhieuNhapDialog(parent, pnBLL.getPNByMa(ma));
+                ctpnDialog.setVisible(true);
+            }
+            else{
+                JOptionPane.showMessageDialog(parent, "Chọn phiếu nhập cần xem chi tiết", "THÔNG BÁO", JOptionPane.INFORMATION_MESSAGE);
+            }
+            
             
         } else if(obj == mainFunc.getLstBtn().get("delete")){
             

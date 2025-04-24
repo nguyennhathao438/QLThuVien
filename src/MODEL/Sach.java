@@ -7,9 +7,21 @@ public class Sach {
 	private int soLuong;
 	private double donGia;
 	private int trangThai;
-
+        private String maTheLoai;
+        private String maTacGia;
 	public Sach(){
 	}
+
+        public Sach(String maSach, String tenSach, int namXuatBan, int soLuong, double donGia, int trangThai, String maTheLoai, String maTacGia) {
+            this.maSach = maSach;
+            this.tenSach = tenSach;
+            this.namXuatBan = namXuatBan;
+            this.soLuong = soLuong;
+            this.donGia = donGia;
+            this.trangThai = trangThai;
+            this.maTheLoai = maTheLoai;
+            this.maTacGia = maTacGia;
+        }
 
 	public Sach(String maSach, String tenSach, int namXuatBan, int soLuong, double donGia, int trangThai){
 		this.maSach = maSach;
@@ -68,6 +80,23 @@ public class Sach {
 		this.trangThai = trangThai;
 	}
 
+        public String getMaTheLoai() {
+            return maTheLoai;
+        }
+
+        public void setMaTheLoai(String maTheLoai) {
+            this.maTheLoai = maTheLoai;
+        }
+
+        public String getMaTacGia() {
+            return maTacGia;
+        }
+
+        public void setMaTacGia(String maTacGia) {
+            this.maTacGia = maTacGia;
+        }
+
+        
 	@Override
 	public String toString(){
 		return tenSach;

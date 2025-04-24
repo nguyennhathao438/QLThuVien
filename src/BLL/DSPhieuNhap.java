@@ -1,8 +1,12 @@
 
 package BLL;
 
+import DAL.CTPhieuNhapDAL;
 import DAL.PhieuNhapDAL;
+import DAL.SachDAL;
+import MODEL.CTPhieuNhap;
 import MODEL.PhieuNhap;
+import Model.Sach;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -13,18 +17,43 @@ public class DSPhieuNhap {
     private static ArrayList<PhieuNhap> dsPN = new ArrayList(); 
     private PhieuNhapDAL pnDAL = new PhieuNhapDAL();
     private DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+    private CTPhieuNhapDAL ctpnDAL = new CTPhieuNhapDAL();
+    private SachDAL sachDAL = new SachDAL();
     public DSPhieuNhap(){
-        this.dsPN = pnDAL.selectAll();
-        this.idArray = getAllMaPN();
+        if(dsPN.isEmpty()){
+           this.dsPN = pnDAL.selectAll();
+            this.idArray = getAllMaPN(); 
+        }
     }
     
     
-//    public boolean insert(PhieuNhap pn){
-//        
-//    }
-//    public boolean update(PhieuNhap pn){
-//        
-//    }
+    public boolean add(PhieuNhap pn, ArrayList<CTPhieuNhap> dsCTPN){
+        boolean check = pnDAL.insert(pn);
+        if(check){
+            dsPN.add(pn);
+            check = ctpnDAL.insert(dsCTPN);
+            
+        }
+        return check;
+    }
+    
+    public boolean updateSoLuongSach(ArrayList<CTPhieuNhap> dsCTPN){
+        boolean check = sachDAL.updateSoLuongSach(dsCTPN);
+        if(check){
+            for(CTPhieuNhap ctpn : dsCTPN){
+                for(Sach s : DSSachBLL.getDsSach()){
+                    if(s.getMaSach().equals(ctpn.getMaSach())){
+                        s.setSoLuong(s.getSoLuong() + ctpn.getSoLuong());
+                        break;
+                    }
+                }
+            }
+        }
+        return check;
+    }
+    public ArrayList<CTPhieuNhap> getCTPN(PhieuNhap pn){
+        return ctpnDAL.selectAll(pn.getMaPhieuNhap());
+    }
 //    public boolean delete(PhieuNhap pn){        
 //    }
         
@@ -58,7 +87,7 @@ public class DSPhieuNhap {
                         }
                     }
                     break;
-                case "Tên thủ thư":
+                case "Thủ thư":
                     for(int i = 0; i < dsPN.size(); i++){
                         if(DSThuThuBLL.getTenThuThuByMa(dsPN.get(i).getMaThuThu()).toLowerCase().contains(text)){
                             result.add(dsPN.get(i));
@@ -117,10 +146,10 @@ public class DSPhieuNhap {
             }
 
             // Kiểm tra số tiền
-            if (fromMoney != null && pn.getTongTien() <= fromMoney) {
+            if (fromMoney != null && pn.getTongTien() < fromMoney) {
                 matches = false;
             }
-            if (toMoney != null && pn.getTongTien() >= toMoney) {
+            if (toMoney != null && pn.getTongTien() > toMoney) {
                 matches = false;
             }
 
@@ -130,6 +159,14 @@ public class DSPhieuNhap {
         }
            return result;
     }
+        public PhieuNhap getPNByMa(String ma){
+            for(PhieuNhap pn : dsPN){
+                if(pn.getMaPhieuNhap().equals(ma)){
+                    return pn;
+                }
+            }
+            return null;
+        }        
         
         public boolean validationFilter(String ncc, String tt, LocalDateTime fromDate, LocalDateTime toDate, Double fromMoney, Double toMoney){
            if(fromDate != null && toDate != null && fromDate.isAfter(toDate)){
@@ -157,6 +194,8 @@ public class DSPhieuNhap {
         public static boolean checkValidMaPN(String ma){
             int check = checkMaPN(ma, idArray);
             switch (check) {
+                case 1: 
+                    return true;
                 case 2:
                     JOptionPane.showMessageDialog(null, "Sai định dạng!(Ví dụ: PN001)", "THÔNG BÁO", JOptionPane.WARNING_MESSAGE);
                     return false;                    
@@ -176,6 +215,8 @@ public class DSPhieuNhap {
             }
             return result;
         }
+        
+        
         public static ArrayList<PhieuNhap> getDsPN() {
             return dsPN;
         }

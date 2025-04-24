@@ -33,6 +33,15 @@ public class DSThuThuBLL {
         }
         return null;
     }
+    public static String getMaThuThuByTen(String ten){
+        for(ThuThu tt : dsThuThu){
+            if(tt.getTenThuThu().equals(ten)){
+                return tt.getMaThuThu();
+            }               
+        }
+        return null;
+    }
+    
     public static ArrayList<ThuThu> getDsThuThu() {
         return dsThuThu;
     }

@@ -3,6 +3,7 @@ package BLL;
 
 import DAL.PhieuTraDAL;
 import MODEL.CTPhat;
+import MODEL.CTPhieuTra;
 import MODEL.PhieuTra;
 import MODEL.SachTra;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
@@ -72,7 +73,6 @@ public class DSPhieuTraBLL {
                 for(PhieuTra a:dspt){ 
                     if(a.getMaPhieuMuon().toLowerCase().contains(text) ||
                         a.getMaPhieuTra().toLowerCase().contains(text)||
-                            a.getMaPhuThu().toLowerCase().contains(text) || 
                              ttbll.getTenThuThuByMa(a.getMaThuThu()).toLowerCase().contains(text)){ 
                         dssearch.add(a);
                     }
@@ -112,7 +112,7 @@ public class DSPhieuTraBLL {
     public boolean taoPhieuTra(PhieuTra pt,ArrayList<SachTra> dsdt,ArrayList<SachTra> dsct){ 
         String regex="^PTRA\\d{3,}";
         if(!pt.getMaPhieuTra().matches(regex)){ 
-            showMess("Mã phiếu trả không hợp lệ Vd:PRA014");
+            showMess("Mã phiếu trả không hợp lệ Vd:PTRA014");
             return false;
         }
         if(dsdt.size()==0){ 
@@ -134,5 +134,8 @@ public class DSPhieuTraBLL {
             Logger.getLogger(DSPhieuTraBLL.class.getName()).log(Level.SEVERE, null, ex);
         }
         return true;
+    }
+    public CTPhieuTra layChiTietPhieuTra(String maPhieuTra){ 
+        return ptdal.getCTPhieuTra(maPhieuTra);
     }
 }

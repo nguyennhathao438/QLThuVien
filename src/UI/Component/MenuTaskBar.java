@@ -136,6 +136,10 @@ public class MenuTaskBar extends JPanel{
 //                            ThongKePanel thongke = new ThongKePanel();
 //                            mainFrame.setRightPanel(thongke);
 //                            break;
+                         case 11:
+                            SwingUtilities.getWindowAncestor(itemTaskBars[index]).dispose();
+                            new Login().setVisible(true);
+                            break;
 //                        default:
 //                            break;
                     }
