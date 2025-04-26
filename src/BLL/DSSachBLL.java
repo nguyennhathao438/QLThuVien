@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 
 public class DSSachBLL {
 	static ArrayList<Sach> dsSach = new ArrayList<>();
+        static ArrayList<Sach> dsSachTam = new ArrayList<>();
         SachDAL sachDAL = new SachDAL();
         
         public DSSachBLL()
@@ -27,6 +28,26 @@ public class DSSachBLL {
         {
             JOptionPane.showMessageDialog(null,s);
         }
+        
+        public void themSachVaoDSTam(Sach s)
+        {
+            dsSachTam.add(s);       
+	}
+        
+        public ArrayList<Sach> getDSTam()
+        {
+            return this.dsSachTam;
+        }
+        
+        public void xoaDSTam()
+        {
+            dsSachTam.clear();
+        }
+        
+         public Sach getSach(String maS)
+       {
+           return sachDAL.laySach(maS);
+       }
         
 	public void themSach(Sach s){
             dsSach=layAllSach();
@@ -63,6 +84,14 @@ public class DSSachBLL {
                 return;
             }
             showMess("Thêm sách thất bại");
+	}
+        
+        public void themSachExcel(Sach s){
+            dsSach=layAllSach();            
+            if(sachDAL.themSach(s)>0)
+            {
+                dsSach.add(s);
+            }
 	}
         
         public void xoaSach(String maS)
@@ -175,11 +204,6 @@ public class DSSachBLL {
            return dsSearch;
        }
        
-       public Sach getSach(String maS)
-       {
-           return sachDAL.laySach(maS);
-       }
-       
        public String getSachbyMa(String maS)
        {
            for(Sach sach:dsSach)
@@ -205,4 +229,6 @@ public class DSSachBLL {
         }
         return result;
         }
+
+    
 }

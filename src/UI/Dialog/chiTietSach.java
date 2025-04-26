@@ -12,28 +12,26 @@ import UI.Panel.SachPanel;
  *
  * @author tung7
  */
-public class suaSach extends javax.swing.JDialog {
+public class chiTietSach extends javax.swing.JDialog {
     DSSachBLL kn = new DSSachBLL();
     String maSach;
-    SachPanel pn;
-    
-    public suaSach(java.awt.Frame parent, boolean modal,String mS, SachPanel panel) {
+    SachPanel spn;
+    public chiTietSach(java.awt.Frame parent, boolean modal,String mS, SachPanel panel) {
         super(parent, modal);
-        this.pn = panel;
         this.maSach = mS;
+        spn = panel;
         initComponents();
+        Sach s = kn.getSach(maSach);
+        maS.setText(s.getMaSach());
+        tenS.setText(s.getTenSach());
+        namXB.setText(String.valueOf(s.getNamXuatBan()));
+        soLuong.setText(String.valueOf(s.getSoLuong()));
+        donGia.setText(String.valueOf(s.getDonGia()));
+        maTG.setText(s.getMaTacGia());
+        maTL.setText(s.getMaTheLoai());
         setLocationRelativeTo(null);
-        Sach  sach = kn.getSach(maSach);
-        maS.setText(sach.getMaSach());
-        tenS.setText(sach.getTenSach());
-        namXB.setText(String.valueOf(sach.getNamXuatBan()));
-        soLuong.setText(String.valueOf(sach.getSoLuong()));
-        donGia.setText(String.valueOf(sach.getDonGia()));
-        maTG.setText(sach.getMaTacGia());
-        maTL.setText(sach.getMaTheLoai());
     }
 
-  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -49,7 +47,6 @@ public class suaSach extends javax.swing.JDialog {
         soLuong = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         donGia = new javax.swing.JTextField();
-        confirm = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         maTG = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -57,17 +54,11 @@ public class suaSach extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sửa sach", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 15))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chi tiết sách", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 15))); // NOI18N
 
         jLabel1.setText("Mã sách:");
 
-        maS.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                maSActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setText("Tên sách:");
+        jLabel2.setText("Tên sách");
 
         jLabel3.setText("Năm xuất bản:");
 
@@ -75,14 +66,7 @@ public class suaSach extends javax.swing.JDialog {
 
         jLabel5.setText("Đơn giá:");
 
-        confirm.setText("Xác nhận");
-        confirm.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                confirmActionPerformed(evt);
-            }
-        });
-
-        jLabel6.setText("Mã tác giải:");
+        jLabel6.setText("Mã tác giả:");
 
         jLabel7.setText("Mã thể loại:");
 
@@ -91,7 +75,7 @@ public class suaSach extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
@@ -100,45 +84,40 @@ public class suaSach extends javax.swing.JDialog {
                     .addComponent(jLabel5)
                     .addComponent(jLabel6)
                     .addComponent(jLabel7))
-                .addGap(49, 49, 49)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(confirm)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(maTL, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(maTG, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(soLuong, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(donGia, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(maS, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
-                            .addComponent(tenS, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(namXB, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addGap(57, 57, 57))))
+                .addGap(40, 40, 40)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(maS)
+                    .addComponent(tenS)
+                    .addComponent(namXB)
+                    .addComponent(soLuong)
+                    .addComponent(donGia)
+                    .addComponent(maTG)
+                    .addComponent(maTL, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE))
+                .addContainerGap(104, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(maS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(tenS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(namXB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jLabel3)
+                    .addComponent(namXB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(soLuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(donGia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addComponent(jLabel5)
+                    .addComponent(donGia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -147,18 +126,14 @@ public class suaSach extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(maTL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(confirm)
-                .addGap(20, 20, 20))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,32 +142,8 @@ public class suaSach extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void maSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maSActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_maSActionPerformed
-
-    private void confirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmActionPerformed
-         Sach s = new Sach();
-        s.setMaSach(maSach);
-        s.setTenSach(tenS.getText());
-        s.setNamXuatBan(Integer.parseInt(namXB.getText()));
-        s.setSoLuong(Integer.parseInt(soLuong.getText()));
-        s.setDonGia(Double.parseDouble(donGia.getText()));
-        s.setMaTacGia(maTG.getText());
-        s.setMaTheLoai(maTL.getText());
-        pn.getSachBLL().suaSach(s);
-        pn.loadData(pn.getSachBLL().layAllSach());
-        this.dispose();
-    }//GEN-LAST:event_confirmActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-   
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton confirm;
     private javax.swing.JTextField donGia;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

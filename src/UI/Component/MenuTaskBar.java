@@ -100,10 +100,10 @@ public class MenuTaskBar extends JPanel{
                             SachPanel sach = new SachPanel();
                             mainFrame.setRightPanel(sach);
                             break;
-//                        case 2:
-//                            TheLoaiPanel theloai = new TheLoaiPanel();
-//                            mainFrame.setRightPanel(theloai);
-//                            break;
+                        case 2:
+                            TheLoaiPanel theloai = new TheLoaiPanel();
+                            mainFrame.setRightPanel(theloai);
+                            break;
                         case 3:
                             DocGiaPanel docgia = new DocGiaPanel();
                             mainFrame.setRightPanel(docgia);

@@ -8,8 +8,10 @@ import BLL.DSSachBLL;
 import Model.Sach;
 import UI.Component.MainFunction;
 import UI.Component.SearchBar;
+import UI.Dialog.chiTietSach;
 import UI.Dialog.suaSach;
 import UI.Dialog.themSach;
+import UI.Dialog.thongBaoExcel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -25,6 +27,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -68,7 +71,7 @@ public class SachPanel extends JPanel implements ItemListener,MouseListener{
         headerPanel.setLayout(new FlowLayout(0, 0, 4));
         headerPanel.setBackground(Color.white);
         
-        String[] function = {"create", "delete", "update", "exportexcel", "importexcel"};
+        String[] function = {"create", "delete", "detail", "update", "exportexcel", "importexcel"};
         mainFunc = new MainFunction(function);
         headerPanel.add(mainFunc);
         for(String func : function)
@@ -88,7 +91,7 @@ public class SachPanel extends JPanel implements ItemListener,MouseListener{
                     {
                         String type = (String)searchBar.getCboChoose().getSelectedItem();
                         String text = searchBar.getTxtSearch().getText();
-                        loadData(dsSach.searchSach(type,text));
+                        loadData(dsSach.searchSach(text,type));
                     }
                 });
         
@@ -112,7 +115,7 @@ public class SachPanel extends JPanel implements ItemListener,MouseListener{
         headers.setBackground(Color.decode("#66B2FF"));
         
         TableColumnModel column = bangSach.getColumnModel();
-         column.getColumn(0).setPreferredWidth(80);
+        column.getColumn(0).setPreferredWidth(80);
         column.getColumn(1).setPreferredWidth(400);
         column.getColumn(2).setPreferredWidth(120);
         column.getColumn(3).setPreferredWidth(300);
@@ -197,8 +200,56 @@ public class SachPanel extends JPanel implements ItemListener,MouseListener{
             searchBar.getCboChoose().setSelectedItem(0);
             searchBar.getTxtSearch().setText("");
             loadData(dsSach.layAllSach());
+        }else if(e.getSource() == mainFunc.getLstBtn().get("exportexcel"))
+        {
+            xuatExcel();
+        }else if(e.getSource() == mainFunc.getLstBtn().get("importexcel"))
+        {
+            Window parentWindow = SwingUtilities.getWindowAncestor(this);
+            new thongBaoExcel((Frame) parentWindow,true).setVisible(true);
+        }else if(e.getSource() == mainFunc.getLstBtn().get("detail"))
+        {
+            int index = bangSach.getSelectedRow();
+            if(index == -1)
+            {
+                JOptionPane.showMessageDialog(this,"Vui lòng chọn sách");
+            } else
+            {
+                String maS = (String) bangSach.getValueAt(index, 0);
+                Window parentWindow = SwingUtilities.getWindowAncestor(this);
+                new chiTietSach((Frame) parentWindow,true,maS,this).setVisible(true);
+            }
         }
     }
+    
+    private void xuatExcel()
+    {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Chọn noi lưu file");
+        int luaChon = fileChooser.showSaveDialog(this);
+        
+        if(luaChon == JFileChooser.APPROVE_OPTION)
+        {
+            String filePath = fileChooser.getSelectedFile().getAbsolutePath();
+            if(!filePath.endsWith(".xlsx"))
+            {
+                filePath += ".xlsx";
+            }
+            ArrayList<Sach> ds1 = dsSach.layAllSach();
+            ArrayList<Sach> ds2 = new ArrayList<>();
+            for(Sach s : ds1)
+            {
+                if(s.getTrangThai() == 1)
+                {
+                    ds2.add(s);
+                }
+            }
+            EXCEL.ExportExcel.xuatExcel(ds2, filePath);
+            JOptionPane.showMessageDialog(this,"Xuất file thành công");
+        }
+    }
+    
+   
 
     @Override
     public void mousePressed(MouseEvent e) {
