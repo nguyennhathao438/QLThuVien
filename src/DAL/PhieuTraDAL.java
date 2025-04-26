@@ -42,6 +42,20 @@ public class PhieuTraDAL {
         }
         return null;
 }  
+    public boolean ktDuyNhatMaPhuThu(String maPhuThu){ 
+        String query = "SELECT * FROM PHUTHU WHERE maPhuThu = ?";
+        try(Connection conn = kn.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(query)){ 
+            stmt.setString(1,maPhuThu);
+            ResultSet rs = stmt.executeQuery();
+            if(rs.next()){ 
+                return true ; 
+            }
+        } catch (SQLException ex) {
+             Logger.getLogger(PhieuTraDAL.class.getName()).log(Level.SEVERE, null, ex);
+         }
+        return false ;
+    }
     public int taoPhieuPhat(String maPhieuTra,String maPhuThu,String[] dsmqd,double tienPhat) throws SQLException{ 
         int ketqua = -1;
         String queryPhuThu = "INSERT INTO PHUTHU(maPhuThu,tienPhat,trangThai) VALUES (?,?, 1)";

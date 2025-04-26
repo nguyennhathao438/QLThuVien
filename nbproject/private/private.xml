@@ -1,24 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="2">
-        <file>
-            <url>src/BLL/DSSachBLL.java</url>
-            <bookmark id="2">
-                <name/>
-                <line>23</line>
-                <key/>
-            </bookmark>
-        </file>
-    </editor-bookmarks>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Dialog/themSach.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/BLL/DSPhieuTraBLL.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Component/ItemToolBar.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/CTPhieuTra.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/BLL/DSNhaCungCapBLL.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Panel/TrangChuPanel.java</file>
-            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/Main/QLThuVien.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/DAL/ThuThuDAL.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Dialog/ChiTietPhieuTraDialog.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/DAL/KetNoiCSDL.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/CTPhuThu.java</file>
@@ -28,6 +19,7 @@
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/PhuThu.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/PhieuMuon.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/BLL/DSSachBLL.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Panel/TaoPhieuNhapPanel.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/Sach.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/ThuThu.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/DAL/PhieuMuonDAL.java</file>
@@ -40,6 +32,7 @@
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/BLL/DSLoaiDocGiaBLL.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/BLL/DSPhieuMuon.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/PhieuNhap.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/DAL/CTPhieuNhapDAL.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/PhieuTra.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Panel/PhieuTraPanel.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Component/SearchBar.java</file>
@@ -54,6 +47,7 @@
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/CTPhieuNhap.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/DAL/PhieuTraDAL.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Panel/PhieuMuonPanel.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Panel/SachPanel.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Login.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/QuyDinh.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Dialog/chiTietPhat.java</file>
@@ -80,7 +74,6 @@
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Dialog/suaTacGia.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/BLL/DSTacGiaBLL.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Dialog/suaQuyDinh.java</file>
-
         </group>
     </open-files>
 </project-private>
