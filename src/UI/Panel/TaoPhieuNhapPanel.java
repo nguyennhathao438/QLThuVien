@@ -8,7 +8,9 @@ import BLL.DSNhaCungCapBLL;
 import BLL.DSPhieuNhap;
 import BLL.DSSachBLL;
 import BLL.DSTacGiaBLL;
+import BLL.DSTheLoaiBLL;
 import BLL.DSThuThuBLL;
+import BLL.LoginBLL;
 import MODEL.CTPhieuNhap;
 import MODEL.PhieuNhap;
 import Model.Sach;
@@ -62,18 +64,20 @@ public class TaoPhieuNhapPanel extends JPanel{
     MainFrame m;    
     private JPanel pnBtnAdd;
     private JPanel pnBtnDelAndUpdate;
-    private ArrayList<CTPhieuNhap> dsCTPN;
+//    private ArrayList<CTPhieuNhap> dsCTPN;
     private DSSachBLL sachBLL = new DSSachBLL();
     private DSTacGiaBLL tacgiaBLL = new DSTacGiaBLL();
-    private static boolean mark = false;
-    private static double money = 0;
+    private DSTheLoaiBLL tlBLL = new DSTheLoaiBLL();
+    public static boolean mark = false;
+    public static double money = 0;
     private DSPhieuNhap pnBLL = new DSPhieuNhap();
-    
+    private LoginBLL loginBLL = new LoginBLL();    
     
     public TaoPhieuNhapPanel(MainFrame m){
 //        this.setBackground(Color.decode("#ccc"));
         this.m = m;
-        this.dsCTPN = new ArrayList<>();
+        pnBLL.dsCTPN = new ArrayList<>();
+//        this.dsCTPN = new ArrayList<>();
         this.setBackground(Color.white);
         this.setLayout(new BorderLayout(5,5));
         initComponent();
@@ -334,9 +338,14 @@ public class TaoPhieuNhapPanel extends JPanel{
         });
         
         txtMaPhieu = new InputField("Mã phiếu nhập", 210, 60);
+        txtMaPhieu.getTxtInput().setEditable(false);
+        String maPhieuNhap = pnBLL.setMaPhieuNhap();
+        txtMaPhieu.getTxtInput().setText(maPhieuNhap);
         right.add(txtMaPhieu);
         
         txtThuThu = new InputField("Thủ thư", 210, 60);
+        txtThuThu.getTxtInput().setEditable(false);
+        txtThuThu.getTxtInput().setText(loginBLL.getTenThuThu());
         right.add(txtThuThu);
         
         String[] arrTenNCC = DSNhaCungCapBLL.getArrTenNCC();
@@ -430,41 +439,11 @@ public class TaoPhieuNhapPanel extends JPanel{
             String ma = (String)sachTable.getValueAt(index, 0);            
             Sach s = DSSachBLL.getDsSach().get(sachBLL.getIndexbyMaSach(ma));            
             setForm(s);
-            gianhap.getTxtInput().setText(String.valueOf(dsCTPN.get(index).getDonGia()));
-            soluong.getTxtInput().setText(String.valueOf(dsCTPN.get(index).getSoLuong()));
+            gianhap.getTxtInput().setText(String.valueOf(pnBLL.dsCTPN.get(index).getDonGia()));
+            soluong.getTxtInput().setText(String.valueOf(pnBLL.dsCTPN.get(index).getSoLuong()));
         }
     }
-    public boolean checkInfoNhapHang(){
-        if(Validation.isEmpty(txtMaPhieu.getTxtInput().getText())){
-            JOptionPane.showMessageDialog(null, "Nhập mã phiếu nhập trước khi thêm", "THÔNG BÁO", JOptionPane.WARNING_MESSAGE);
-            return false;
-        }else if(!mark){
-            boolean check = DSPhieuNhap.checkValidMaPN(txtMaPhieu.getTxtInput().getText());
-            if(!check){
-                return check;
-            }
-            txtMaPhieu.getTxtInput().setEditable(false);
-            mark = true;
-        }
-        
-        if(Validation.isEmpty(gianhap.getTxtInput().getText())){
-            JOptionPane.showMessageDialog(null, "Giá nhập không được rỗng", "THÔNG BÁO", JOptionPane.WARNING_MESSAGE);
-            return false;
-        }
-        if(Validation.isEmpty(soluong.getTxtInput().getText())){
-            JOptionPane.showMessageDialog(null, "Số lượng không được rỗng", "THÔNG BÁO", JOptionPane.WARNING_MESSAGE);
-            return false;
-        }
-        if(!Validation.isNumber(gianhap.getTxtInput().getText())){
-            JOptionPane.showMessageDialog(null, "Giá nhập phải là số!", "THÔNG BÁO", JOptionPane.WARNING_MESSAGE);
-            return false;
-        }
-        if(!Validation.isNumber(soluong.getTxtInput().getText())){
-            JOptionPane.showMessageDialog(null, "Số lượng phải là số!", "THÔNG BÁO", JOptionPane.WARNING_MESSAGE);
-            return false;
-        }
-        return true;
-    }        
+         
     public CTPhieuNhap getInfoCTPhieu(){
         String maPN = txtMaPhieu.getTxtInput().getText();
         String maSach = masach.getTxtInput().getText();
@@ -491,25 +470,12 @@ public class TaoPhieuNhapPanel extends JPanel{
     private void setForm(Sach s){
         masach.getTxtInput().setText(s.getMaSach());
         tensach.getTxtInput().setText(s.getTenSach());
-//      theloai.getTxtInput().setText(sachBLL.getTheLoaiByMa(s.getMaSach()));
-        theloai.getTxtInput().setText(s.getMaTheLoai());
+        theloai.getTxtInput().setText(tlBLL.getTheLoaiByMa(s.getMaTheLoai()));
         tacgia.getTxtInput().setText(tacgiaBLL.getTenTacGiabyMa(s.getMaTacGia()));
     }
     private void updateTotal(double tien,String type){
-        switch (type) {
-            case "add":
-                money += tien;
-                break;
-            case "delete":
-                money -= tien;
-                break;            
-        }
-        NumberFormat formatter = NumberFormat.getNumberInstance(new Locale("vi", "VN"));
-        formatter.setMinimumFractionDigits(0); // hien thi it nhat 22 chu so thap phan
-        formatter.setMaximumFractionDigits(0); // hien thi toi da 2 chu so thap phan
-
-        String formattedMoney = formatter.format(money);
-        lbTotal.getLbData().setText(formattedMoney + "Đ");
+          String thanhtien = pnBLL.updateTotal(tien, type);
+          lbTotal.getLbData().setText(thanhtien);
     }
     private void resetForm(){
         masach.getTxtInput().setText("");
@@ -524,15 +490,19 @@ public class TaoPhieuNhapPanel extends JPanel{
         if(index == -1){
             JOptionPane.showMessageDialog(null, "Chọn sách cần nhập", "THÔNG BÁO", JOptionPane.INFORMATION_MESSAGE);
             return;
-        }
-        if(checkInfoNhapHang()){
+        }       
+        String ma = txtMaPhieu.getTxtInput().getText();
+        String gianhap = this.gianhap.getTxtInput().getText();
+        String quantity = soluong.getTxtInput().getText();
+        String maSach = this.masach.getTxtInput().getText();
+        if(pnBLL.checkInfoNhapHang(ma,gianhap,quantity) && !pnBLL.ctpnExist(maSach)){
             btnAdd.setEnabled(false);
-            sachTable.clearSelection();
+            sachTable.clearSelection(); 
             CTPhieuNhap ctpn = getInfoCTPhieu();
             double thanhtien = ctpn.getThanhTien();
             updateTotal(thanhtien,"add");
-            dsCTPN.add(ctpn);
-            loadTableCTPN(dsCTPN);
+            pnBLL.dsCTPN.add(ctpn);
+            loadTableCTPN(pnBLL.dsCTPN);
             resetForm();
             Timer timer = new Timer(300, new ActionListener() {
                 public void actionPerformed(ActionEvent evt) {
@@ -546,11 +516,11 @@ public class TaoPhieuNhapPanel extends JPanel{
     private void btnUpdateClicked(MouseEvent e){
         int index = phieuTable.getSelectedRow();
         if(index != -1){
-            money -= dsCTPN.get(index).getThanhTien();
+            money -= pnBLL.dsCTPN.get(index).getThanhTien();
             CTPhieuNhap ctpn = getInfoCTPhieu();
-            dsCTPN.set(index, ctpn);
+            pnBLL.dsCTPN.set(index, ctpn);
             updateTotal(ctpn.getThanhTien(), "add");
-            loadTableCTPN(dsCTPN);
+            loadTableCTPN(pnBLL.dsCTPN);
             resetForm();
         }else{
             JOptionPane.showMessageDialog(null, "Chọn chi tiết phiếu cần sửa", "THÔNG BÁO", JOptionPane.WARNING_MESSAGE);
@@ -560,19 +530,19 @@ public class TaoPhieuNhapPanel extends JPanel{
     private void btnDeleteClicked(MouseEvent e){
         int index = phieuTable.getSelectedRow();
         if(index != -1){
-            double thanhtien = dsCTPN.get(index).getThanhTien();
+            double thanhtien = pnBLL.dsCTPN.get(index).getThanhTien();
             updateTotal(thanhtien,"delete");
-            dsCTPN.remove(index);
+            pnBLL.dsCTPN.remove(index);
             phieuTableModel.removeRow(index);            
             resetForm();                        
-            System.out.println(dsCTPN.size());
+            System.out.println(pnBLL.dsCTPN.size());
         }else{
             JOptionPane.showMessageDialog(null, "Chọn chi tiết phiếu cần xóa", "THÔNG BÁO", JOptionPane.WARNING_MESSAGE);
             return;
         }
     }
     private void btnNhapHangClicked(MouseEvent e){
-        if(dsCTPN.isEmpty()){
+        if(pnBLL.dsCTPN.isEmpty()){
              JOptionPane.showMessageDialog(this, "Chưa có sản phẩm nào!", "Cảnh báo !", JOptionPane.ERROR_MESSAGE);
         }else{
             int input = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn tạo phiếu nhập!", "Xác nhận tạo phiếu", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
@@ -583,12 +553,12 @@ public class TaoPhieuNhapPanel extends JPanel{
                 LocalDateTime ngaytao = LocalDateTime.now();
                 double tongtien = TaoPhieuNhapPanel.money;
                 PhieuNhap pn = new PhieuNhap(maPNhap, ngaytao, tongtien, maNCC, maThuThu);
-                boolean result = pnBLL.add(pn, dsCTPN);
-                boolean resultUpdateSoLuongSach = pnBLL.updateSoLuongSach(dsCTPN);
+                boolean result = pnBLL.add(pn, pnBLL.dsCTPN);
+                boolean resultUpdateSoLuongSach = pnBLL.updateSoLuongSach(pnBLL.dsCTPN);
                 if(result && resultUpdateSoLuongSach){
                     resetStaticVariable();
                     JOptionPane.showMessageDialog(this, "Nhập hàng thành công !");                    
-                    m.setRightPanel(new PhieuNhapPanel(m));
+//                    m.setRightPanel(new PhieuNhapPanel(m));
                 } else {
                     JOptionPane.showMessageDialog(this, "Nhập hàng không thành công !", "Cảnh báo !", JOptionPane.ERROR_MESSAGE);
                 }
