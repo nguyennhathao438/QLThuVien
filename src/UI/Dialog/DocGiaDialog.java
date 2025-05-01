@@ -8,30 +8,48 @@ package UI.Dialog;
  *
  * @author NGOC TUYEN
  */
+import BLL.DSLoaiDocGiaBLL;
+import Model.DocGia;
+import UI.Panel.DocGiaPanel;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.border.TitledBorder;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
-public class DocGiaDialog extends JDialog{
+public class DocGiaDialog extends JDialog implements MouseListener, ItemListener{
     private JTextField txtMaDG, txtTenDG, txtSDT, txtDiaChi;
     private JComboBox cboLoaiDG;
-    private JButton btnSave, btnCancel;
+    private JButton btnSave, btnUpdate, btnCancel;
     private JPanel panelInput, panelBTN;
-    private boolean confirmed = false;
-    
-    public DocGiaDialog(JFrame parent, boolean modal){
-        super(parent,"Thông tin độc giả", modal);
-        this.setSize(500, 400);
+    private DocGiaPanel pn;
+    private DocGia dgModel;
+    //private DSLoaiDocGiaBLL ldgbll = new DSLoaiDocGiaBLL();
+    private LoaiDGDialog dialog = null;
+    private JFrame parent;
+    private ArrayList<String> dsTenLoai;
+    public DocGiaDialog(JFrame parent, String title, String type, DocGiaPanel pn){
+        super(parent, true);
+        this.pn = pn;
+        this.initComponents(type, title);
         this.setLocationRelativeTo(parent);
-        this.setLayout(new BorderLayout());
-        this.getContentPane().setBackground(Color.WHITE);
-        initComponents();
-        initEvents();
     }
 
-    public void initComponents(){
+    public DocGiaDialog(JFrame parent, String title, String type, DocGia dgModel, DocGiaPanel pn){
+        super(parent, true);
+        this.pn = pn;
+        this.dgModel = dgModel;
+        this.initComponents(type, title);
+        this.setLocationRelativeTo(parent);
+    }
+    
+    public void initComponents(String type, String title){
+        this.setSize(500, 400);
+        this.setTitle(title);
+        this.setLayout(new BorderLayout());
+        this.getContentPane().setBackground(Color.WHITE);
         // Panel nhập thông tin độc giả
         panelInput = new JPanel();
         panelInput.setLayout(new GridLayout(6, 1, 2, 2));
@@ -47,8 +65,10 @@ public class DocGiaDialog extends JDialog{
         txtDiaChi = txtInfor("Địa chỉ");
         panelInput.add(txtDiaChi);
 
-        String[] tenLDG = new String[]{"LDG001-Thường", "LDDG002-VIP", "LDG003-VVIP", "Khác"};
-        cboLoaiDG = cbochoose("Loại độc giả", tenLDG);
+        dsTenLoai = pn.getLoaiDGBLL().getdsTenLDG();
+        dsTenLoai.add("Khác");
+        cboLoaiDG = cbochoose("Loại độc giả", dsTenLoai.toArray(new String[0]));
+        cboLoaiDG.addItemListener(this);
         panelInput.add(cboLoaiDG);
 
         // Panel chứa nút
@@ -57,60 +77,117 @@ public class DocGiaDialog extends JDialog{
         panelBTN.setBackground(Color.WHITE);
 
         btnSave = btnFunc("Lưu", "#4ec85a");
+        btnSave.addMouseListener(this);
+        btnUpdate = btnFunc("Cập nhật", "#4ec85a");
+        btnUpdate.addMouseListener(this);
         btnCancel = btnFunc("Hủy", "#db4444");
-        panelBTN.add(btnSave);
-        panelBTN.add(btnCancel);
+        btnCancel.addMouseListener(this);
 
         panelInput.add(panelBTN);
         this.add(panelInput);
         
+        switch (type) {
+            case "create":
+                panelBTN.add(btnSave);
+                panelBTN.add(btnCancel);
+                break;
+            case "update":    
+                panelBTN.add(btnUpdate);
+                panelBTN.add(btnCancel);
+                txtMaDG.setText(dgModel.getMaDocGia());
+                txtMaDG.setText(dgModel.getMaDocGia());
+                txtTenDG.setText(dgModel.getTenDocGia());
+                txtSDT.setText(dgModel.getSoDienThoai());
+                txtDiaChi.setText(dgModel.getDiaChi());
+                cboLoaiDG.setSelectedItem(pn.getLoaiDGBLL().getTenLoaiDGByMa(dgModel.getMaLoaiDG())); // chuyển mã sang tên
+                // Khóa Mã độc giả nếu không muốn chỉnh sửa
+                txtMaDG.setEnabled(false);
+                break;                         
+            default:
+                throw new AssertionError();
+        }
     }
-
-       
-    public void initEvents(){
-        //Khi nhấn "Lưu", đặt confirmed thành true cho biết đã xác nhận và đồng ý với các thay đổi.
-        btnSave.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                confirmed = true;
-                dispose();//Đóng dialog khi nhấn "Lưu".
-            }
-        });
-
-        // Đóng dialog khi người dùng nhấn "Hủy".
-        btnCancel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });
+    
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+        parent = (JFrame) SwingUtilities.getWindowAncestor(this);
+        String selected = (String) cboLoaiDG.getSelectedItem();
+        if("Khác".equals(selected)){
+            dialog = new LoaiDGDialog(parent, this);
+            dialog.setVisible(true);
+        }
+    }
+    
+    public DSLoaiDocGiaBLL getLoaiDGBLL(){
+        return pn.getLoaiDGBLL();
+    }
+    
+    public void capNhatCboLoaiDG(String newLoai){
+        dsTenLoai = pn.getLoaiDGBLL().getdsTenLDG();
+        dsTenLoai.add("Khác");
+        cboLoaiDG.setModel(new DefaultComboBoxModel<>(dsTenLoai.toArray(new String[0])));
+        if(newLoai.isEmpty()){
+            cboLoaiDG.setSelectedIndex(0);
+        }else{
+            cboLoaiDG.setSelectedItem(newLoai); // chọn lại newLoai sau khi thêm xong       
+        }
+    }
+    
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if(e.getSource() == btnCancel){
+            dispose();
+        }
         
-        //Chuyển đến LoạiDGDialog khi chọn loại độc giả khác trong comboBox
-        cboLoaiDG.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                String selectedItem = (String) cboLoaiDG.getSelectedItem();
-                if("Khác".equals(selectedItem)){
-                    openLoaiDGDialog();
-                    // Sau khi dialog đóng, bạn có thể cập nhật lại ComboBox trong DocGiaDialog
-                    // Giả sử trong LoaiDGDialog, bạn đã thêm loại độc giả mới vào ComboBox
-//                    String newLoai = LoaiDGDialog.getNewLoai();  // Giả sử phương thức này trả về loại độc giả vừa thêm
-//                    if (newLoai != null && !newLoai.trim().isEmpty()) {
-//                        // Thêm loại mới vào ComboBox trong DocGiaDialog
-//                        cboLoaiDG.addItem(newLoai);
-//                        cboLoaiDG.setSelectedItem(newLoai); // Chọn loại độc giả vừa thêm
-//                    }
+        if(e.getSource() == btnSave){
+            DocGia dg = new DocGia();
+                dg.setMaDocGia(txtMaDG.getText());
+                dg.setTenDocGia(txtTenDG.getText());
+                dg.setSoDienThoai(txtSDT.getText());
+                dg.setDiaChi(txtDiaChi.getText());
+                dg.setMaLoaiDG(pn.getLoaiDGBLL().getMaLoaiDGByTen(cboLoaiDG.getSelectedItem().toString()));
+                dg.setTrangThai(1);
+                if(pn.getDSDocGiaBLL().themDG(dg) == 1){
+                    dispose();
+                    pn.loadDG(pn.getDSDocGiaBLL().layDSDocGia());      
                 }
-            }
-        });
+        }
+        
+        if(e.getSource() == btnUpdate){
+            DocGia dg = new DocGia();
+                dg.setMaDocGia(txtMaDG.getText());
+                dg.setTenDocGia(txtTenDG.getText());
+                dg.setSoDienThoai(txtSDT.getText());
+                dg.setDiaChi(txtDiaChi.getText());
+                dg.setMaLoaiDG(pn.getLoaiDGBLL().getMaLoaiDGByTen(cboLoaiDG.getSelectedItem().toString()));
+                dg.setTrangThai(1);
+                if(pn.getDSDocGiaBLL().suaDG(dg) == 1){
+                    dispose();
+                    pn.loadDG(pn.getDSDocGiaBLL().layDSDocGia());
+                }
+        }
     }
-    
-    public void openLoaiDGDialog(){
-        LoaiDGDialog dialog = new LoaiDGDialog((JFrame) SwingUtilities.getWindowAncestor(DocGiaDialog.this), true);
-                dialog.setVisible(true);
-               
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        
     }
-    
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        
+    }
+
     public JTextField txtInfor(String title){
         JTextField infor = new JTextField();
         infor.setBorder(BorderFactory.createTitledBorder(title));  
@@ -138,30 +215,6 @@ public class DocGiaDialog extends JDialog{
         return cbo;    
     }
   
-    //ktra nguoi dung luu du lieu hay chua
-    public boolean isConfirmed() {
-        return confirmed;
-    }
-    
-    public String getMaDG() {
-        return txtMaDG.getText();
-    }
-
-    public String getTenDG() {
-        return txtTenDG.getText();
-    }
-
-    public String getSoDienThoai() {
-        return txtSDT.getText();
-    }
-
-    public String getDiaChi() {
-        return txtDiaChi.getText();
-    }
-    
-    public String getTenLDG() {
-        return (String) cboLoaiDG.getSelectedItem();
-    }
     
     
 }

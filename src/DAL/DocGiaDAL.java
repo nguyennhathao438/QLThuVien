@@ -81,7 +81,7 @@ public class DocGiaDAL {
     }
     
     public int XoaDG(String maDG){
-        String query = "update DOCGIA set trangThai = 0 where maLoaiDG = ?";
+        String query = "update DOCGIA set trangThai = 0 where maDocGia = ?";
         
         try(Connection conn = kn.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(query)){

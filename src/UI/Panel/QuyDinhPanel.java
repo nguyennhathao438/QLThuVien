@@ -121,6 +121,8 @@ public class QuyDinhPanel extends JPanel implements ItemListener,MouseListener{
     public void loadData(ArrayList<QuyDinh> dsqd){
         dtm.setRowCount(0);   
         for(QuyDinh a: dsqd){
+            System.out.println("Thêm độc giả: " + a.getMaQuyDinh());
+            System.out.println(a.toString());
             if(a.getTrangThai()!= 0)
              dtm.addRow(new Object[]{
                 a.getMaQuyDinh(),
