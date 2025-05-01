@@ -11,10 +11,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author NGOC TUYEN
- */
+
 public class PhieuMuonDAL {
     KetNoiCSDL kn = new KetNoiCSDL();
     public ArrayList<PhieuMuon> getAllPhieuMuon(){ 

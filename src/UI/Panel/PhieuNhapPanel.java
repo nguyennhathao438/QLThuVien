@@ -30,6 +30,7 @@ import javax.swing.table.TableColumnModel;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Date;
 /**
  *
  * @author Nghia0605
@@ -70,7 +71,7 @@ public class PhieuNhapPanel extends JPanel implements ItemListener, MouseListene
         headerPanel.setLayout(new FlowLayout(0, 0, 4));
         headerPanel.setBackground(Color.white);
         
-        String[] function = { "create", "delete", "update", "detail","exportexcel", "importexcel" }; //"detail", 
+        String[] function = { "create", "delete", "detail" }; //"detail", 
         mainFunc = new MainFunction(function);
         headerPanel.add(mainFunc);
         
@@ -246,56 +247,41 @@ public class PhieuNhapPanel extends JPanel implements ItemListener, MouseListene
             }
             else{
                 JOptionPane.showMessageDialog(parent, "Chọn phiếu nhập cần xem chi tiết", "THÔNG BÁO", JOptionPane.INFORMATION_MESSAGE);
-            }
-            
-            
+            }                        
         } else if(obj == mainFunc.getLstBtn().get("delete")){
-            
-        } else if(obj == mainFunc.getLstBtn().get("update")){
-            
-        } else if(obj == this.btnFilter){
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            int index = tablePN.getSelectedRow();
+            if(index != -1){
+                String maPN = tablePN.getValueAt(index, 0).toString();
+                int input = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa phiếu nhập không?", "XÓA PHIẾU", 
+                        JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
+                if(input == JOptionPane.OK_OPTION){
+                    if(pnBLL.delete(maPN)){
+                        JOptionPane.showMessageDialog(null, "Xóa phiếu nhập thành công!", "THÔNG BÁO", JOptionPane.INFORMATION_MESSAGE);
+                        loadData(pnBLL.getDsPN());
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Xóa phiếu nhập thất bại!", "LỖI", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+            else{
+                JOptionPane.showMessageDialog(parent, "Chọn phiếu nhập cần xóa", "THÔNG BÁO", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }else if(obj == this.btnFilter){
+//            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             String ncc = nccField.getTxtInput().getText().trim();
             String tt = ttField.getTxtInput().getText().trim();
-            String fromDateStr = "";
-            if(fromDate.getDate() != null){
-                fromDateStr = sdf.format(fromDate.getDate());
+            Date fromDate = null;
+            if(this.fromDate.getDate() != null){
+                fromDate = this.fromDate.getDate();
             }
-            String toDateStr = "";
-            if(toDate.getDate() != null){
-                toDateStr = sdf.format(toDate.getDate());
+            Date toDate = null;
+            if(this.toDate.getDate() != null){
+                toDate = this.toDate.getDate();
             }
             String fromMoneyStr = fromMoney.getTxtInput().getText().trim();
-            String toMoneyStr = toMoney.getTxtInput().getText().trim();
-            
-            LocalDateTime fromDateParsed = null;
-            LocalDateTime toDateParsed = null;
-            Double fromMoneyParsed = null;
-            Double toMoneyParsed = null;
-            try {
-                if(!fromDateStr.isEmpty()){
-                    fromDateParsed = LocalDateTime.parse(fromDateStr + " 00:00:00", formatTime);
-                }
-                if(!toDateStr.isEmpty()){
-                    toDateParsed = LocalDateTime.parse(toDateStr + " 23:59:59", formatTime);
-                }
-                
-                if(!fromMoneyStr.isEmpty()){                    
-                    fromMoneyParsed = Double.valueOf(fromMoneyStr);             
-                }
-                
-                
-                if(!toMoneyStr.isEmpty()){                   
-                    toMoneyParsed = Double.valueOf(toMoneyStr);                    
-                }
-                
-                ArrayList<PhieuNhap> filterList = pnBLL.filteredList(ncc, tt, fromDateParsed, toDateParsed, fromMoneyParsed, toMoneyParsed);
-                
-                loadData(filterList);
-            } catch (NumberFormatException err) {
-                err.printStackTrace();
-            }
-                
+            String toMoneyStr = toMoney.getTxtInput().getText().trim();        
+            ArrayList<PhieuNhap> result = pnBLL.advancedSearch(ncc, tt, fromDate, toDate, fromMoneyStr, toMoneyStr);
+            loadData(result);          
         } else if(obj == nccField.getBtnSupport()){
             parent = (JFrame)SwingUtilities.getWindowAncestor(this);
             String[] header = {"Mã NCC", "Tên NCC", "Số điện thoại"};

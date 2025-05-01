@@ -27,11 +27,19 @@ public class DSPhieuTraBLL {
     public void showMess(String s){ 
         JOptionPane.showMessageDialog(null, s);
     }
-    public void taoPhieuPhat(String maPhieuTra,String maPhuThu,String[] dsmqd,double tienPhat){
+    public boolean taoPhieuPhat(String maPhieuTra,String maPhuThu,String[] dsmqd,double tienPhat){
         String regex = "^PHUTHU\\d{3,}";
         if(maPhuThu.matches(regex)){ 
             showMess("Mã nhập không hợp lệ (Ví dụ:PHUTHU017)");
-            return ;
+            return false;
+        }
+        if(ptdal.ktDuyNhatMaPhuThu(maPhuThu)){ 
+            showMess("Mã phụ thu đã tồn tại ");
+            return false;
+        }
+        if(dsmqd.length == 0){ 
+            showMess("Vui lòng chọn quy định ");
+            return false;
         }
         try {
             int kq = ptdal.taoPhieuPhat(maPhieuTra, maPhuThu,dsmqd, tienPhat);
@@ -39,13 +47,14 @@ public class DSPhieuTraBLL {
                 showMess("Tạo phiếu phạt thành công");
                 int index = getIndexbyMaPT(maPhieuTra);
                 dspt.get(index).setMaPhuThu(maPhuThu);
+                return true;
             }else{
                 showMess("Tạo phiếu phạt thất bại ");
             }
         } catch (SQLException ex) {
             Logger.getLogger(DSPhieuTraBLL.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        return false;
     }
     public CTPhat getChiTietPhat(String maPhieuTra){ 
         return ptdal.getCTPhat(maPhieuTra);
@@ -111,9 +120,16 @@ public class DSPhieuTraBLL {
     }
     public boolean taoPhieuTra(PhieuTra pt,ArrayList<SachTra> dsdt,ArrayList<SachTra> dsct){ 
         String regex="^PTRA\\d{3,}";
+        this.dspt = getAllPhieuTra();
         if(!pt.getMaPhieuTra().matches(regex)){ 
             showMess("Mã phiếu trả không hợp lệ Vd:PTRA014");
             return false;
+        }
+        for(PhieuTra a: dspt){ 
+            if(a.getMaPhieuTra().equals(pt.getMaPhieuTra())){ 
+                showMess("Mã phiếu trả đã tồn tại");
+            return false;
+            }
         }
         if(dsdt.size()==0){ 
             showMess("Không tìm thấy sách trả");
@@ -137,5 +153,9 @@ public class DSPhieuTraBLL {
     }
     public CTPhieuTra layChiTietPhieuTra(String maPhieuTra){ 
         return ptdal.getCTPhieuTra(maPhieuTra);
+    }
+    public double getTienPhat(String maPhieuTra){ 
+        CTPhat ct = ptdal.getCTPhat(maPhieuTra);
+        return ct.getThanhTien();
     }
 }

@@ -206,9 +206,12 @@ public class phat extends javax.swing.JDialog {
             }
         }
         String maPhuT = maPhuThu.getText();
-        ptpn.getPhieuTraBLL().taoPhieuPhat(maPhieuTra, maPhuT, dsmqd, tienPhat);
-        ptpn.loadData(ptpn.getPhieuTraBLL().getAllPhieuTra());
-        this.dispose();
+        if(ptpn.getPhieuTraBLL().taoPhieuPhat(maPhieuTra, maPhuT, dsmqd, tienPhat)){ 
+            this.dispose();
+            ptpn.loadData(ptpn.getPhieuTraBLL().getAllPhieuTra());
+        }
+        
+        
     }//GEN-LAST:event_confirmActionPerformed
 
     

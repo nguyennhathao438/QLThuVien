@@ -12,6 +12,7 @@ import BLL.DSNhaCungCapBLL;
 import BLL.DSPhieuNhap;
 import BLL.DSSachBLL;
 import BLL.DSTacGiaBLL;
+import BLL.DSTheLoaiBLL;
 import BLL.DSThuThuBLL;
 import DAL.CTPhieuNhapDAL;
 import MODEL.CTPhieuNhap;
@@ -40,6 +41,7 @@ public class CTPhieuNhapDialog extends JDialog {
     private DSPhieuNhap pnBLL = new DSPhieuNhap();
     private DSTacGiaBLL tacGiaBLL = new DSTacGiaBLL();
     private DSSachBLL sachBLL = new DSSachBLL();
+    private DSTheLoaiBLL tlBLL = new DSTheLoaiBLL();
     
     public CTPhieuNhapDialog(Frame parent, PhieuNhap pn) {
         super(parent, "Chi Tiết Phiếu Nhập", true);
@@ -146,8 +148,8 @@ public class CTPhieuNhapDialog extends JDialog {
                     ctTableModel.addRow(new Object[]{
                         sach.getMaSach(),
                         sach.getTenSach(),
-                        sach.getMaTheLoai(),
                         tacGiaBLL.getTenTacGiabyMa(sach.getMaTacGia()),
+                        tlBLL.getTheLoaiByMa(sach.getMaTheLoai()),                        
                         sach.getNamXuatBan(),
                         ctpn.getSoLuong(),
                         ctpn.getDonGia()

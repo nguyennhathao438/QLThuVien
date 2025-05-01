@@ -10,7 +10,7 @@ package UI.Component;
  */
 public class Validation {
     public static boolean isEmpty(String input){
-        if(input == null){
+        if(input == null ){
             return true;
         }
         return input.equals("");
@@ -19,7 +19,7 @@ public class Validation {
     public static boolean isNumber(String num){
         if(num == null) return false;
         try {
-            long x = Long.parseLong(num);
+            double x = Double.parseDouble(num);
             return x > 0;
         } catch (NumberFormatException e) {
             return false;
