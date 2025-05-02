@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-  <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/BLL/ThongKeBLL.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Dialog/themSach.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/BLL/DSPhieuTraBLL.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Component/ItemToolBar.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Panel/TKHoatDong.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/CTPhieuTra.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/BLL/DSNhaCungCapBLL.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Panel/TrangChuPanel.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/DAL/ThuThuDAL.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/DAL/TheLoaiDAL.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Dialog/ChiTietPhieuTraDialog.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/DAL/KetNoiCSDL.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/CTPhuThu.java</file>
@@ -28,6 +31,8 @@
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/CTPhat.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Component/RoundedPanel.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/DAL/PhieuNhapDAL.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Panel/TKDocGia.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Dialog/thongBaoExcel.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/BLL/DSPhieuNhap.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/BLL/DSLoaiDocGiaBLL.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/BLL/DSPhieuMuon.java</file>
@@ -42,7 +47,9 @@
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Dialog/ChiTietPhieuMuonDialog.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Dialog/ChiTietDocGiaDialog.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Component/MainFunction.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Panel/TKThuThu.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Panel/QuyDinhPanel.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Panel/ThongKePanel.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Dialog/themTacGia.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/CTPhieuNhap.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/DAL/PhieuTraDAL.java</file>
@@ -52,6 +59,7 @@
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/QuyDinh.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Dialog/chiTietPhat.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Dialog/PhieuMuonDialog.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/DAL/SachDAL.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/SachTra.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/SachNhap.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/BLL/DSQuyDinh.java</file>
@@ -66,15 +74,17 @@
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/DAL/TacGiaDAL.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Dialog/themQuyDinh.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Panel/NhaCungCapPanel.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/DAL/ThongKeDAL.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/BLL/LoginBLL.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Panel/PhieuNhapPanel.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/DAL/LoaiDGDAL.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Panel/TheLoaiPanel.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Component/ItemTaskBar.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/SachMuon.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Dialog/suaTacGia.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/BLL/DSTacGiaBLL.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Panel/TKSach.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Dialog/suaQuyDinh.java</file>
-
         </group>
     </open-files>
 </project-private>

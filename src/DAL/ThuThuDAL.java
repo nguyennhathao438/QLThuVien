@@ -7,10 +7,7 @@ package DAL;
 import Model.ThuThu;
 import java.util.ArrayList;
 import java.sql.*;
-/**
- *
- * @author Nghia0605
- */
+
 public class ThuThuDAL {
 //     maThuThu VARCHAR(10) PRIMARY KEY,
 //    tenThuThu NVARCHAR(255),
