@@ -48,7 +48,7 @@ public class LoaiDGDAL {
             pstmt.setString(1,loai.getMaLoaiDG());
             pstmt.setString(2,loai.getTenLoaiDG());
             pstmt.setInt(3,loai.getGioiHanMuon());
-            pstmt.setString(4,loai.getMaLoaiDG());
+            pstmt.setString(4,loai.getMoTa());
             
             return pstmt.executeUpdate();
             

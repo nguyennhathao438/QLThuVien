@@ -70,6 +70,6 @@ public class DocGia {
         
         @Override
 	public String toString(){
-		return tenDocGia;
+		return maDocGia + tenDocGia + soDienThoai + diaChi + maLoaiDG + trangThai;
 	}
 }

@@ -5,16 +5,15 @@
 package UI.Panel;
 
 import BLL.DSDocGiaBLL;
+import BLL.DSLoaiDocGiaBLL;
 import Model.DocGia;
 import UI.Component.MainFunction;
 import UI.Component.SearchBar;
 import UI.Dialog.ChiTietDocGiaDialog;
 import UI.Dialog.DocGiaDialog;
-import UI.Dialog.DocGiaDialog;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -26,21 +25,26 @@ import javax.swing.table.TableColumnModel;
  *
  * @author NGOC TUYEN
  */
-public class DocGiaPanel extends JPanel{
+public class DocGiaPanel extends JPanel implements ItemListener, MouseListener{
     private JPanel headerPanel, tblPanel;
     private DefaultTableModel tblModel;
     private JTable tblDG;
     private JScrollPane scrollPane;
     private SearchBar searchBar;
     private MainFunction mainFunc;
-    private ArrayList<DocGia> dsDG;
+    private JFrame parent;
+    private DSDocGiaBLL dgbll = new DSDocGiaBLL();
+    private DocGiaDialog dgDialog = null;
+    private ChiTietDocGiaDialog ctDialog = null;
+    private DSLoaiDocGiaBLL ldgbll = new DSLoaiDocGiaBLL();
+    
     public DocGiaPanel(){
         this.setBorder(BorderFactory.createEmptyBorder(7, 6, 7, 6));
         this.setLayout(new BorderLayout(0, 0));
         this.setBackground(Color.WHITE);
         initComponent();
-        loadDG();
-        initEvents();
+        loadDG(dgbll.layDSDocGia());
+        
     }
     
     public void initComponent(){
@@ -48,20 +52,39 @@ public class DocGiaPanel extends JPanel{
         headerPanel.setPreferredSize(new Dimension(900, 120));
         headerPanel.setLayout(new FlowLayout(0,0,4));
         headerPanel.setBackground(Color.WHITE);
-        mainFunc = new MainFunction(new String[] {"create", "delete", "update", "detail"});
-        headerPanel.add(mainFunc);
         
-        searchBar = new SearchBar(new String[] {"Tất cả", "Mã ĐG", "Tên ĐG", "Số điện thoại", "Loại độc giả"});
+        String[] function = {"create", "delete", "update", "detail"};
+        mainFunc = new MainFunction(function);
+        headerPanel.add(mainFunc);
+        for(String func : function){
+            mainFunc.getLstBtn().get(func).addMouseListener(this);
+        }
+        
+        searchBar = new SearchBar(new String[] {"Tất cả", "Mã ĐG", "Tên ĐG", "Số điện thoại", "Loại ĐG"});
         headerPanel.add(searchBar);
-
         this.add(headerPanel, BorderLayout.NORTH);
+        searchBar.getCboChoose().addItemListener(this);
+        searchBar.getBtnRefesh().addMouseListener(this);
+        searchBar.getTxtSearch().addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e){                
+                String type = (String)searchBar.getCboChoose().getSelectedItem();
+                String text = searchBar.getTxtSearch().getText().trim();
+                loadDG(dgbll.searchDocGia(text, type));
+            }
+        });
         
         tblPanel = new JPanel();
         tblPanel.setLayout(new BorderLayout());
         String[] header = {"Mã độc giả", "Tên độc giả", "Số điện thoại", "Địa chỉ", "Loại độc giả"};
-        tblModel = new DefaultTableModel(header, 0);
-
-        tblDG = new JTable();    
+        tblModel = new DefaultTableModel(header, 0){
+            @Override            
+            public boolean isCellEditable(int row,int column){
+                return false;
+            }
+        };
+        tblDG = new JTable();
+        tblDG.setFillsViewportHeight(true);      
         tblDG.setModel(tblModel);
         
         //Lấy header của bảng.
@@ -90,64 +113,98 @@ public class DocGiaPanel extends JPanel{
         
     }
     
-    public void initEvents(){
-        // Xử lý sự kiện cho nút "Thêm"
-        mainFunc.getLstBtn().get("create").addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //Lấy cửa sổ (JFrame) chứa NhaCungCapPanel, đảm bảo dialog được hiển thị đúng trên cửa sổ cha.
-                //true (modal):dialog sẽ ở chế độ modal,phải đóng dialog trước khi thao tác với cửa sổ chính.
-                DocGiaDialog dialog = new DocGiaDialog((JFrame) SwingUtilities.getWindowAncestor(DocGiaPanel.this), true);
-                dialog.setVisible(true);
-//                if (dialog.isConfirmed()) { //Kiểm tra xem người dùng có nhấn nút xác nhận (OK) hay không.
-//                    tblModel.addRow(new Object[]{
-//                        dialog.getMaDG(),
-//                        dialog.getTenDG(),
-//                        dialog.getSoDienThoai(),
-//                        dialog.getDiaChi(),
-//                        dialog.getTenLDG(),
-//                            
-//                   });
-//                }
+    public void loadDG(ArrayList<DocGia> dsdg){
+        tblModel.setRowCount(0);
+        for(DocGia dg : dsdg){
+            if(dg.getTrangThai() != 0 ){   
+                tblModel.addRow(new Object[]{
+                    dg.getMaDocGia(), 
+                    dg.getTenDocGia(), 
+                    dg.getSoDienThoai(), 
+                    dg.getDiaChi(), 
+                    ldgbll.getTenLoaiDGByMa(dg.getMaLoaiDG())
+                });
             }
-        });
-        
-        //xu ly su kien nut "sửa"
-        mainFunc.getLstBtn().get("update").addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                DocGiaDialog dialog = new DocGiaDialog((JFrame) SwingUtilities.getWindowAncestor(DocGiaPanel.this), true);
-                dialog.setVisible(true);
-            }
-        });
+        }
+    }
 
-        
-         //xu ly su kien nut "chi tiet"
-        mainFunc.getLstBtn().get("detail").addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                ChiTietDocGiaDialog dialog = new ChiTietDocGiaDialog((JFrame) SwingUtilities.getWindowAncestor(DocGiaPanel.this), true);
-                dialog.setVisible(true);
-            }
-        });
-
+    public DSDocGiaBLL getDSDocGiaBLL(){ 
+        return dgbll;
     }
     
-    public void loadDG(){
-        DSDocGiaBLL dgbll = new DSDocGiaBLL();
-        if(DSDocGiaBLL.dsdg == null){
-            dgbll.docDSDG();
-        }
-        tblModel.setRowCount(0);
-        if(DSDocGiaBLL.dsdg != null){
-            for(DocGia dg : DSDocGiaBLL.dsdg){
-                tblModel.addRow(new Object[]{dg.getMaDocGia(), dg.getTenDocGia(), dg.getSoDienThoai(), dg.getDiaChi(), dg.getMaLoaiDG()});
+    public DSLoaiDocGiaBLL getLoaiDGBLL(){
+        return ldgbll;
+    }
+    
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+        String text = searchBar.getTxtSearch().getText().trim();
+        String type = (String)searchBar.getCboChoose().getSelectedItem();
+        loadDG(dgbll.searchDocGia(text, type));
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        parent = (JFrame)SwingUtilities.getWindowAncestor(this);
+        if(e.getSource() == mainFunc.getLstBtn().get("create")){            
+            dgDialog = new DocGiaDialog(parent, "Thêm độc giả", "create", this);
+            dgDialog.setVisible(true);
+        }else if(e.getSource() == mainFunc.getLstBtn().get("update")){
+            int row=tblDG.getSelectedRow();
+            if(row==-1 ){ 
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn độc giả");
+            }else{ 
+                String ma=(String) tblDG.getValueAt(row, 0);
+                dgDialog = new DocGiaDialog(parent, "Cập nhật độc giả", "update", dgbll.getDocGiaByMA(ma), this);
+                dgDialog.setVisible(true);
             }
-            tblModel.fireTableDataChanged();
-        }else{
-            
-            JOptionPane.showMessageDialog(this,"dl null");     
+        }else if(e.getSource() == mainFunc.getLstBtn().get("delete")){
+            int row = tblDG.getSelectedRow();
+            if(row ==  -1 ){ 
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn độc giả");
+            }else{ 
+                int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xoá");
+                if(confirm == JOptionPane.YES_OPTION){ 
+                    String ma=(String) tblDG.getValueAt(row, 0);
+                    dgbll.xoaDG(ma);
+                    loadDG(dgbll.layDSDocGia());
+                }
+            }
+        }else if(e.getSource() == mainFunc.getLstBtn().get("detail")){
+            int row = tblDG.getSelectedRow();
+            if(row == -1){
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn độc giả");
+            }else{
+                String ma=(String) tblDG.getValueAt(row, 0);
+                ctDialog = new ChiTietDocGiaDialog(parent, dgbll.getDocGiaByMA(ma),this);
+                ctDialog.setVisible(true);
+            }
+        }else if(e.getSource() == searchBar.getBtnRefesh()){            
+            searchBar.getCboChoose().setSelectedIndex(0);
+            searchBar.getTxtSearch().setText("");
+            loadDG(dgbll.layDSDocGia());
         }
+    }   
+    
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        
     }
     
 }

@@ -11,7 +11,9 @@ public class DSTheLoaiBLL {
     TheLoaiDAL tlDAL = new TheLoaiDAL();
     public DSTheLoaiBLL()
     {
-        this.dsTheLoai = tlDAL.layDSTheLoai();
+        if(this.dsTheLoai.size() == 0){
+            this.dsTheLoai = tlDAL.layDSTheLoai();
+        }
     }
     
     public static ArrayList<TheLoai> layALLTheLoai()

@@ -77,7 +77,7 @@ public class PhieuNhapDAL {
         
     }
     public boolean delete(String maPN){
-        String query = "UPDATE PHIEUNHAP SET trangThai = 0 WHERE maPhieuNhap = ?";
+        String query = "UPDATE PHIEUNHAP SET trangThai = 0 WHERE maPNhap = ?";
         try (Connection conn = kn.getConnection();
              PreparedStatement prs = conn.prepareStatement(query)) {
             prs.setString(1, maPN);
@@ -87,5 +87,20 @@ public class PhieuNhapDAL {
             System.err.println("Loi khi xoa phieu nhap!");
             return false;
         }
+    }
+    public int getSoLuongPN(){
+        String query = "SELECT COUNT(*) AS soluong FROM PHIEUNHAP";
+        try (Connection conn = kn.getConnection();
+             PreparedStatement prs = conn.prepareStatement(query);
+              ResultSet rs = prs.executeQuery()){
+            if(rs.next()){
+                return rs.getInt("soluong");
+            }
+            
+        } catch (Exception e) {
+            System.err.println("Khong the lay so luong phieu nhap");
+            
+        }
+        return -1;
     }
 }
