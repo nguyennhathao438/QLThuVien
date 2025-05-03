@@ -2,10 +2,12 @@
 package BLL;
 
 import DAL.PhieuTraDAL;
+import DAL.SachDAL;
 import MODEL.CTPhat;
 import MODEL.CTPhieuTra;
 import MODEL.PhieuTra;
 import MODEL.SachTra;
+import Model.Sach;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ public class DSPhieuTraBLL {
     static ArrayList<PhieuTra> dspt =new ArrayList();
     DSThuThuBLL ttbll = new DSThuThuBLL();
     ArrayList<SachTra> dsst=new ArrayList();
+    SachDAL sachdal = new SachDAL();
     public DSPhieuTraBLL(){ 
         this.dspt = ptdal.layDSPTra();
     }
@@ -140,7 +143,8 @@ public class DSPhieuTraBLL {
             return false ;
         }
         try {
-            if(ptdal.taoPhieuTra(pt, dsdt, dsct)>0){
+            if(ptdal.taoPhieuTra(pt, dsdt, dsct)>0 && sachdal.updateSoLuongSachTra(dsdt)){
+                updateSoLuongSach(dsdt);
                 showMess("Tạo phiếu trả thành công");
                 
             }else{ 
@@ -150,6 +154,20 @@ public class DSPhieuTraBLL {
             Logger.getLogger(DSPhieuTraBLL.class.getName()).log(Level.SEVERE, null, ex);
         }
         return true;
+    }
+    public boolean updateSoLuongSach(ArrayList<SachTra> dsdt){
+        boolean check = sachdal.updateSoLuongSachTra(dsdt);
+        if(check){
+            for(SachTra st : dsdt){
+                for(Sach s : DSSachBLL.getDsSach()){
+                    if(s.getMaSach().equals(st.getMaSach())){
+                        s.setSoLuong(s.getSoLuong() + st.getSoLuong());
+                        break;
+                    }
+                }
+            }
+        }
+        return check;
     }
     public CTPhieuTra layChiTietPhieuTra(String maPhieuTra){ 
         return ptdal.getCTPhieuTra(maPhieuTra);
