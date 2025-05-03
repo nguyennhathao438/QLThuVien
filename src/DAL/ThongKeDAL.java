@@ -1,12 +1,14 @@
 
 package DAL;
 
+import MODEL.TKThuThu;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Date;
@@ -126,5 +128,34 @@ public class ThongKeDAL {
         }
     return result;
 }
-
+    public ArrayList<TKThuThu> getTKThuThu(int nam){
+        ArrayList<TKThuThu> result = new ArrayList<>();
+        String query = "SELECT tt.maThuThu, tt.tenThuThu,"
+                + "(SELECT COUNT(*) FROM PHIEUMUON pm WHERE pm.maThuThu = tt.maThuThu AND YEAR(pm.ngayMuon) = ?) AS soPhieuMuon, " 
+                + "(SELECT COUNT(*) FROM PHIEUTRA pt WHERE pt.maThuThu = tt.maThuThu AND YEAR(pt.ngayThucTra)= ?) AS soPhieuTra, "
+                + "(SELECT COUNT(*) FROM PHIEUNHAP pn WHERE pn.maThuThu = tt.maThuThu AND YEAR(pn.thoiGian) = ?) AS soPhieuNhap "
+                + "FROM THUTHU tt";
+        try (Connection conn = kn.getConnection();
+             PreparedStatement prs = conn.prepareStatement(query)){
+            
+            prs.setInt(1, nam);
+            prs.setInt(2, nam);
+            prs.setInt(3, nam);
+            
+            ResultSet rs = prs.executeQuery();
+            while(rs.next()){
+                String ma = rs.getString("maThuThu");
+                String ten = rs.getString("tenThuThu");
+                int muon = rs.getInt("soPhieuMuon");
+                int tra = rs.getInt("soPhieuTra");
+                int nhap = rs.getInt("soPhieuNhap");
+                if (muon == 0 && tra == 0 && nhap == 0) continue;
+                result.add(new TKThuThu(ma, ten, muon, tra, nhap));
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 }
