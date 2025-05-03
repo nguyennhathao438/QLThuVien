@@ -1,12 +1,14 @@
 
 package DAL;
 
+import MODEL.TKDocGia;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Date;
@@ -126,5 +128,60 @@ public class ThongKeDAL {
         }
     return result;
 }
-
+    public ArrayList<TKDocGia> getTKDocGia() {
+        ArrayList<TKDocGia> dstk = new ArrayList();
+        String query = "SELECT \n"
+                + "    DG.tenDocGia, \n"
+                + "    PM.soPhieuMuon, \n"
+                + "    CT.slSachMuon, \n"
+                + "	ST.slSachTra,\n"
+                + "    PT.soQuyDinhPhat\n"
+                + "FROM DOCGIA DG\n"
+                + "LEFT JOIN (\n"
+                + "    SELECT maDocGia, COUNT(DISTINCT maPMuon) as soPhieuMuon\n"
+                + "    FROM PHIEUMUON\n"
+                + "    GROUP BY maDocGia\n"
+                + ") PM ON DG.maDocGia = PM.maDocGia\n"
+                + "LEFT JOIN (\n"
+                + "    SELECT PM.maDocGia, SUM(CTPM.soLuong) as slSachMuon\n"
+                + "    FROM PHIEUMUON PM\n"
+                + "    JOIN CTPHIEUMUON CTPM ON PM.maPMuon = CTPM.maPhieuMuon\n"
+                + "    GROUP BY PM.maDocGia\n"
+                + ") CT ON DG.maDocGia = CT.maDocGia\n"
+                + "LEFT JOIN (\n"
+                + "	SELECT PM.maDocGia,SUM(CTT.soLuong) as slSachTra\n"
+                + "	FROM PHIEUMUON PM\n"
+                + "	JOIN PHIEUTRA PT ON PM.maPMuon=PT.maPMuon\n"
+                + "	JOIN CTPHIEUTRA CTT ON PT.maPTra = CTT.maPhieuTra\n"
+                + "	GROUP BY maDocGia \n"
+                + ") ST ON DG.maDocGIA =ST.maDocGia\n"
+                + "LEFT JOIN (\n"
+                + "    SELECT PM.maDocGia, COUNT(CTP.maQuyDinh) as soQuyDinhPhat\n"
+                + "    FROM PHIEUMUON PM\n"
+                + "    JOIN PHIEUTRA PT ON PM.maPMuon = PT.maPMuon\n"
+                + "    JOIN PHUTHU PH ON PT.maPhuThu = PH.maPhuThu\n"
+                + "    JOIN CTPHAT CTP ON PH.maPhuThu = CTP.maPhuThu\n"
+                + "    GROUP BY PM.maDocGia\n"
+                + ") PT ON DG.maDocGia = PT.maDocGia;";
+            try(Connection conn = kn.getConnection();
+                    PreparedStatement stmt = conn.prepareStatement(query) ){ 
+                ResultSet rs = stmt.executeQuery();
+                TKDocGia tkdg;
+                while(rs.next()){ 
+                    tkdg = new TKDocGia();
+                    tkdg.setTenDocGia(rs.getString("tenDocGia"));
+                    tkdg.setSoPhieuMuon(rs.getInt("soPhieuMuon"));
+                    tkdg.setSoSachMuon(rs.getInt("slSachMuon"));
+                    tkdg.setSoSachTra(rs.getInt("slSachTra"));
+                    tkdg.setSoLanSaiQD(rs.getInt("soQuyDinhPhat"));
+                    dstk.add(tkdg);
+                }
+            } catch (SQLServerException ex  ) {
+            Logger.getLogger(ThongKeDAL.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ThongKeDAL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return dstk;
+    }
+    
 }
