@@ -77,5 +77,5 @@ public class MainFrame extends JFrame {
         rightPanel.repaint();
     }
 
-
+   
 }

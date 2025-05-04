@@ -10,10 +10,7 @@ import java.awt.event.FocusEvent;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-/**
- *
- * @author Nghia0605
- */
+
 public class PlaceHolderInput extends JTextField{
     
     

@@ -12,6 +12,7 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/D:/QLThuVien/src/UI/Dialog/chiTietSach.java</file>
             <file>file:/D:/QLThuVien/src/UI/Dialog/LoaiDGDialog.java</file>
             <file>file:/D:/QLThuVien/src/DAL/PhieuMuonDAL.java</file>
@@ -34,6 +35,26 @@
             <file>file:/D:/QLThuVien/src/DAL/TheLoaiDAL.java</file>
             <file>file:/D:/QLThuVien/src/DAL/LoginDAL.java</file>
             <file>file:/D:/QLThuVien/src/UI/Component/InputField.java</file>
+=======
+            <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/UI/Panel/PhieuNhapPanel.java</file>
+            <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/MODEL/ThuThu.java</file>
+            <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/BLL/DSPhieuNhap.java</file>
+            <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/UI/Dialog/InputSupportDialog.java</file>
+            <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/UI/Component/InputField.java</file>
+            <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/DAL/ThongKeDAL.java</file>
+            <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/BLL/ThongKeBLL.java</file>
+            <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/UI/Panel/QuyDinhPanel.java</file>
+            <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/MODEL/TKThuThu.java</file>
+            <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/UI/Panel/ThongKePanel.java</file>
+            <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/DAL/CTPhieuNhapDAL.java</file>
+            <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/UI/Panel/TKThuThuPanel.java</file>
+            <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/UI/MainFrame.java</file>
+            <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/UI/Component/MenuTaskBar.java</file>
+            <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/MODEL/CTPhieuNhap.java</file>
+            <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/UI/Panel/NhaCungCapPanel.java</file>
+            <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/UI/Component/Validation.java</file>
+            <file>file:/C:/Users/Nghia0605/Desktop/QLThuVien/src/UI/Panel/QuyDinhPanel.java</file>
+>>>>>>> 41ab6e0431129ed168b3f872baf1ad4085bbd274
         </group>
     </open-files>
 </project-private>

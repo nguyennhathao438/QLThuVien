@@ -41,7 +41,14 @@ public class DSThuThuBLL {
         }
         return null;
     }
-    
+    public String[] getArrTenThuThu(){
+        int size = dsThuThu.size();
+        String[] arr = new String[size];
+        for(int i = 0; i < size; i++){
+            arr[i] = dsThuThu.get(i).getTenThuThu();
+        }
+        return arr;
+    }
     public static ArrayList<ThuThu> getDsThuThu() {
         return dsThuThu;
     }

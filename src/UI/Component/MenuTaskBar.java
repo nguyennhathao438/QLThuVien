@@ -20,6 +20,7 @@ import UI.Panel.QuyDinhPanel;
 import UI.Panel.TacGiaPanel;
 import UI.Panel.SachPanel;
 import UI.Panel.TheLoaiPanel;
+import UI.Panel.ThongKePanel;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -132,10 +133,10 @@ public class MenuTaskBar extends JPanel{
                             QuyDinhPanel quydinh = new QuyDinhPanel();
                             mainFrame.setRightPanel(quydinh);
                             break;
-//                        case 10:
-//                            ThongKePanel thongke = new ThongKePanel();
-//                            mainFrame.setRightPanel(thongke);
-//                            break;
+                        case 10:
+                            ThongKePanel thongke = new ThongKePanel();
+                            mainFrame.setRightPanel(thongke);
+                            break;
                          case 11:
                             SwingUtilities.getWindowAncestor(itemTaskBars[index]).dispose();
                             new Login().setVisible(true);
