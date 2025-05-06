@@ -425,7 +425,6 @@ public class ThongKeDAL {
         }
         return dstk;
     }
-<<<<<<< HEAD
     
     public ArrayList<TKSach> getTongSoLuongThang(int thang, int nam)
     {
@@ -498,7 +497,3 @@ public class ThongKeDAL {
     }
     
 }
-=======
-
-}
->>>>>>> 41ab6e0431129ed168b3f872baf1ad4085bbd274

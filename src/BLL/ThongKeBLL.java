@@ -5,11 +5,7 @@ import DAL.ThongKeDAL;
 import MODEL.TKThuThu;
 import java.time.LocalDate;
 import MODEL.TKDocGia;
-<<<<<<< HEAD
 import MODEL.TKSach;
-=======
-
->>>>>>> 41ab6e0431129ed168b3f872baf1ad4085bbd274
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -18,14 +14,10 @@ public class ThongKeBLL {
     private static ArrayList<TKDocGia> dstk = new ArrayList();
     private static ArrayList<TKSach> dstkSach = new ArrayList<>();
     ThongKeDAL tkdal = new ThongKeDAL();
-<<<<<<< HEAD
-    
-=======
-
     public ThongKeBLL() {
         dstk = tkdal.getTKDocGia();
     }
->>>>>>> 41ab6e0431129ed168b3f872baf1ad4085bbd274
+    
     public ArrayList<TKDocGia> gettkDocGia(){ 
         dstk = tkdal.getTKDocGia();
         return dstk;
@@ -53,7 +45,6 @@ public class ThongKeBLL {
       }
       return dstk;
     }
-<<<<<<< HEAD
     
     public ArrayList<TKSach> gettkSachThang(int nam)
     {
@@ -77,9 +68,6 @@ public class ThongKeBLL {
         return dstkAll;
     }
   
-=======
-
->>>>>>> 41ab6e0431129ed168b3f872baf1ad4085bbd274
     public double[] tkHoatDongThang(int thang ,int nam){ 
         double data[]=tkdal.tkHoatDongThang(thang, nam);
         return data;
