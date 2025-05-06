@@ -76,6 +76,4 @@ public class MainFrame extends JFrame {
         rightPanel.revalidate();
         rightPanel.repaint();
     }
-
-
 }

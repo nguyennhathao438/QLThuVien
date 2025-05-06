@@ -1,6 +1,7 @@
 package DAL;
 
 import MODEL.TKDocGia;
+import MODEL.TKSach;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -138,38 +139,39 @@ public class ThongKeDAL {
     public ArrayList<TKDocGia> getTKDocGia() {
         ArrayList<TKDocGia> dstk = new ArrayList();
         String query = "SELECT \n"
-                + "    DG.tenDocGia, \n"
-                + "    PM.soPhieuMuon, \n"
-                + "    CT.slSachMuon, \n"
-                + "	ST.slSachTra,\n"
-                + "    PT.soQuyDinhPhat\n"
-                + "FROM DOCGIA DG\n"
-                + "LEFT JOIN (\n"
-                + "    SELECT maDocGia, COUNT(DISTINCT maPMuon) as soPhieuMuon\n"
-                + "    FROM PHIEUMUON\n"
-                + "    GROUP BY maDocGia\n"
-                + ") PM ON DG.maDocGia = PM.maDocGia\n"
-                + "LEFT JOIN (\n"
-                + "    SELECT PM.maDocGia, SUM(CTPM.soLuong) as slSachMuon\n"
-                + "    FROM PHIEUMUON PM\n"
-                + "    JOIN CTPHIEUMUON CTPM ON PM.maPMuon = CTPM.maPhieuMuon\n"
-                + "    GROUP BY PM.maDocGia\n"
-                + ") CT ON DG.maDocGia = CT.maDocGia\n"
-                + "LEFT JOIN (\n"
-                + "	SELECT PM.maDocGia,SUM(CTT.soLuong) as slSachTra\n"
-                + "	FROM PHIEUMUON PM\n"
-                + "	JOIN PHIEUTRA PT ON PM.maPMuon=PT.maPMuon\n"
-                + "	JOIN CTPHIEUTRA CTT ON PT.maPTra = CTT.maPhieuTra\n"
-                + "	GROUP BY maDocGia \n"
-                + ") ST ON DG.maDocGIA =ST.maDocGia\n"
-                + "LEFT JOIN (\n"
-                + "    SELECT PM.maDocGia, COUNT(CTP.maQuyDinh) as soQuyDinhPhat\n"
-                + "    FROM PHIEUMUON PM\n"
-                + "    JOIN PHIEUTRA PT ON PM.maPMuon = PT.maPMuon\n"
-                + "    JOIN PHUTHU PH ON PT.maPhuThu = PH.maPhuThu\n"
-                + "    JOIN CTPHAT CTP ON PH.maPhuThu = CTP.maPhuThu\n"
-                + "    GROUP BY PM.maDocGia\n"
-                + ") PT ON DG.maDocGia = PT.maDocGia;";
+        + "    DG.tenDocGia, \n"
+        + "    PM.soPhieuMuon, \n"
+        + "    CT.slSachMuon, \n"
+        + "    ST.slSachTra,\n"
+        + "    PT.soQuyDinhPhat\n"
+        + "FROM DOCGIA DG\n"
+        + "LEFT JOIN (\n"
+        + "    SELECT maDocGia, COUNT(DISTINCT maPMuon) as soPhieuMuon\n"
+        + "    FROM PHIEUMUON\n"
+        + "    GROUP BY maDocGia\n"
+        + ") PM ON DG.maDocGia = PM.maDocGia\n"
+        + "LEFT JOIN (\n"
+        + "    SELECT PM.maDocGia, SUM(CTPM.soLuong) as slSachMuon\n"
+        + "    FROM PHIEUMUON PM\n"
+        + "    JOIN CTPHIEUMUON CTPM ON PM.maPMuon = CTPM.maPhieuMuon\n"
+        + "    GROUP BY PM.maDocGia\n"
+        + ") CT ON DG.maDocGia = CT.maDocGia\n"
+        + "LEFT JOIN (\n"
+        + "    SELECT PM.maDocGia, SUM(CTT.soLuong) as slSachTra\n"
+        + "    FROM PHIEUMUON PM\n"
+        + "    JOIN PHIEUTRA PT ON PM.maPMuon = PT.maPMuon\n"
+        + "    JOIN CTPHIEUTRA CTT ON PT.maPTra = CTT.maPhieuTra\n"
+        + "    GROUP BY PM.maDocGia\n"
+        + ") ST ON DG.maDocGia = ST.maDocGia\n"
+        + "LEFT JOIN (\n"
+        + "    SELECT PM.maDocGia, COUNT(CTP.maQuyDinh) as soQuyDinhPhat\n"
+        + "    FROM PHIEUMUON PM\n"
+        + "    JOIN PHIEUTRA PT ON PM.maPMuon = PT.maPMuon\n"
+        + "    JOIN PHUTHU PH ON PT.maPhuThu = PH.maPhuThu\n"
+        + "    JOIN CTPHAT CTP ON PH.maPhuThu = CTP.maPhuThu\n"
+        + "    GROUP BY PM.maDocGia\n"
+        + ") PT ON DG.maDocGia = PT.maDocGia;";
+
         try (Connection conn = kn.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
             ResultSet rs = stmt.executeQuery();
             TKDocGia tkdg;
@@ -390,4 +392,75 @@ public class ThongKeDAL {
         }
         return dstk;
     }
+    
+    public ArrayList<TKSach> getTongSoLuongThang(int thang, int nam)
+    {
+        ArrayList<TKSach> dstkS = new ArrayList<>();
+        String query = "SELECT\n" 
+                +"    (SELECT SUM(CTPM.soLuong)\n" 
+                +"     FROM PHIEUMUON PM\n" 
+                +"     JOIN CTPHIEUMUON CTPM ON PM.maPMuon = CTPM.maPhieuMuon\n" 
+                +"     WHERE MONTH(PM.ngayMuon) = ? AND YEAR(PM.ngayMuon) = ?) AS tongSachMuon,\n" 
+                +"    (SELECT SUM(CTPT.soLuong)\n"
+                +"     FROM PHIEUTRA PT\n" 
+                +"     JOIN CTPHIEUTRA CTPT ON PT.maPTra = CTPT.maPhieuTra\n" 
+                +"     WHERE MONTH(PT.ngayThucTra) = ? AND YEAR(PT.ngayThucTra) = ?) AS tongSachTra;";
+        try(Connection conn = kn.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(query))
+        {
+            stmt.setInt(1,thang);
+            stmt.setInt(2, nam);
+            stmt.setInt(3, thang);
+            stmt.setInt(4,nam);
+            ResultSet rs = stmt.executeQuery();
+            TKSach tks;
+            while(rs.next())
+            {
+                tks = new TKSach();
+                tks.setSoLuongMuon(rs.getInt("tongSachMuon"));
+                tks.setSoLuongTra(rs.getInt("tongSachTra"));
+                dstkS.add(tks);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ThongKeDAL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return dstkS;
+    }
+    
+    public ArrayList<TKSach> getTongSoLuongQuy(int thangbd, int thangkt, int nam)
+    {
+        ArrayList<TKSach> dstkS = new ArrayList<>();
+        String query = "SELECT\n" 
+                +"    (SELECT SUM(CTPM.soLuong)\n" 
+                +"     FROM PHIEUMUON PM\n" 
+                +"     JOIN CTPHIEUMUON CTPM ON PM.maPMuon = CTPM.maPhieuMuon\n" 
+                +"     WHERE MONTH(PM.ngayMuon) BETWEEN ? AND ? AND YEAR(PM.ngayMuon) = ?) AS tongSachMuon,\n" 
+                +"(SELECT SUM(CTPT.soLuong)\n" 
+                +"     FROM PHIEUTRA PT\n" 
+                +"     JOIN CTPHIEUTRA CTPT ON PT.maPTra = CTPT.maPhieuTra\n" 
+                +"     WHERE MONTH(PT.ngayThucTra) BETWEEN ? AND ? AND YEAR(PT.ngayThucTra) = ?) AS tongSachTra;";
+        try(Connection conn = kn.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(query))
+        {
+            stmt.setInt(1, thangbd);
+            stmt.setInt(2, thangkt);
+            stmt.setInt(3, nam);
+            stmt.setInt(4, thangbd);
+            stmt.setInt(5, thangkt);
+            stmt.setInt(6, nam);
+            ResultSet rs = stmt.executeQuery();
+            TKSach tks;
+            while(rs.next())
+            {
+                tks = new TKSach();
+                tks.setSoLuongMuon(rs.getInt("tongSachMuon"));
+                tks.setSoLuongTra(rs.getInt("tongSachTra"));
+                dstkS.add(tks);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ThongKeDAL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return dstkS;
+    }
+    
 }
