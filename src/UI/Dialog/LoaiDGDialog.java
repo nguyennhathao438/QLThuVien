@@ -19,6 +19,7 @@ public class LoaiDGDialog extends javax.swing.JDialog {
         this.setTitle("Thêm loại độc giả");
         this.dgDialog = dgDialog;
         initComponents();
+        this.setLocationRelativeTo(parent);
     }
     
     @SuppressWarnings("unchecked")
@@ -37,11 +38,6 @@ public class LoaiDGDialog extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Thông tin độc giả");
         setBackground(new java.awt.Color(255, 255, 255));
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowOpened(java.awt.event.WindowEvent evt) {
-                formWindowOpened(evt);
-            }
-        });
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -139,10 +135,6 @@ public class LoaiDGDialog extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        setLocationRelativeTo(null);
-    }//GEN-LAST:event_formWindowOpened
 
     private void btncapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncapNhatActionPerformed
         LoaiDocGia ldg = new LoaiDocGia();

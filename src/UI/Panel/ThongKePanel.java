@@ -75,8 +75,9 @@ public class ThongKePanel extends JPanel{
             case 0: 
                 selectedPanel= new TKHoatDong();
                 break;
-//            case 1:selectedPanel= new TKSachPanel();break;
-
+            case 1:
+                selectedPanel= new TKSachPanel();
+                break;
             case 2:
                 selectedPanel =new TKDocGiaPanel();
                 break;
@@ -89,6 +90,8 @@ public class ThongKePanel extends JPanel{
             default:
                 selectedPanel= new TKHoatDong();
                 break;
+
+
 
         }
         contentPanel.add(selectedPanel, BorderLayout.CENTER);

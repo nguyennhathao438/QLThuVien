@@ -1,11 +1,11 @@
 package Model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class PhieuMuon {
     private String maPhieuMuon;
-    private Date ngayMuon;
-    private Date ngayTra;
+    private LocalDate ngayMuon;
+    private LocalDate ngayTra;
     private String maDocGia;
     private String maThuThu;
     private int trangThai;
@@ -13,7 +13,7 @@ public class PhieuMuon {
     public PhieuMuon() {
     }
      
-    public PhieuMuon(String maPhieuMuon, Date ngayMuon, Date ngayTra, String maDocGia, String maThuThu, int trangThai) {
+    public PhieuMuon(String maPhieuMuon, LocalDate ngayMuon, LocalDate ngayTra, String maDocGia, String maThuThu, int trangThai) {
         this.maPhieuMuon = maPhieuMuon;
         this.ngayMuon = ngayMuon;
         this.ngayTra = ngayTra;
@@ -26,11 +26,11 @@ public class PhieuMuon {
         return maPhieuMuon;
     }
 
-    public Date getNgayMuon() {
+    public LocalDate getNgayMuon() {
         return ngayMuon;
     }
 
-    public Date getNgayTra() {
+    public LocalDate getNgayTra() {
         return ngayTra;
     }
 
@@ -50,11 +50,11 @@ public class PhieuMuon {
         this.maPhieuMuon = maPhieuMuon;
     }
 
-    public void setNgayMuon(Date ngayMuon) {
+    public void setNgayMuon(LocalDate ngayMuon) {
         this.ngayMuon = ngayMuon;
     }
 
-    public void setNgayTra(Date ngayTra) {
+    public void setNgayTra(LocalDate ngayTra) {
         this.ngayTra = ngayTra;
     }
 

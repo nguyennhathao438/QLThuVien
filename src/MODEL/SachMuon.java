@@ -9,19 +9,23 @@ package MODEL;
  * @author ADMIN
  */
 public class SachMuon {
-    private int maSach;
+    private String maSach;
     private String tenSach;
     private int soLuong;
     private int trangThai;
 
-    public SachMuon(int maSach, String tenSach, int soLuong, int trangThai) {
+    public SachMuon() {
+    }
+
+    
+    public SachMuon(String maSach, String tenSach, int soLuong, int trangThai) {
         this.maSach = maSach;
         this.tenSach = tenSach;
         this.soLuong = soLuong;
         this.trangThai = trangThai;
     }
 
-    public void setMaSach(int maSach) {
+    public void setMaSach(String maSach) {
         this.maSach = maSach;
     }
 
@@ -37,7 +41,7 @@ public class SachMuon {
         this.trangThai = trangThai;
     }
 
-    public int getMaSach() {
+    public String getMaSach() {
         return maSach;
     }
 

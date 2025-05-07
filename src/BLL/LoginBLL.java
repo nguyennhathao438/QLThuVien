@@ -8,6 +8,10 @@ import javax.swing.JOptionPane;
 public class LoginBLL {
     private LoginDAL loginDAL = new LoginDAL();
     private static ThuThu thuthu ;
+
+    public LoginBLL() {
+    }
+    
     public void showMess(String s){ 
         JOptionPane.showMessageDialog(null, s);
         }

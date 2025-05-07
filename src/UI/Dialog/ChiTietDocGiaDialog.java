@@ -20,18 +20,30 @@ public class ChiTietDocGiaDialog extends javax.swing.JDialog {
         this.setTitle("Chi tiết độc giả");
         this.pn = pn;
         initComponents();
-        LoaiDocGia ldg = pn.getLoaiDGBLL().getLoaiDGByMa(dgModel.getMaLoaiDG());
-        txtMaDG.setText(dgModel.getMaDocGia());
-        txtTenDG.setText(dgModel.getTenDocGia());
-        txtSDT.setText(dgModel.getSoDienThoai());
-        txtDC.setText(dgModel.getDiaChi());
-        txtMaLDG.setText(ldg.getMaLoaiDG());
-        txtTenLoai.setText(ldg.getTenLoaiDG());
-        txtGH.setText(String.valueOf(ldg.getGioiHanMuon())+" quyển");
-        txtMoTa.setText(ldg.getMoTa());
-        setLocationRelativeTo(null);
+        loadData(dgModel, pn);
+        this.setLocationRelativeTo(parent);
     }
 
+    public void loadData(DocGia dg, DocGiaPanel pn){
+        LoaiDocGia ldg = pn.getLoaiDGBLL().getLoaiDGByMa(dg.getMaLoaiDG());
+        txtMaDG.setText(dg.getMaDocGia());
+        txtMaDG.setEditable(false);
+        txtTenDG.setText(dg.getTenDocGia());
+        txtTenDG.setEditable(false);
+        txtSDT.setText(dg.getSoDienThoai());
+        txtSDT.setEditable(false);
+        txtDC.setText(dg.getDiaChi());
+        txtDC.setEditable(false);
+        txtMaLDG.setText(ldg.getMaLoaiDG());
+        txtMaLDG.setEditable(false);
+        txtTenLoai.setText(ldg.getTenLoaiDG());
+        txtTenLoai.setEditable(false);
+        txtGH.setText(String.valueOf(ldg.getGioiHanMuon())+" quyển");
+        txtGH.setEditable(false);
+        txtMoTa.setText(ldg.getMoTa());
+        txtMoTa.setEditable(false);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -65,12 +77,6 @@ public class ChiTietDocGiaDialog extends javax.swing.JDialog {
         jLabel3.setText("Số điện thoại:");
 
         jLabel4.setText("Địa chỉ:");
-
-        txtMaDG.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMaDGActionPerformed(evt);
-            }
-        });
 
         jLabel5.setText("Mã loại ĐG:");
 
@@ -168,10 +174,6 @@ public class ChiTietDocGiaDialog extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtMaDGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaDGActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtMaDGActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
