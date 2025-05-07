@@ -5,6 +5,7 @@ import BLL.DSQuyDinh;
 import DAL.QuyDinhDAL;
 import MODEL.QuyDinh;
 import UI.Panel.QuyDinhPanel;
+import javax.swing.JOptionPane;
 
 
 public class suaQuyDinh extends javax.swing.JDialog {
@@ -42,6 +43,8 @@ public class suaQuyDinh extends javax.swing.JDialog {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sửa quy định", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
 
         jLabel1.setText("Mã Quy Định:");
+
+        maqd.setEditable(false);
 
         jLabel2.setText("Nội dung");
 
@@ -116,12 +119,19 @@ public class suaQuyDinh extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void confirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmActionPerformed
+         if(
+                sotien.getValue() == null 
+                ){ 
+            JOptionPane.showMessageDialog(null, "số tiền không được để trống");
+            return ;
+        }
         qd.setNoiDung(noidung.getText());
         qd.setSoTien(((Number) sotien.getValue()).doubleValue());
         qd.setTrangThai(1);
-        qdpn.getQuyDinhBLL().suaQD(qd);
+        if(qdpn.getQuyDinhBLL().suaQD(qd)){
         qdpn.loadData(qdpn.getQuyDinhBLL().layAllQuyDinh());
         this.dispose();
+        }
     }//GEN-LAST:event_confirmActionPerformed
 
   

@@ -90,6 +90,17 @@ public class PhieuMuonDAL {
             return false;
         }
     }
-    
+    public boolean setTTPM(String maPM){
+        String query = "UPDATE PHIEUMUON SET trangThai = 2 WHERE maPMuon = ?";
+        try (Connection conn = kn.getConnection();
+            PreparedStatement prs = conn.prepareStatement(query)) {
+            prs.setString(1, maPM);
+            
+            return prs.executeUpdate()> 0;
+        } catch (Exception e) {
+            System.err.println("Lỗi khi set trạng thái phiếu mượn" + e.getMessage());
+            return false;
+        }
+    }
     
 }

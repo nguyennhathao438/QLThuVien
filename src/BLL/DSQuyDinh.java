@@ -22,37 +22,38 @@ public class DSQuyDinh {
         JOptionPane.showMessageDialog(null, s);
     }
     
-    public void themQD(QuyDinh qd){ 
+    public boolean themQD(QuyDinh qd){ 
         dsqd= layAllQuyDinh();
         String regex = "^QD\\d{3,}";
         if(!qd.getMaQuyDinh().matches(regex)){ 
             showMess("Mã nhập không hợp lệ (Ví dụ:QD017)");
-            return ; 
+            return false; 
         }
       if(qd.getMaQuyDinh().isEmpty()){ 
             showMess("Mã quy định không được để trống ");
-            return ;
+            return false;
         }
         for(QuyDinh a:dsqd){ 
             if(a.getMaQuyDinh().equals(qd.getMaQuyDinh())){ 
                 showMess("Mã quy định đã tồn tại ");
-                return;
+                return false;
             }
         }
         if(qd.getNoiDung().isEmpty()){ 
             showMess("Nội dung không được để trống ");
-            return ;
+            return false;
         }
         if(qd.getSoTien()<0){ 
             showMess("Số tiền phải lớn hơn 0");
-            return ; 
+            return false; 
         }
         if(qddal.themQuyDinh(qd)> 0){ 
             dsqd.add(qd);
             showMess("Thêm quy định thành công ");
-            return ;
+            return true;
         }
         showMess("Thêm quy định thất bại ");
+        return false ;
     }
     public void xoaQD(String maqd){ 
         if(qddal.xoaQuyDinh(maqd)>0){ 
@@ -64,11 +65,11 @@ public class DSQuyDinh {
         }
         showMess("Xoá qưy định thất bại ");
     }
-    public void suaQD(QuyDinh qd){ 
+    public boolean suaQD(QuyDinh qd){ 
         dsqd= layAllQuyDinh();
       if(qd.getMaQuyDinh().isEmpty()){ 
             showMess("Mã quy định không được để trống ");
-            return ;
+            return false;
         }
       boolean kt=false;
         for(QuyDinh a:dsqd){ 
@@ -79,23 +80,24 @@ public class DSQuyDinh {
         }
         if(!kt){ 
             showMess("Mã quy định không tồn tại ");
-            return ;
+            return false;
         }
         if(qd.getNoiDung().isEmpty()){ 
             showMess("Nội dung không được để trống ");
-            return ;
+            return false;
         }
         if(qd.getSoTien()<0){ 
             showMess("Số tiền phải lớn hơn 0");
-            return ; 
+            return false; 
         }
         if(qddal.suaQuyDinh(qd)> 0){ 
             int index = getIndexbyMaQD(qd.getMaQuyDinh());
             dsqd.set(index,qd);
             showMess("Sửa quy định thành công ");
-            return ;
+            return true;
         }
         showMess("Sửa quy định thất bại ");
+        return false ;
     }
     public int getIndexbyMaQD(String maqd){ 
         for(int i=0;i<dsqd.size();i++){

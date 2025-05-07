@@ -11,7 +11,7 @@ import MODEL.PhieuTra;
 import MODEL.QuyDinh;
 import UI.Component.MainFunction;
 import UI.Component.SearchBar;
-import UI.Dialog.ChiTietPhieuTraDialog;
+import UI.Dialog.CTPhieuTraDiaLog;
 import UI.Dialog.chiTietPhat;
 import UI.Dialog.phat;
 import java.awt.BorderLayout;
@@ -31,6 +31,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -137,7 +138,6 @@ public class PhieuTraPanel extends JPanel implements ItemListener, MouseListener
                 if(tienphat > 0){
                 taoPanelQuyDinh();
                 panelChiTiet.setVisible(true);
-                
                 String maqd=(String) bangPhieuTra.getValueAt(row, 0);
                 loadDataQD(maqd);
                 }else{ 
@@ -270,9 +270,12 @@ public class PhieuTraPanel extends JPanel implements ItemListener, MouseListener
             if (row == -1) {
                 JOptionPane.showMessageDialog(bangPhieuTra, "Vui lòng chọn phiếu trả");
             } else {
-                String maPTra = (String) bangPhieuTra.getValueAt(row, 0);
                 Window parentWindow = SwingUtilities.getWindowAncestor(this);
-                new ChiTietPhieuTraDialog((JFrame) (Frame) parentWindow, true, maPTra).setVisible(true);
+                PhieuTra pt =new PhieuTra();
+                pt.setMaPhieuTra((String) bangPhieuTra.getValueAt(row, 0));
+                pt.setMaPhieuMuon((String) bangPhieuTra.getValueAt(row, 1));
+                pt.setNgayThucTra((Date) bangPhieuTra.getValueAt(row, 2));
+                new CTPhieuTraDiaLog((JFrame) (Frame) parentWindow, true, pt).setVisible(true);
             }
         }
     }

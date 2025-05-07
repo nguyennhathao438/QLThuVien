@@ -151,17 +151,14 @@ public class TKSachPanel extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         int a = choice.getSelectedIndex();
         int namtk = Integer.parseInt((String) nam.getSelectedItem());
-        if(a==0)
-        {
+        if(a==0){
             dstkSach = tkbll.gettkSachThang(namtk);
             hienThiBieuDoThang(dstkSach);
-        } else if(a==1)
-        {
+        } else if(a==1){
             dstkSach = tkbll.gettkSachQuy(namtk);
             hienThiBieuDoQuy(dstkSach);
             
-        }
-        
+        }  
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void choiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choiceActionPerformed

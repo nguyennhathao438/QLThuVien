@@ -4,11 +4,13 @@
  */
 package UI.Dialog;
 
+import BLL.DSPhieuMuon;
 import BLL.DSPhieuTraBLL;
 import BLL.LoginBLL;
 import DAL.LoginDAL;
 import MODEL.PhieuTra;
 import MODEL.SachTra;
+import UI.Panel.PhieuMuonPanel;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
@@ -27,10 +29,13 @@ public class lapPhieuTra extends javax.swing.JDialog {
     ArrayList<SachTra> dschuatra =new ArrayList();
     ArrayList<SachTra> dsdatra =new ArrayList();
     LoginBLL lgbll =new LoginBLL();
+    DSPhieuMuon pmbll = new DSPhieuMuon();
     DSPhieuTraBLL ptbll = new DSPhieuTraBLL();
-       public lapPhieuTra(java.awt.Frame parent, boolean modal,String mapm) {
+    PhieuMuonPanel pmpanel;
+       public lapPhieuTra(java.awt.Frame parent, boolean modal,String mapm,PhieuMuonPanel pmpn) {
            
         super(parent, modal);   
+        this.pmpanel = pmpn;
         System.out.println(lgbll.getMaThuThu());
         initComponents();
         setLocationRelativeTo(null);
@@ -437,6 +442,18 @@ public class lapPhieuTra extends javax.swing.JDialog {
         pt.setMaThuThu(lgbll.getMaThuThu());
         pt.setMaPhieuMuon(maPhieuMuon.getText());
         if(ptbll.taoPhieuTra(pt, dsdatra, dschuatra)){ 
+            boolean kt = true;
+            for(SachTra a:dschuatra){ 
+                int sl = a.getSoLuong();
+                if(sl!=0){ 
+                    kt = false ;
+                }
+                
+        }
+            if(kt){ 
+                    pmpanel.getDSPMuonBLL().ktTraDu(maPhieuMuon.getText());
+                }
+            pmpanel.loadData(pmpanel.getDSPMuonBLL().layAllPhieuMuon());
             this.dispose();
         }    
     }//GEN-LAST:event_jButton2ActionPerformed

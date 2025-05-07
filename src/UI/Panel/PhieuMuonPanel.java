@@ -164,7 +164,7 @@ public class PhieuMuonPanel extends JPanel implements ItemListener, MouseListene
                     }else{ 
                         String mapm = (String) tblPhMuon.getValueAt(row, 0);
                         String ma=(String) tblPhMuon.getValueAt(row, 0);
-                        new lapPhieuTra(parent,true,ma).setVisible(true);
+                        new lapPhieuTra(parent,true,ma,this).setVisible(true);
                     }
                     
                 }
