@@ -5,6 +5,8 @@
 package UI.Panel;
 
 import BLL.DSSachBLL;
+import BLL.DSTacGiaBLL;
+import BLL.DSTheLoaiBLL;
 import Model.Sach;
 import UI.Component.MainFunction;
 import UI.Component.SearchBar;
@@ -53,8 +55,9 @@ public class SachPanel extends JPanel implements ItemListener,MouseListener{
     private SearchBar searchBar;
     private MainFunction mainFunc;
     private JFrame parent;
-    DSSachBLL dsSach = new DSSachBLL();
-    
+    private DSSachBLL dsSach = new DSSachBLL();
+    private DSTacGiaBLL dstg=new DSTacGiaBLL();
+    private DSTheLoaiBLL dstl = new DSTheLoaiBLL();
     public SachPanel()
     {
         this.setBorder(BorderFactory.createEmptyBorder(7, 6, 7, 6));
@@ -153,6 +156,16 @@ public class SachPanel extends JPanel implements ItemListener,MouseListener{
     public DSSachBLL getSachBLL()
     {
         return this.dsSach;
+    }
+    
+    public DSTacGiaBLL getTacGiaBLL()
+    {
+        return this.dstg;
+    }
+    
+    public DSTheLoaiBLL getTheLoaiBLL()
+    {
+        return this.dstl;
     }
 
     @Override
@@ -266,5 +279,7 @@ public class SachPanel extends JPanel implements ItemListener,MouseListener{
     @Override
     public void mouseExited(MouseEvent e) {
     }
+
+   
     
 }

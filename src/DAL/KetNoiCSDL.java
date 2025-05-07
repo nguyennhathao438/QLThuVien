@@ -9,9 +9,9 @@ public class KetNoiCSDL {
     SQLServerDataSource ds= new SQLServerDataSource();
     public KetNoiCSDL(){ 
 
-        var server ="NT\\SQLEXPRESS10";
+        var server ="THANHTUNG\\MSSQLSERVER2";
         var user="sa";
-        var password="1234567890";
+        var password="7579100";
         var db="QLThuVien";
         var port=1433;
         

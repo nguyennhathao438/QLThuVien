@@ -5,7 +5,12 @@
 package UI.Dialog;
 
 import Model.Sach;
+import Model.TacGia;
+import Model.TheLoai;
 import UI.Panel.SachPanel;
+import java.util.ArrayList;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,8 +24,7 @@ public class themSach extends javax.swing.JDialog {
         this.spn = panel;
         initComponents();
         setLocationRelativeTo(null);
-        soLuong.setText("0");
-        soLuong.setEditable(false);
+        
     }
     
 
@@ -49,6 +53,8 @@ public class themSach extends javax.swing.JDialog {
         maTG = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         maTL = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -81,6 +87,20 @@ public class themSach extends javax.swing.JDialog {
 
         jLabel7.setText("Mã thể loại");
 
+        jButton1.setText("...");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("...");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -105,7 +125,11 @@ public class themSach extends javax.swing.JDialog {
                     .addComponent(donGia, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
                     .addComponent(maTG)
                     .addComponent(maTL))
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(27, 27, 27))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,12 +157,14 @@ public class themSach extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(maTG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(maTG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(maTL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                    .addComponent(maTL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addComponent(confirm)
                 .addContainerGap())
         );
@@ -159,10 +185,24 @@ public class themSach extends javax.swing.JDialog {
 
     private void confirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmActionPerformed
 
+    String maSach = maS.getText().trim();
+    String tenSach = tenS.getText().trim();
+    String namXuatBanStr = namXB.getText().trim();
+    String soLuongStr = soLuong.getText().trim();
+    String donGiaStr = donGia.getText().trim();
+    String maTacGia = maTG.getText().trim();
+    String maTheLoai = maTL.getText().trim();
+    
+    if (maSach.isEmpty() || tenSach.isEmpty() || namXuatBanStr.isEmpty() ||
+        soLuongStr.isEmpty() || donGiaStr.isEmpty() || maTacGia.isEmpty() || maTheLoai.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin");
+        return; 
+    }
         Sach sach = new Sach();
         sach.setMaSach(maS.getText());
         sach.setTenSach(tenS.getText());
         sach.setNamXuatBan(Integer.parseInt(namXB.getText()));
+        sach.setSoLuong(Integer.parseInt(soLuong.getText()));
         sach.setDonGia(Double.parseDouble(donGia.getText()));
         sach.setMaTacGia(maTG.getText());
         sach.setMaTheLoai(maTL.getText());
@@ -176,6 +216,29 @@ public class themSach extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_maTGActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    ArrayList<TheLoai> danhSach = spn.getTheLoaiBLL().layALLTheLoai();
+    ChonTheLoai dialog = new ChonTheLoai((JFrame) this.getParent(), danhSach);
+    dialog.setVisible(true);
+
+    TheLoai selected = dialog.getSelectTheLoai();
+    if (selected != null) {
+        maTL.setText(selected.getMaTheLoai());
+    }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ArrayList<TacGia> danhSach = spn.getTacGiaBLL().layAllTacGia();
+        ChonTacGia dialog = new ChonTacGia((JFrame) this.getParent(), danhSach);
+        dialog.setVisible(true);
+
+        TacGia selected = dialog.getSelectedTacGia();
+        if (selected != null)
+        {
+            maTG.setText(selected.getMaTacGia());
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -184,6 +247,8 @@ public class themSach extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton confirm;
     private javax.swing.JTextField donGia;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
