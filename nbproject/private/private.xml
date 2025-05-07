@@ -23,20 +23,24 @@
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/DAL/ThuThuDAL.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/DAL/TheLoaiDAL.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Component/PlaceHolderInput.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Dialog/suaTheLoai.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Dialog/ChiTietPhieuTraDialog.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/DAL/KetNoiCSDL.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/CTPhuThu.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Panel/TacGiaPanel.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Dialog/suaSach.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Component/MenuTaskBar.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/CTPhieuMuon.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Panel/TKThuThuPanel.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/PhuThu.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Panel/TKSach1.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/PhieuMuon.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/BLL/DSSachBLL.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Panel/TaoPhieuNhapPanel.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/Sach.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/ThuThu.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/DAL/PhieuMuonDAL.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/DAL/CTPhieuMuonDAL.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/DAL/QuyDinhDAL.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/BLL/DSThuThuBLL.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Component/Displayable.java</file>
@@ -71,6 +75,7 @@
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Dialog/chiTietPhat.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Dialog/PhieuMuonDialog.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/DAL/SachDAL.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Dialog/DocGiaDialog.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/SachTra.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Dialog/themTheLoai.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/SachNhap.java</file>
@@ -87,16 +92,19 @@
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Dialog/themQuyDinh.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Panel/NhaCungCapPanel.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/DAL/ThongKeDAL.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Panel/TKSachPanel.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/BLL/LoginBLL.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Panel/PhieuNhapPanel.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/DAL/LoaiDGDAL.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Panel/TheLoaiPanel.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Component/ItemTaskBar.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Dialog/LoaiDGDialog.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/MODEL/SachMuon.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Dialog/suaTacGia.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/BLL/DSTacGiaBLL.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Dialog/suaQuyDinh.java</file>
             <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Component/InputSupportField.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/oop/QLThuVien/src/UI/Component/PDFExporter.java</file>
         </group>
     </open-files>
 </project-private>
