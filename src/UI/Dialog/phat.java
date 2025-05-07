@@ -9,6 +9,7 @@ import BLL.DSQuyDinh;
 import MODEL.QuyDinh;
 import UI.Panel.PhieuTraPanel;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
@@ -196,6 +197,10 @@ public class phat extends javax.swing.JDialog {
         String dsmqd[] = new String[10];
         int index=0;
         String maPhieuTra=maPTra.getText();
+        if(tongTien.getText().equals("")){ 
+            JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn nội quy vi phạm");
+            return ;
+        }
         double tienPhat = Double.parseDouble(tongTien.getText());
         for(int i=0;i<bangQD.getRowCount();i++){ 
             boolean isSelected = (boolean) dtm.getValueAt(i, 3);

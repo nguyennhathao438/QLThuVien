@@ -6,6 +6,7 @@ package UI.Dialog;
 
 import Model.Sach;
 import UI.Panel.SachPanel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -158,8 +159,7 @@ public class themSach extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void confirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmActionPerformed
-
-        Sach sach = new Sach();
+      Sach sach = new Sach();
         sach.setMaSach(maS.getText());
         sach.setTenSach(tenS.getText());
         sach.setNamXuatBan(Integer.parseInt(namXB.getText()));

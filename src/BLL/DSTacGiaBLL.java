@@ -20,38 +20,38 @@ public class DSTacGiaBLL {
     public void showMess(String s){ 
         JOptionPane.showMessageDialog(null, s);
     }
-    public void themTG(TacGia tg){ 
+    public boolean themTG(TacGia tg){ 
         dstg=layAllTacGia();
         if(tg.getMaTacGia().isEmpty()){ 
             showMess("Mã tác giả không đươc để trống");
-            return ;
+            return false;
         }
         String regex = "^TG\\d{3,}";
         if(!tg.getMaTacGia().matches(regex)){ 
             showMess("Mã nhập không hợp lệ (Ví dụ:TG017)");
-            return;
+            return false;
         }
         for(TacGia a:dstg){ 
             if(a.getMaTacGia().equals(tg.getMaTacGia())){ 
                 showMess("Mã tác giả đã tồn tại ");
-                return ;
+                return false;
             }
         }
         if(tg.getNamSinh()>2010 || tg.getNamSinh()<1950){
             showMess("Năm sinh không hợp lệ");
-            return ;
+            return false;
         }
-        String regix = "^(\\\\+84|0)(3[2-9]|5[6|8|9]|7[0|6-9]|8[1-5]|9[0-9])[0-9]{7}$";
-        if(!tg.getSoDienThoai().matches(regex)){ 
+        if(tg.getSoDienThoai().length()!=10 && tg.getSoDienThoai().length()!=11 ){ 
             showMess("Số điện thoại không hợp lệ");
+            return false; 
         }
         if(tgdal.themTacGia(tg) >0){
             dstg.add(tg);
             showMess("Thêm tác giả thành công ");
-            return ; 
+            return true; 
         }
         showMess("Thêm tác giả thất bại ");
-        
+        return false ;
     }
     public void xoaTG(String maTG){ 
         if(tgdal.xoaTacGia(maTG) >0){
@@ -64,11 +64,11 @@ public class DSTacGiaBLL {
         }
         showMess("Xoá tác giả thất bại ");
     }
-    public void suaTG(TacGia tg){ 
+    public boolean suaTG(TacGia tg){ 
         dstg=layAllTacGia();
         if(tg.getMaTacGia().isEmpty()){ 
             showMess("Mã tác giả không đươc để trống");
-            return ;
+            return false;
         }
         boolean kt=false ;
         for(TacGia a:dstg){ 
@@ -79,21 +79,25 @@ public class DSTacGiaBLL {
         }
         if(!kt){ 
             showMess("Không tìm thấy mã tác giả ");
-            return ;
+            return false;
+        }
+        if(tg.getSoDienThoai().length()!=10 && tg.getSoDienThoai().length()!=11 ){ 
+            showMess("Số điện thoại không hợp lệ");
+            return false; 
         }
         if(tg.getNamSinh()>2010 || tg.getNamSinh()<1950){
             showMess("Năm sinh không hợp lệ");
-            return ;
+            return false;
         }
         if(tgdal.suaTacGia(tg) >0){
             int index = getIndexbyMaTG(tg.getMaTacGia());
             dstg.set(index, tg);
             
             showMess("Sửa tác giả thành công ");
-            return ; 
+            return true; 
         }
         showMess("Sửa tác giả thất bại ");
-        
+        return false;
     }
     public int getIndexbyMaTG(String matg){ 
         for(int i=0 ; i<dstg.size();i++){ 

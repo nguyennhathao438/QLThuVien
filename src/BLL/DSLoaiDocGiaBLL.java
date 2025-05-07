@@ -85,4 +85,12 @@ public class DSLoaiDocGiaBLL {
         }
         return null;
     }
+    
+    public static int getGHByMa(String maLoai){
+        for(LoaiDocGia ldg : dsldg){
+            if(ldg.getMaLoaiDG().equals(maLoai))
+                return ldg.getGioiHanMuon();  
+        }
+        return -1;
+    }
 }

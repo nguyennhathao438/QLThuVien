@@ -7,6 +7,7 @@ package UI.Dialog;
 import BLL.DSQuyDinh;
 import MODEL.QuyDinh;
 import UI.Panel.QuyDinhPanel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -110,14 +111,23 @@ public class themQuyDinh extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addQDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addQDActionPerformed
+        if(
+                sotien.getValue() == null
+                ){ 
+            JOptionPane.showMessageDialog(null, "Số tiền không được để trống");
+            return ;
+        }
         QuyDinh qd= new QuyDinh();
         qd.setMaQuyDinh(maqd.getText());
         qd.setNoiDung(noidung.getText());
         qd.setSoTien(((Number)sotien.getValue()).doubleValue());
         qd.setTrangThai(1);
-        qdpn.getQuyDinhBLL().themQD(qd);
-        qdpn.loadData(qdpn.getQuyDinhBLL().layAllQuyDinh());
+        if(qdpn.getQuyDinhBLL().themQD(qd)){ 
+            qdpn.loadData(qdpn.getQuyDinhBLL().layAllQuyDinh());
         this.dispose();
+        }
+        
+        
     }//GEN-LAST:event_addQDActionPerformed
 
     

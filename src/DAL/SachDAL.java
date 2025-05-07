@@ -4,6 +4,7 @@
  */
 package DAL;
 
+import MODEL.CTPhieuMuon;
 import MODEL.CTPhieuNhap;
 import MODEL.SachTra;
 import Model.Sach;
@@ -158,6 +159,27 @@ public class SachDAL {
                 
                 prs.setInt(1, dsdt.get(i).getSoLuong());
                 prs.setString(2, dsdt.get(i).getMaSach());
+                
+                if(prs.executeUpdate() <= 0){
+                    return false;
+                }
+                
+            } catch (Exception e) {
+                System.err.println("Khong the cap nhat so luong sach");
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public boolean updateSoLuongSachMuon(ArrayList<CTPhieuMuon> dsm){
+        String query = "UPDATE SACH SET soLuong = soLuong - ? WHERE maSach = ?";
+        for(int i = 0; i < dsm.size(); i++){
+            try (Connection conn = kn.getConnection();
+                 PreparedStatement prs = conn.prepareStatement(query)){
+                
+                prs.setInt(1, dsm.get(i).getSoLuong());
+                prs.setString(2, dsm.get(i).getMaSach());
                 
                 if(prs.executeUpdate() <= 0){
                     return false;

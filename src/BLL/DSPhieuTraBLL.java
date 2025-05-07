@@ -21,6 +21,7 @@ public class DSPhieuTraBLL {
     DSThuThuBLL ttbll = new DSThuThuBLL();
     ArrayList<SachTra> dsst=new ArrayList();
     SachDAL sachdal = new SachDAL();
+    DSPhieuMuon pmbll =new DSPhieuMuon();
     public DSPhieuTraBLL(){ 
         this.dspt = ptdal.layDSPTra();
     }
@@ -34,6 +35,10 @@ public class DSPhieuTraBLL {
         String regex = "^PHUTHU\\d{3,}";
         if(maPhuThu.matches(regex)){ 
             showMess("Mã nhập không hợp lệ (Ví dụ:PHUTHU017)");
+            return false;
+        }
+        if(maPhuThu.equals("")){ 
+            showMess("Mã phụ thu không được để trống");
             return false;
         }
         if(ptdal.ktDuyNhatMaPhuThu(maPhuThu)){ 
@@ -71,6 +76,7 @@ public class DSPhieuTraBLL {
         return -1 ;
     }
     public void xoaPhieuTra(String maPT){ 
+        
         if(ptdal.xoaPhieuTra(maPT)>0){ 
             int index =getIndexbyMaPT(maPT);
             dspt.get(index).setTrangThai(0);

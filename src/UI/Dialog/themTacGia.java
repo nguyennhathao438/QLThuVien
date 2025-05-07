@@ -8,6 +8,7 @@ import BLL.DSTacGiaBLL;
 import DAL.TacGiaDAL;
 import Model.TacGia;
 import UI.Panel.TacGiaPanel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -129,15 +130,21 @@ public class themTacGia extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void confirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmActionPerformed
+        if( namsinh.getValue() == null){ 
+            JOptionPane.showMessageDialog(null, "Thông tin không được để trống");
+            return ;
+        }
         TacGia tg = new TacGia();
         tg.setMaTacGia(matg.getText());
         tg.setTenTacGia(tentg.getText());
         tg.setSoDienThoai(sdt.getText());
         tg.setNamSinh(((Number) namsinh.getValue()).intValue());
         tg.setTrangThai(1);
-        tgpn.getTacGiaBLL().themTG(tg);
-        tgpn.loadData(tgpn.getTacGiaBLL().layAllTacGia());
+        if(tgpn.getTacGiaBLL().themTG(tg)){ 
+            tgpn.loadData(tgpn.getTacGiaBLL().layAllTacGia());
         this.dispose();
+        };
+        
     }//GEN-LAST:event_confirmActionPerformed
 
     
