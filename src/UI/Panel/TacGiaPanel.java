@@ -61,7 +61,7 @@ public class TacGiaPanel extends JPanel implements ItemListener,MouseListener {
         headerPanel.setLayout(new FlowLayout(0, 0, 4));
         headerPanel.setBackground(Color.white);
 
-        String[] function = { "create", "delete", "update", "exportexcel", "importexcel" }; //"detail", 
+        String[] function = { "create", "delete", "update" }; //"detail", 
         mainFunc = new MainFunction(function);
         headerPanel.add(mainFunc);
         for(String func : function){
