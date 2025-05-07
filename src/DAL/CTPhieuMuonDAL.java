@@ -23,7 +23,6 @@ public class CTPhieuMuonDAL {
                 ctpm.setMaPMuon(rs.getString("maPhieuMuon"));
                 ctpm.setMaSach(rs.getString("maSach"));
                 ctpm.setSoLuong(rs.getInt("soLuong"));
-                ctpm.setTrangThai(rs.getInt("trangThai"));
                 dsCTPM.add(ctpm);
             }            
         } catch (Exception e) {
@@ -33,7 +32,7 @@ public class CTPhieuMuonDAL {
     }
     
     public boolean themCTPM(ArrayList<CTPhieuMuon> t){
-        String query = "INSERT INTO CTPHIEUMUON(maPhieuMuon,maSach,soLuong,trangThai) VALUES(?,?,?,1)";
+        String query = "INSERT INTO CTPHIEUMUON(maPhieuMuon,maSach,soLuong,soLuongChuaTra) VALUES(?,?,?,?)";
         for(int i = 0; i < t.size(); i++){
             try (Connection conn = kn.getConnection();
                  PreparedStatement prs = conn.prepareStatement(query)){
@@ -41,7 +40,7 @@ public class CTPhieuMuonDAL {
                 prs.setString(1, t.get(i).getMaPMuon());
                 prs.setString(2, t.get(i).getMaSach());
                 prs.setInt(3, t.get(i).getSoLuong());
-                
+                prs.setInt(4, t.get(i).getSoLuong());
                 if (prs.executeUpdate() <= 0) {
                     return false;
                 }
@@ -55,18 +54,18 @@ public class CTPhieuMuonDAL {
     
     
     
-    public boolean xoaCTPM(String ma){
-        String query = "UPDATE CTPHIEUMUON SET trangThai = 0 WHERE maPhieuMuon = ?";
-        try (Connection conn = kn.getConnection();
-             PreparedStatement prs = conn.prepareStatement(query)){
-            
-            prs.setString(1, ma);
-            
-            return prs.executeUpdate() > 0;
-        } catch (Exception e) {
-            System.err.println("Lỗi xóa dữ liệu chi tiết phiếu mượn" + e.getMessage());
-            return false;
-        }        
-    }
+//    public boolean xoaCTPM(String ma){
+//        String query = "UPDATE CTPHIEUMUON SET trangThai = 0 WHERE maPhieuMuon = ?";
+//        try (Connection conn = kn.getConnection();
+//             PreparedStatement prs = conn.prepareStatement(query)){
+//            
+//            prs.setString(1, ma);
+//            
+//            return prs.executeUpdate() > 0;
+//        } catch (Exception e) {
+//            System.err.println("Lỗi xóa dữ liệu chi tiết phiếu mượn" + e.getMessage());
+//            return false;
+//        }        
+//    }
     
 }

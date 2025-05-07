@@ -54,7 +54,7 @@ public class ChiTietPhieuMuonDialog extends javax.swing.JDialog {
         headers.setFont(new Font("Segoe UI", Font.BOLD, 14));
         headers.setBackground(Color.decode("#66B2FF"));      
         
-        String[] columnNames = {"Mã sách", "Tên sách", "Số lượng", "Trạng thái"};
+        String[] columnNames = {"Mã sách", "Tên sách", "Số lượng"};
         tblModel = new DefaultTableModel(columnNames, 0){
              @Override            
             public boolean isCellEditable(int row,int column){
@@ -65,14 +65,12 @@ public class ChiTietPhieuMuonDialog extends javax.swing.JDialog {
         
         tblModel.setRowCount(0);
         for(CTPhieuMuon ctpm : dsCTPM){
-            if(ctpm.getTrangThai() != 0){
+            
                 tblModel.addRow(new Object[]{
                     ctpm.getMaSach(),
                     sachBLL.getSachbyMa(ctpm.getMaSach()),
                     ctpm.getSoLuong(),
-                    ctpm.getTrangThai() == 1 ? "Chưa trả" : "Đã trả"
                 });
-            }
         }
         
         DefaultTableCellRenderer center = new DefaultTableCellRenderer();

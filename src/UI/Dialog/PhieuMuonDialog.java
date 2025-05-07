@@ -25,6 +25,7 @@ import javax.swing.table.*;
  * @author NGOC TUYEN
  */
 public class PhieuMuonDialog extends javax.swing.JDialog {
+
     private DefaultTableModel tblModel;
     private DefaultTableModel tblModel1;
     private PhieuMuonPanel panel;
@@ -33,41 +34,40 @@ public class PhieuMuonDialog extends javax.swing.JDialog {
     private DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private DSDocGiaBLL dgbll = new DSDocGiaBLL();
     private DSThuThuBLL ttbll = new DSThuThuBLL();
-    
+
     private JFrame parent;
-    
+
     public PhieuMuonDialog(JFrame parent, PhieuMuonPanel panel) {
-        super(parent,"Thêm phiếu mượn", true);
+        super(parent, "Thêm phiếu mượn", true);
         this.panel = panel;
         initComponents();
         init();
-       
+
         this.setLocationRelativeTo(null);
     }
 
-    public void init(){
-        tblModel = new DefaultTableModel();  
+    public void init() {
+        tblModel = new DefaultTableModel();
         JTableHeader headers = tblSach.getTableHeader();
         headers.setReorderingAllowed(false);
         headers.setResizingAllowed(false);
         headers.setFont(new Font("Segoe UI", Font.BOLD, 14));
         headers.setBackground(Color.decode("#66B2FF"));
         String[] columnNames = {"Mã sách", "Tên sách", "Số lượng"};
-        tblModel = new DefaultTableModel(columnNames, 0){
-             @Override            
-            public boolean isCellEditable(int row,int column){
+        tblModel = new DefaultTableModel(columnNames, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
                 return false;
             }
-        }; 
-        tblSach.setModel(tblModel);   
+        };
+        tblSach.setModel(tblModel);
         DefaultTableCellRenderer center = new DefaultTableCellRenderer();
         center.setHorizontalAlignment(SwingConstants.CENTER);
-        for(int i = 0; i < tblSach.getColumnCount(); i++){
+        for (int i = 0; i < tblSach.getColumnCount(); i++) {
             tblSach.getColumnModel().getColumn(i).setCellRenderer(center);
         }
         loadDataTblSach(DSSachBLL.layAllSach());
-        
-        
+
         tblModel1 = new DefaultTableModel();
         headers = tblSachMuon.getTableHeader();
         headers.setReorderingAllowed(false);
@@ -75,48 +75,49 @@ public class PhieuMuonDialog extends javax.swing.JDialog {
         headers.setFont(new Font("Segoe UI", Font.BOLD, 14));
         headers.setBackground(Color.decode("#66B2FF"));
         String[] columnNames1 = {"Mã sách", "Tên sách", "Số lượng", "Trạng thái"};
-        tblModel1 = new DefaultTableModel(columnNames1, 0){
-             @Override            
-            public boolean isCellEditable(int row,int column){
+        tblModel1 = new DefaultTableModel(columnNames1, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
                 return false;
             }
-        }; 
+        };
         tblSachMuon.setModel(tblModel1);
         center.setHorizontalAlignment(SwingConstants.CENTER);
-        for(int i = 0; i < tblSachMuon.getColumnCount(); i++){
+        for (int i = 0; i < tblSachMuon.getColumnCount(); i++) {
             tblSachMuon.getColumnModel().getColumn(i).setCellRenderer(center);
         }
-        
+
         LoginBLL login = new LoginBLL();
         String maThuThu = login.getMaThuThu();
         txtThuThu.setText(DSThuThuBLL.getTenThuThuByMa(maThuThu));
         txtThuThu.setEnabled(false);
-        
+
         jdcNgMuon.setDate(new java.util.Date());
-        
+
     }
-    
-    public void capNhatDG(String TenDG, int gh){
+
+    public void capNhatDG(String TenDG, int gh) {
         txtDG.setText(TenDG);
         txtGHMuon.setText(String.valueOf(gh));
         txtGHMuon.setEnabled(false);
     }
-    
-    public void loadDataTblSach(ArrayList<Sach> dsSach){
+
+    public void loadDataTblSach(ArrayList<Sach> dsSach) {
         tblModel.setRowCount(0);
-        if(!dsSach.isEmpty()){
-                for(Sach s : dsSach){
-                if(s.getTrangThai() != 0){
+        if (!dsSach.isEmpty()) {
+            for (Sach s : dsSach) {
+                if (s.getTrangThai() != 0) {
                     tblModel.addRow(new Object[]{
-                    s.getMaSach(),
-                    s.getTenSach(),
-                    s.getSoLuong()
+                        s.getMaSach(),
+                        s.getTenSach(),
+                        s.getSoLuong()
 
                     });
                 }
-            }   
+            }
         }
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -377,11 +378,11 @@ public class PhieuMuonDialog extends javax.swing.JDialog {
         PhieuMuon pm = new PhieuMuon();
         pm.setMaPhieuMuon(txtMaPMuon.getText());
         pm.setNgayMuon((jdcNgMuon.getDate().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate()));
-        if(jdcNgTra.getDate() == null){
-            JOptionPane.showMessageDialog(null,"Ngay tra khong duoc bo trong");
-            return ;
+        if (jdcNgTra.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Ngay tra khong duoc bo trong");
+            return;
         }
-        pm.setNgayTra((jdcNgTra.getDate().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate()));                                                                              
+        pm.setNgayTra((jdcNgTra.getDate().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate()));
         pm.setMaThuThu(DSThuThuBLL.getMaThuThuByTen(txtThuThu.getText()));
         pm.setMaDocGia(DSDocGiaBLL.getMaDGByTen(txtDG.getText()));
         pm.setTrangThai(1);
@@ -392,48 +393,65 @@ public class PhieuMuonDialog extends javax.swing.JDialog {
             CTPhieuMuon ct = new CTPhieuMuon(pm.getMaPhieuMuon(), maSach, sl, 1);
             dsCTPM.add(ct);
         }
-        
-        if(panel.getDSPMuonBLL().themPM(pm, dsCTPM)){
-            if(panel.getDSPMuonBLL().updateSoLuongSach(dsCTPM)){
-                JOptionPane.showMessageDialog(null,"Thêm phiếu mượn thành công");
+
+        if (panel.getDSPMuonBLL().themPM(pm, dsCTPM)) {
+            if (panel.getDSPMuonBLL().updateSoLuongSach(dsCTPM)) {
+                JOptionPane.showMessageDialog(null, "Thêm phiếu mượn thành công");
                 dispose();
                 panel.loadData(panel.getDSPMuonBLL().layAllPhieuMuon());
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Thêm phiếu mượn thất bại");
-                
+
             }
         }
-        
 
-            
+
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void tblSachMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSachMousePressed
         int index = tblSach.getSelectedRow();
-        if(index >= 0){
+
+        if (index >= 0) {
             String maSach = tblModel.getValueAt(index, 0).toString();
             String tenSach = tblSach.getValueAt(index, 1).toString();
             int slCon = Integer.parseInt(tblModel.getValueAt(index, 2).toString());
             String input = JOptionPane.showInputDialog(null, "Sách " + tenSach + "\n Nhập số lượng mượn");
-            int slMuon = Integer.parseInt(input);
-            if(slMuon <= 0 || slMuon > slCon){
-                JOptionPane.showMessageDialog(null, "Số lượng không hợp lệ");
-            }else{
-                tblModel1.addRow(new Object[]{maSach, tenSach, slMuon, "Chưa trả"});
-                tblSach.setValueAt(slCon - slMuon, index, 2);
+            if (input != null) {
+                int slMuon = Integer.parseInt(input);
+                if (slMuon <= 0 || slMuon > slCon) {
+                    JOptionPane.showMessageDialog(null, "Số lượng không hợp lệ");
+
+                } else {
+                    String ktma = tblModel.getValueAt(index, 0).toString();
+                    for (int i = 0; i < tblSachMuon.getRowCount(); i++) {
+                        String makt = (String) tblSachMuon.getValueAt(i, 0);
+                        System.out.println(ktma + " " + makt);
+                        if (makt.equals(ktma)) {
+
+                            JOptionPane.showMessageDialog(null, "Đã có sách này ở bảng bên dưới click đúp chuột để sửa");
+                            return;
+                        }
+                    }
+                    tblModel1.addRow(new Object[]{maSach, tenSach, slMuon, "Chưa trả"});
+                    tblSach.setValueAt(slCon - slMuon, index, 2);
+                    
+                    
+                }
             }
+
         }
     }//GEN-LAST:event_tblSachMousePressed
 
     private void tblSachMuonMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSachMuonMousePressed
         int index = tblSachMuon.getSelectedRow();
-        if(index >= 0){
+        if (index >= 0) {
             String maSach = tblSachMuon.getValueAt(index, 0).toString();
             String tenSach = tblSachMuon.getValueAt(index, 1).toString();
             int slMuonCu = Integer.parseInt(tblSachMuon.getValueAt(index, 2).toString());
             String input = JOptionPane.showInputDialog(null, "Sach " + tenSach + "\nSửa số lượng mượn");
+            if(input !=null ){
             int slMuonMoi = Integer.parseInt(input);
-            if(slMuonMoi <= 0){
+            if (slMuonMoi <= 0) {
                 JOptionPane.showMessageDialog(null, "Số lượng không hợp lệ");
             }
             // Tìm hàng tương ứng trong tblSach theo mã sách
@@ -451,6 +469,7 @@ public class PhieuMuonDialog extends javax.swing.JDialog {
                     break;
                 }
             }
+            }
         }
     }//GEN-LAST:event_tblSachMuonMousePressed
 
@@ -460,7 +479,7 @@ public class PhieuMuonDialog extends javax.swing.JDialog {
         dialog.setVisible(true);
     }//GEN-LAST:event_btnDGActionPerformed
 
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnDG;

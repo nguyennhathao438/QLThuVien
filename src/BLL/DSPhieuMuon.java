@@ -112,14 +112,13 @@ public class DSPhieuMuon {
             return false;
         }
         boolean pmXoa = pmdal.xoaPM(maPM);
-        boolean ctXoa = ctpmdal.xoaCTPM(maPM);
-        if(pmXoa && ctXoa){
+        if(pmXoa ){
             int index = getIndexByMa(maPM);
             if(index != -1){
                 dspm.get(index).setTrangThai(0); // đánh dấu đã xóa trên danh sách
             }
         }
-        return pmXoa && ctXoa;
+        return pmXoa;
     }
 
     public String getTrangThaiPM(int trangThai){ 

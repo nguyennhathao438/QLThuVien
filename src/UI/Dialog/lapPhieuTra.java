@@ -448,10 +448,11 @@ public class lapPhieuTra extends javax.swing.JDialog {
                 if(sl!=0){ 
                     kt = false ;
                 }
-                if(kt){ 
+                
+        }
+            if(kt){ 
                     pmpanel.getDSPMuonBLL().ktTraDu(maPhieuMuon.getText());
                 }
-        }
             pmpanel.loadData(pmpanel.getDSPMuonBLL().layAllPhieuMuon());
             this.dispose();
         }    
