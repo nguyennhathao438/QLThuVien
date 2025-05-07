@@ -16,7 +16,8 @@ public class ThongKePanel extends JPanel{
             "Hoạt động thư viện",
             "Thống kê theo sách",
             "Thống kê theo độc giả",
-            "Thống kê thủ thư"
+            "Thống kê thủ thư",
+            "Thống kê tổng chi"
     };
 
     public ThongKePanel() {
@@ -27,10 +28,10 @@ public class ThongKePanel extends JPanel{
         toolBarPanel.setBackground(defaultColor);
         toolBarPanel.setPreferredSize(new Dimension(900,68));
 
-        btnPanels = new JPanel[4];
+        btnPanels = new JPanel[titles.length];
         contentPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
 //        contentPanel.setBackground(Color.white);
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < titles.length; i++) {
             JPanel p = new JPanel();
             p.setBackground(defaultColor);
             p.setBorder(BorderFactory.createLineBorder(Color.BLACK)); 
@@ -81,6 +82,9 @@ public class ThongKePanel extends JPanel{
                 break;
             case 3:
                 selectedPanel= new TKThuThuPanel();
+                break;
+            case 4:
+                selectedPanel = new TKTongChiPanel();
                 break;
             default:
                 selectedPanel= new TKHoatDong();
