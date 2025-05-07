@@ -4,6 +4,7 @@ import DAL.DocGiaDAL;
 import java.util.ArrayList;
 
 import Model.DocGia;
+import Model.LoaiDocGia;
 import javax.swing.JOptionPane;
 
 public class DSDocGiaBLL {
@@ -76,9 +77,11 @@ public class DSDocGiaBLL {
     public int xoaDG(String ma){
         if(dgdal.XoaDG(ma) > 0){
             int index = getIndexByMa(ma);
-            dsdg.get(index).setTrangThai(0);
-            showmess("Xóa độc giả thành công");
-            return 1;
+            if(index != -1){
+                dsdg.get(index).setTrangThai(0);
+                showmess("Xóa độc giả thành công");
+                return 1;
+            }
         }
         showmess("Xóa độc giả thất bại");
         return -1;
@@ -141,6 +144,15 @@ public class DSDocGiaBLL {
         for(DocGia dg : dsdg){
             if(dg.getMaDocGia().trim().equals(ma)){
                 return dg;
+            }
+        }
+        return null;
+    }
+    
+    public static String getMaDGByTen(String ten){
+        for(DocGia dg : dsdg){
+            if(dg.getTenDocGia().trim().equals(ten)){
+                return dg.getMaDocGia();
             }
         }
         return null;

@@ -159,9 +159,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtMaDG">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtMaDGActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtTenDG">
         </Component>
