@@ -22,7 +22,7 @@ public class CTPhieuMuonDAL {
                 CTPhieuMuon ctpm = new CTPhieuMuon();
                 ctpm.setMaPMuon(rs.getString("maPhieuMuon"));
                 ctpm.setMaSach(rs.getString("maSach"));
-                ctpm.setSoLuong(rs.getInt("soLuongChuaTra"));
+                ctpm.setSoLuong(rs.getInt("soLuong"));
                 ctpm.setTrangThai(rs.getInt("trangThai"));
                 dsCTPM.add(ctpm);
             }            
@@ -33,7 +33,7 @@ public class CTPhieuMuonDAL {
     }
     
     public boolean themCTPM(ArrayList<CTPhieuMuon> t){
-        String query = "INSERT INTO CTPHIEUMUON(maPhieuMuon,maSach,soLuongChuaTra,trangThai) VALUES(?,?,?,1)";
+        String query = "INSERT INTO CTPHIEUMUON(maPhieuMuon,maSach,soLuong,trangThai) VALUES(?,?,?,1)";
         for(int i = 0; i < t.size(); i++){
             try (Connection conn = kn.getConnection();
                  PreparedStatement prs = conn.prepareStatement(query)){

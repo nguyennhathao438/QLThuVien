@@ -71,20 +71,12 @@ public class ThongKePanel extends JPanel{
         contentPanel.removeAll();
         JPanel selectedPanel = null;
         switch(selectedIndex){ 
-            case 0: 
-                selectedPanel= new TKHoatDong();
-                break;
-//            case 1:selectedPanel= new TKSachPanel();break;
 
-            case 2:
-                selectedPanel =new TKDocGiaPanel();
-                break;
-            case 3:
-                selectedPanel= new TKThuThuPanel();
-                break;
-            default:
-                selectedPanel= new TKHoatDong();
-                break;
+            case 0: selectedPanel= new TKHoatDong();break;
+            case 1:selectedPanel= new TKSachPanel();break;
+            case 2:selectedPanel =new TKDocGiaPanel();break;
+            case 3:selectedPanel= new TKThuThuPanel();break;
+            default:selectedPanel= new TKHoatDong();break;
 
         }
         contentPanel.add(selectedPanel, BorderLayout.CENTER);
