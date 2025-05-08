@@ -10,9 +10,9 @@ public class KetNoiCSDL {
     public KetNoiCSDL(){ 
 
 
-        var server ="THANHTUNG\\MSSQLSERVER2";
+        var server ="DESKTOP-SAC9NS5";
         var user="sa";
-        var password="7579100";
+        var password="quencmnr";
         var db="QLThuVien";
         var port=1433;
         
