@@ -6,6 +6,7 @@ package UI.Dialog;
 
 import BLL.DSPhieuMuon;
 import BLL.DSPhieuTraBLL;
+import BLL.DSSachBLL;
 import BLL.LoginBLL;
 import DAL.LoginDAL;
 import MODEL.PhieuTra;
@@ -31,6 +32,7 @@ public class lapPhieuTra extends javax.swing.JDialog {
     LoginBLL lgbll =new LoginBLL();
     DSPhieuMuon pmbll = new DSPhieuMuon();
     DSPhieuTraBLL ptbll = new DSPhieuTraBLL();
+    DSSachBLL sachbll = new DSSachBLL();
     PhieuMuonPanel pmpanel;
        public lapPhieuTra(java.awt.Frame parent, boolean modal,String mapm,PhieuMuonPanel pmpn) {
            
@@ -65,7 +67,7 @@ public class lapPhieuTra extends javax.swing.JDialog {
         dtm.setRowCount(0);
         for(SachTra a:dsst){ 
             if(a.getSoLuong()> 0)
-            dtm.addRow(new Object[]{a.getMaSach(),"tạm chưa có",a.getSoLuong()});
+            dtm.addRow(new Object[]{a.getMaSach(),sachbll.getSachbyMa(a.getMaSach()),a.getSoLuong()});
         }
     }
     
