@@ -24,6 +24,8 @@ public class DSSachBLL {
             return dsSach;
         }
         
+        
+        
         public void showMess(String s)
         {
             JOptionPane.showMessageDialog(null,s);
@@ -51,11 +53,6 @@ public class DSSachBLL {
         
 	public void themSach(Sach s){
             dsSach=layAllSach();
-            if(s.getMaSach().isEmpty())
-            {
-                showMess("Mã tác giả không được trống");
-                return;
-            }
             String themMS = "^SACH\\d{3,}";
             if(!s.getMaSach().matches(themMS))
             {
@@ -230,5 +227,5 @@ public class DSSachBLL {
         return result;
         }
 
-    
+        
 }
